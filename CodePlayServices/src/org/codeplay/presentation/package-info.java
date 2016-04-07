@@ -5,4 +5,4 @@
  * @author sagar95
  *
  */
-package org.codeplay.domain;
+package org.codeplay.presentation;
