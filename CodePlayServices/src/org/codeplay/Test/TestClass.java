@@ -27,7 +27,7 @@ public class TestClass {
 		ConnectionFactory.getConnection("hotornot_1519");
 		
 		userJDBCTemplate.setDataSource(ConnectionFactory.getDriverManagerDataSource());*/
-		
+		  long startTime,stopTime;
 	      ApplicationContext context = 
 	              new ClassPathXmlApplicationContext("Beans.xml");
 
@@ -36,12 +36,15 @@ public class TestClass {
 
 
 		System.out.println("------Listing Multiple Records--------");
+		startTime=System.currentTimeMillis();
 		List<User> users = userJDBCTemplate.listUsers();
 		for (User record : users) {
 			System.out.print("ID : " + record.getId());
 			System.out.print(", Name : " + record.getName());
 			System.out.println(", Age : " + record.getAge());
 		}
+		stopTime=System.currentTimeMillis();
+		System.out.println("---Task completed in "+(stopTime-startTime)+" millisecinds---");
 
 	}
 
