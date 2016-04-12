@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.User;
+
 public interface UserDAOInterface {
 	
 
@@ -31,12 +33,12 @@ public interface UserDAOInterface {
 	    * a record from the Student table corresponding
 	    * to a passed student id.
 	    */
-	   public String getUser(Integer id);
+	   public User getUser(Integer id);
 	   /** 
 	    * This is the method to be used to list down
 	    * all the records from the Student table.
 	    */
-	   public List<String> listUsers();
+	   public List<User> listUsers();
 	   /** 
 	    * This is the method to be used to delete
 	    * a record from the Student table corresponding

@@ -1,6 +1,6 @@
 package org.codeplay.repository.BObjects;
 
-public class TagPageMapper {
+public class TagPage {
 	
 	public String tags;
 	public String pageIds;

@@ -3,6 +3,8 @@ package org.codeplay.repository.dbUtilities;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 
@@ -10,6 +12,7 @@ public class ConnectionFactory
 {
 
     private static MysqlDataSource mysqlDS;
+    private static DriverManagerDataSource driverManagerDataSource;
 
     private ConnectionFactory()
     {
@@ -27,6 +30,12 @@ public class ConnectionFactory
             mysqlDS.setURL("DB_URL");
             mysqlDS.setUser("root");
             mysqlDS.setPassword("root");
+            
+            driverManagerDataSource = new DriverManagerDataSource();
+            driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+            driverManagerDataSource.setPassword("root");
+            driverManagerDataSource.setUrl(DB_URL);
+            driverManagerDataSource.setUsername("root");
         }
 
         catch(Exception e)
@@ -51,4 +60,15 @@ public class ConnectionFactory
         }
         return con;
     }
+
+	public static MysqlDataSource getMysqlDS() {
+		return mysqlDS;
+	}
+
+	public static DriverManagerDataSource getDriverManagerDataSource() {
+		return driverManagerDataSource;
+	}
+	
+	
+    
 }
