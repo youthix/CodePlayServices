@@ -27,35 +27,35 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	   public void create() {
 		      String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";
 		      
-		      jdbcTemplateObject.update( SQL, name, age);
-		      System.out.println("Created Record Name = " + name + " Age = " + age);
+/*		      jdbcTemplateObject.update("name","age");
+		      System.out.println("Created Record Name = " + name + " Age = " + age);*/
 		      return;
 		   }
 
-		   public User getUser(Integer id) {
+		   public String getUser(Integer id) {
 		      String SQL = "select * from users_sorted_male where id = ?";
-		      User user = jdbcTemplateObject.queryForObject(SQL, 
-		                        new Object[]{id}, new StudentMapper());
-		      return user;
+/*		      User user = jdbcTemplateObject.queryForObject(SQL, 
+		                        new Object[]{id}, new StudentMapper());*/
+		      return null;
 		   }
 
-		   public List<User> listUsers() {
+		   public List<String> listUsers() {
 		      String SQL = "select * from users_sorted_male";
-		      List <User> users = jdbcTemplateObject.query(SQL, 
-		                                new StudentMapper());
-		      return users;
+/*		      List <User> users = jdbcTemplateObject.query(SQL, 
+		                                new StudentMapper());*/
+		      return null;
 		   }
 
 		   public void delete(Integer id){
 		      String SQL = "delete from tags_pages_mapping_male where id = ?";
-		      jdbcTemplateObject.update(SQL, id);
+		      /*jdbcTemplateObject.update(SQL, id);*/
 		      System.out.println("Deleted Record with ID = " + id );
 		      return;
 		   }
 
 		   public void update(Integer id, Integer age){
 		      String SQL = "update tags_pages_mapping_male set age = ? where id = ?";
-		      jdbcTemplateObject.update(SQL, age, id);
+		      /*jdbcTemplateObject.update(SQL, age, id);*/
 		      System.out.println("Updated Record with ID = " + id );
 		      return;
 		   }

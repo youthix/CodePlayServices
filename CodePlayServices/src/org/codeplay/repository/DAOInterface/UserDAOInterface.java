@@ -1,5 +1,7 @@
 package org.codeplay.repository.DAOInterface;
 
+import java.util.List;
+
 import javax.sql.DataSource;
 
 public interface UserDAOInterface {
@@ -29,12 +31,12 @@ public interface UserDAOInterface {
 	    * a record from the Student table corresponding
 	    * to a passed student id.
 	    */
-	   public User getUser(Integer id);
+	   public String getUser(Integer id);
 	   /** 
 	    * This is the method to be used to list down
 	    * all the records from the Student table.
 	    */
-	   public List<User> listUsers();
+	   public List<String> listUsers();
 	   /** 
 	    * This is the method to be used to delete
 	    * a record from the Student table corresponding
@@ -45,6 +47,6 @@ public interface UserDAOInterface {
 	    * This is the method to be used to update
 	    * a record into the Student table.
 	    */
-	   public void update();
+	   //public void update();
 
 }
