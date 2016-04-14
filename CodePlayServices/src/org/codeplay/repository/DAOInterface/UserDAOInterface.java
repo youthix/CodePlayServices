@@ -38,7 +38,7 @@ public interface UserDAOInterface {
 	    * This is the method to be used to list down
 	    * all the records from the Student table.
 	    */
-	   public List<User> listUsers();
+	   public List<User> listUsers(String sqlQueryString);
 	   /** 
 	    * This is the method to be used to delete
 	    * a record from the Student table corresponding

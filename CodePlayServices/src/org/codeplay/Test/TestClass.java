@@ -37,10 +37,15 @@ public class TestClass {
 
 		System.out.println("------Listing Multiple Records--------");
 		List<User> users = userJDBCTemplate.listUsers();
+		if (users!=null){
+			System.out.println(users.size());
+			
+		
 		for (User record : users) {
-			System.out.print("ID : " + record.getId());
+/*			System.out.print("ID : " + record.getId());
 			System.out.print(", Name : " + record.getName());
-			System.out.println(", Age : " + record.getAge());
+			System.out.println(", Age : " + record.getAge());*/
+		}
 		}
 
 	}

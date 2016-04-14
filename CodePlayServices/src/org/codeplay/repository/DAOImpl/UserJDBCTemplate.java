@@ -39,9 +39,10 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		      return null;
 		   }
 
-		   public List<User> listUsers() {
-		      String SQL = "select * from users_sorted_male";
-		      List <User> users = jdbcTemplateObject.query(SQL, 
+		   public List<User> listUsers(String sqlQueryString) {
+/*		      //String SQL = "select * from users_sorted_male";
+		      String SQL = "select * from users_sorted_male group by tags";*/
+		      List <User> users = jdbcTemplateObject.query(sqlQueryString, 
 		                                new UserMapper());
 		      return users;
 		   }
