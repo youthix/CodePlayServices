@@ -39,7 +39,8 @@ public class TestClass {
 
 		System.out.println("------Listing Multiple Records--------");
 		startTime=System.currentTimeMillis();
-		List<User> users = userJDBCTemplate.listUsers();
+		String queryMaleString = "select * from users_sorted_male group by tags";
+		List<User> users = userJDBCTemplate.listUsers(queryMaleString);
 		if (users!=null){
 			System.out.println(users.size());
 			
