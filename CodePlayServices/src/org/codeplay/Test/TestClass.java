@@ -27,6 +27,8 @@ public class TestClass {
 		ConnectionFactory.getConnection("hotornot_1519");
 		
 		userJDBCTemplate.setDataSource(ConnectionFactory.getDriverManagerDataSource());*/
+		
+		
 		  long startTime,stopTime;
 	      ApplicationContext context = 
 	              new ClassPathXmlApplicationContext("Beans.xml");
