@@ -31,6 +31,14 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		      System.out.println("Created Record Name = " + name + " Age = " + age);*/
 		      return;
 		   }
+	   
+	   public void create(String sqlQueryString) {
+		      String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";
+		      
+		      jdbcTemplateObject.update(sqlQueryString);
+
+		      return;
+		   }	   
 
 		   public User getUser(Integer id) {
 		      String SQL = "select * from users_sorted_male where id = ?";

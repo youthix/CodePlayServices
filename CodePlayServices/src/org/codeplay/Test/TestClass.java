@@ -3,9 +3,11 @@
  */
 package org.codeplay.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codeplay.repository.BObjects.User;
+import org.codeplay.repository.DAOImpl.UserIndexing;
 import org.codeplay.repository.DAOImpl.UserJDBCTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,7 +31,17 @@ public class TestClass {
 		userJDBCTemplate.setDataSource(ConnectionFactory.getDriverManagerDataSource());*/
 		
 		
-		  long startTime,stopTime;
+		//Test Insertion :
+			List<String> dbNameList =  new ArrayList<>();
+	
+	dbNameList.add("hotornot_1519");
+	
+			UserIndexing userIndObj = new UserIndexing();
+	userIndObj.setDbNameList(dbNameList);
+	
+	userIndObj.startIndexing();
+		
+/*		  long startTime,stopTime;
 	      ApplicationContext context = 
 	              new ClassPathXmlApplicationContext("Beans.xml");
 
@@ -46,13 +58,14 @@ public class TestClass {
 			
 		
 		for (User record : users) {
-/*			System.out.print("ID : " + record.getId());
+			System.out.print("ID : " + record.getId());
 			System.out.print(", Name : " + record.getName());
-			System.out.println(", Age : " + record.getAge());*/
+			System.out.println(", Age : " + record.getAge());
 		}
-		}
-		stopTime=System.currentTimeMillis();
-		System.out.println("---Task completed in "+(stopTime-startTime)+" millisecinds---");
+		}*/
+		//stopTime=System.currentTimeMillis();
+		//System.out.println("---Task completed in "+(stopTime-startTime)+" millisecinds---");
+	System.out.println("done");
 
 	}
 
