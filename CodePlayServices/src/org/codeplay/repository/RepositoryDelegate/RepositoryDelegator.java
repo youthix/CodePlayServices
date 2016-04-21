@@ -99,12 +99,12 @@ public class RepositoryDelegator {
 	 int index=-1;
 	 List<TagPage> tagPages=dao.listPages(tags, dbQualifier, tableQualifier);
 	 for(TagPage tagPage:tagPages){
-		 pages.concat(tagPage.pageIds);
-		 pages.concat(",");
+		 pages=pages.concat(tagPage.getPageIds());
+		 pages=pages.concat(",");
 	 }
 	 index=pages.lastIndexOf(",");
 	 if(index>0){
-	  pages=pages.substring(index);
+	  pages=pages.substring(0,index);
 	 }
 	 return pages;
 	}
