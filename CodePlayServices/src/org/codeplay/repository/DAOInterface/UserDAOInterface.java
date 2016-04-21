@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 
 public interface UserDAOInterface {
@@ -28,11 +29,9 @@ public interface UserDAOInterface {
 	    * a record in the Student table.
 	    */
 	   public void create();
-	   /** 
-	    * This is the method to be used to list down
-	    * a record from the Student table corresponding
-	    * to a passed student id.
-	    */
+	   
+	   public void create(String sqlQueryString);
+	   
 	   public User getUser(Integer id);
 	   /** 
 	    * This is the method to be used to list down
@@ -46,9 +45,11 @@ public interface UserDAOInterface {
 	    */
 	   public void delete(Integer id);
 	   /** 
-	    * This is the method to be used to update
-	    * a record into the Student table.
+	    * This method to be used to fetch
+	    * pages based on tags,age,gender
 	    */
 	   //public void update();
+	   public List<TagPage> listPages(String tags,String dbQualifier,
+			   String tableQualifier);
 
 }
