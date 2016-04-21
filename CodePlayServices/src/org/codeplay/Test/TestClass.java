@@ -3,11 +3,7 @@
  */
 package org.codeplay.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
-import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
