@@ -6,11 +6,7 @@ package org.codeplay.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codeplay.repository.BObjects.User;
-import org.codeplay.repository.DAOImpl.UserIndexing;
-import org.codeplay.repository.DAOImpl.UserJDBCTemplate;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
 /**
  * @author surabh
@@ -36,7 +32,7 @@ public class TestClass {
 	
 	dbNameList.add("hotornot_1519");
 	
-			UserIndexing userIndObj = new UserIndexing();
+	RepositoryDelegator userIndObj = new RepositoryDelegator();
 	userIndObj.setDbNameList(dbNameList);
 	
 	userIndObj.startIndexing();
