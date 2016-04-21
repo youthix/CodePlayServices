@@ -121,12 +121,4 @@ public class RepositoryDelegator {
 		this.dbNameList = dbNameList;
 	}
 
-	public UserDAOInterface getDao() {
-		return dao;
-	}
-
-	public void setDao(UserDAOInterface dao) {
-		this.dao = dao;
-	}
-
 }
