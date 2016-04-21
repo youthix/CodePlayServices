@@ -103,7 +103,9 @@ public class RepositoryDelegator {
 		 pages.concat(",");
 	 }
 	 index=pages.lastIndexOf(",");
-	 pages=pages.substring(index);
+	 if(index>0){
+	  pages=pages.substring(index);
+	 }
 	 return pages;
 	}
 
@@ -119,6 +121,14 @@ public class RepositoryDelegator {
 
 	public void setDbNameList(List<String> dbNameList) {
 		this.dbNameList = dbNameList;
+	}
+
+	public UserDAOInterface getDao() {
+		return dao;
+	}
+
+	public void setDao(UserDAOInterface dao) {
+		this.dao = dao;
 	}
 
 }

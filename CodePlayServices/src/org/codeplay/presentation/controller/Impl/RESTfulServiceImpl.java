@@ -6,11 +6,11 @@ import org.codeplay.service.delegateService.ServiceDelegator;
 
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
 
-	ServiceDelegator serviceDelegator;
+	public ServiceDelegator serviceDelegator;
 	
 	@Override
 	public String fetchPages(String tags) {		
-		String pages=serviceDelegator.fetchPages(tags,"1519","male");
+		String pages=serviceDelegator.fetchPages(tags,"1519","female");
 		return pages;
 	}
 
@@ -23,6 +23,14 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Override
 	public String helloWorld() {		
 		return "Welcome to Code Play Services !!";
+	}
+
+	public ServiceDelegator getServiceDelegator() {
+		return serviceDelegator;
+	}
+
+	public void setServiceDelegator(ServiceDelegator serviceDelegator) {
+		this.serviceDelegator = serviceDelegator;
 	}
 
 }

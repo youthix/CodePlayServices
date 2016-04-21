@@ -73,6 +73,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 		   public List<TagPage> listPages(String tags,String dbQualifier,String tableQualifier) {		      
 			String SQL = "select * from hotornot_"+dbQualifier+".tags_pages_mapping_"+tableQualifier+" where tags like '%"+tags+"%'";
+			System.out.println("Query in listPages >> "+SQL);
 		    List <TagPage> pages = jdbcTemplateObject.query(SQL, 
 			   		                                new TagsPageIDMapper());
 			return pages;
