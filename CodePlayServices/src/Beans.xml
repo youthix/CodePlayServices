@@ -13,10 +13,25 @@
       <property name="password" value="root"/>
    </bean>
 
-   <!-- Definition for studentJDBCTemplate bean -->
-   <bean id="userJDBCTemplate" 
+   <!-- Definition for UserJDBCTemplate bean -->
+   <bean id="dao" 
       class="org.codeplay.repository.DAOImpl.UserJDBCTemplate">
       <property name="dataSource"  ref="dataSource" />    
+   </bean> 
+   
+   <bean id="repositoryDelegator" 
+      class="org.codeplay.repository.RepositoryDelegate.RepositoryDelegator">
+      <property name="dao"  ref="dao" />    
    </bean>
+   
+   <bean id="serviceDelegator" 
+      class="org.codeplay.service.delegateService.ServiceDelegator">
+      <property name="repositoryDelegator"  ref="repositoryDelegator" />    
+   </bean>  
+   
+   <bean id="restfulService" 
+      class="org.codeplay.presentation.controller.Impl.RESTfulServiceImpl">
+      <property name="serviceDelegator"  ref="serviceDelegator" />    
+   </bean> 
       
 </beans>

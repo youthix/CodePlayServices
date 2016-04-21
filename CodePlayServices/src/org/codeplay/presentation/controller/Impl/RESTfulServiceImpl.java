@@ -7,6 +7,7 @@ import org.codeplay.service.delegateService.ServiceDelegator;
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
 
 	ServiceDelegator serviceDelegator;
+	
 	@Override
 	public String fetchPages(String tags) {		
 		String pages=serviceDelegator.fetchPages(tags,"1519","male");
