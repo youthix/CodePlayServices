@@ -7,9 +7,10 @@ public class ServiceDelegator {
 	
 	RepositoryDelegator repositryDelegator;
 	
-	public String fetchPages(String tags) {
+	public String fetchPages(String tags,String dbQualifier,
+			   String tableQualifier) {
 		
-		return null;
+		return repositryDelegator.fetchPages(tags, dbQualifier, tableQualifier);
 	}
 
 	
