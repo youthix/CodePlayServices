@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
+import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -69,6 +71,11 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		      return;
 		   }
 
-
+		   public List<TagPage> listPages(String tags,String dbQualifier,String tableQualifier) {		      
+			String SQL = "select * from hotornot_"+dbQualifier+".tags_pages_mapping_"+tableQualifier+" where tags like '%"+tags+"%'";
+		    List <TagPage> pages = jdbcTemplateObject.query(SQL, 
+			   		                                new TagsPageIDMapper());
+			return pages;
+		}
 
 }
