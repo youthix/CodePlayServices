@@ -33,7 +33,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseObj fetchUsers(@FormParam("reqparam") RequestObj reqparam) {		
+	public ResponseObj fetchUsers(RequestObj reqparam) {		
 		return serviceDelegator.fetchUsers(reqparam);
 	}
 
