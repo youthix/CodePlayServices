@@ -1,14 +1,15 @@
 package org.codeplay.presentation.controller.Interface;
 
-import org.codeplay.presentation.entities.UserList;
+import org.codeplay.presentation.entities.RequestObj;
+import org.codeplay.presentation.entities.ResponseObj;
 
 public interface RESTfulServiceInterface {
 
 	
-	String fetchPages(String tags);
+	ResponseObj fetchPages(RequestObj reqparam);
 	
 	
-	UserList fetchUsers(String tags,String pageIds);
+	ResponseObj fetchUsers(RequestObj reqparam);
 	
 	
 	String helloWorld();

@@ -75,17 +75,21 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 		   public List<TagPage> listPages(String tags,String dbQualifier,String tableQualifier) {		      
 			String SQL = "select * from hotornot_"+dbQualifier+".tags_pages_mapping_"+tableQualifier+" where tags like '%"+tags+"%'";
+			System.out.println("Fetch listPages : StartTime >>"+ System.currentTimeMillis());
 			System.out.println("Query in listPages >> "+SQL);
 		    List <TagPage> pages = jdbcTemplateObject.query(SQL, 
 			   		                                new TagsPageIDMapper());
+		    System.out.println("Fetch listPages : Endtime >>"+ System.currentTimeMillis());
 			return pages;
 		}
 		   
 		   public List<Page> listPagesWithFbIds(String ids,String dbQualifier,String tableQualifier) {	
 			    String dbName="hotornot_"+dbQualifier;
 			    String tableName="page_details_"+tableQualifier;
+			    System.out.println("Fetch listPagesWithFbIds : StartTime >>"+ System.currentTimeMillis());
 				String SQL = "SELECT * FROM "+dbName+"."+tableName+" WHERE FIND_IN_SET(page_id,'"+ids+"')";
 				System.out.println("Query in listPagesWithFbIds >> "+SQL);
+				System.out.println("Fetch listPagesWithFbIds : EndTime >>"+ System.currentTimeMillis());
 			    List <Page> pages = jdbcTemplateObject.query(SQL,
 				   		                                new PageIDDetailsMapper());
 				return pages;

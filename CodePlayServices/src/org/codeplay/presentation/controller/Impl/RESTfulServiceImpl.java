@@ -8,10 +8,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
+import org.codeplay.presentation.entities.RequestObj;
+import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.service.delegateService.ServiceDelegator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
@@ -22,20 +22,17 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@POST
 	@Path("/pages")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String fetchPages(@FormParam("tags") String tags) {			
-		String pages=serviceDelegator.fetchPages(tags,"1519","female");
-		return pages;
+	public ResponseObj fetchPages(@FormParam("reqparam") RequestObj reqparam) {			
+		
+		return serviceDelegator.fetchPages(reqparam);
 	}
 
 	@Override
 	@POST
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserList fetchUsers(@FormParam("tags") String tags,
-			@FormParam("pageIds") String pageIds) {
-		UserList list=serviceDelegator.fetchUsers(
-				tags, pageIds);
-		return list;
+	public ResponseObj fetchUsers(@FormParam("reqparam") RequestObj reqparam) {		
+		return serviceDelegator.fetchUsers(reqparam);
 	}
 
 	@Override

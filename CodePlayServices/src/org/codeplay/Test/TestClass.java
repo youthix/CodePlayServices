@@ -27,13 +27,13 @@ public class TestClass {
 		//Fetch Pages : Start
 		RESTfulServiceInterface userIndObj = null;
 		
-		userIndObj = 
+		/*userIndObj = 
 			       (RESTfulServiceInterface)context.getBean("restfulService");
 		System.out.println("Fetch Pages : Starttime >>"+ System.currentTimeMillis());
 		String pages=userIndObj.fetchPages("Armenia");
 		System.out.println("Pages fetched >>"+ pages);
 		System.out.println("Fetch Pages : Endtime >>"+ System.currentTimeMillis());
-		
+		*/
 		//Fetch Pages : End
 		
 /*		UserJDBCTemplate userJDBCTemplate = new UserJDBCTemplate();
