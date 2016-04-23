@@ -31,8 +31,10 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@POST
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
-	public UserList fetchUsers(String pageIds) {
-		UserList list=serviceDelegator.fetchUsers(pageIds);
+	public UserList fetchUsers(@FormParam("tags") String tags,
+			@FormParam("pageIds") String pageIds) {
+		UserList list=serviceDelegator.fetchUsers(
+				tags, pageIds);
 		return list;
 	}
 

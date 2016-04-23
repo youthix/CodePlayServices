@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.codeplay.presentation.entities.UserList;
+import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
@@ -105,12 +106,39 @@ public class RepositoryDelegator {
 	 if(index>0){
 	  pages=pages.substring(0,index);
 	 }
+	 
+	 fetchPagesWithFbIds("test", dbQualifier,
+			 "female");
+	 
 	 return pages;
 	}
+	
+	private List<Page> fetchPagesWithFbIds(String ids,String dbQualifier,
+			   String tableQualifier) {	
+	 String fbIds="";	 
+	 List<Page> pages=dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);	 
+	 return pages;
+	}	
 
 	
 	public UserList fetchUsers(String pageIds) {
 		
+		return null;
+	}
+	
+	public UserList fetchUsers(String tag,String ids,String dbQualifier,
+		   String tableQualifier) {
+	   List<User> users;
+	   UserList userList=new UserList();
+	   String fbIds="";
+	   List<Page> pages=fetchPagesWithFbIds( ids, dbQualifier,
+		    tableQualifier); 	   
+	   for(Page tagPage:pages){
+		 fbIds=tagPage.getFbIds();	
+		 users=dao.listUsersWithFbIds(fbIds, dbQualifier, tableQualifier);
+		 userList.setTag(tag);
+	   }
+		System.out.println("fbIds>>"+fbIds);
 		return null;
 	}
 	
