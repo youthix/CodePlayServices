@@ -86,7 +86,7 @@ public class RepositoryDelegator {
 					
 					String insertPagetailsDeString = "insert into page_details_" + gender
 							+ "(page_id, fbids,table) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','tab1')";
-					//userJDBCTemplate.create(insertPagetailsDeString);
+				    dao.create(insertPagetailsDeString);
 
 				}
 			}
