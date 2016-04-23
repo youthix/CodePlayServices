@@ -39,8 +39,8 @@ public class RepositoryDelegator {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 
 		for (String gender : genderList) {
-			System.out.println("Start for Gender = " + gender);
-			System.out.println("Starttime >>"+ System.currentTimeMillis());
+			System.out.println("Start for Gender = " + gender);			
+			long startTime=System.currentTimeMillis();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
@@ -98,8 +98,8 @@ public class RepositoryDelegator {
 
 				}
 			}
-			
-			System.out.println("EndTime >>"+ System.currentTimeMillis());
+			long endTime=System.currentTimeMillis();
+			System.out.println("Total Time Taken (in seconds) >>"+ (startTime-endTime)/1000);
 			System.out.println("Done for Gender = " + gender);
 
 		}
