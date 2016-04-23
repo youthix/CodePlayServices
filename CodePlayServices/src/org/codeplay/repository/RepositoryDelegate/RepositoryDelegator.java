@@ -11,7 +11,7 @@ import org.codeplay.repository.dbUtilities.ConnectionFactory;
 
 public class RepositoryDelegator {
 	
-	public UserDAOInterface dao;
+	private UserDAOInterface dao;
 	private List<String> dbNameList;	
 
 	public void startIndexing() {

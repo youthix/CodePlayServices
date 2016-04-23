@@ -5,7 +5,7 @@ import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
 public class ServiceDelegator {
 	
-	public RepositoryDelegator repositoryDelegator;
+	private RepositoryDelegator repositoryDelegator;
 	
 	public String fetchPages(String tags,String dbQualifier,
 			   String tableQualifier) {

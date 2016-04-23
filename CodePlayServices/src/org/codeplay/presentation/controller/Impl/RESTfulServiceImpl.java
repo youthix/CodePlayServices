@@ -10,17 +10,19 @@ import javax.ws.rs.core.MediaType;
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.service.delegateService.ServiceDelegator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	
-	public ServiceDelegator serviceDelegator;
-	
+	private ServiceDelegator serviceDelegator;
+		
 	@Override
 	@POST
 	@Path("/pages")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String fetchPages(@FormParam("tags") String tags) {		
+	public String fetchPages(@FormParam("tags") String tags) {			
 		String pages=serviceDelegator.fetchPages(tags,"1519","female");
 		return pages;
 	}
