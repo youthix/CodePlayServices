@@ -8,7 +8,7 @@ public interface RESTfulServiceInterface {
 	String fetchPages(String tags);
 	
 	
-	UserList fetchUsers(String pageIds);
+	UserList fetchUsers(String tags,String pageIds);
 	
 	
 	String helloWorld();

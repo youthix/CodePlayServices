@@ -5,9 +5,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
+import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -78,5 +80,25 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			   		                                new TagsPageIDMapper());
 			return pages;
 		}
+		   
+		   public List<Page> listPagesWithFbIds(String ids,String dbQualifier,String tableQualifier) {	
+			    String dbName="hotornot_"+dbQualifier;
+			    String tableName="page_details_"+tableQualifier;
+				String SQL = "SELECT * FROM "+dbName+"."+tableName+" WHERE FIND_IN_SET(page_id,'"+ids+"')";
+				System.out.println("Query in listPagesWithFbIds >> "+SQL);
+			    List <Page> pages = jdbcTemplateObject.query(SQL,
+				   		                                new PageIDDetailsMapper());
+				return pages;
+			}
+		   
+		   public List<User> listUsersWithFbIds(String fbIds,String dbQualifier,String tableQualifier) {	
+			    String dbName="hotornot_"+dbQualifier;
+			    String tableName="users_sorted_"+tableQualifier;
+				String SQL = "SELECT * FROM "+dbName+"."+tableName+" WHERE FIND_IN_SET(fbId,'"+fbIds+"')";
+				System.out.println("Query in listUsersWithFbIds >> "+SQL);
+			    List <User> users = jdbcTemplateObject.query(SQL,
+				   		                                new UserMapper());
+				return users;
+			}
 
 }

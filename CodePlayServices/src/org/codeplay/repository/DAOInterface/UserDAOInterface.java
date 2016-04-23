@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 
@@ -51,5 +52,17 @@ public interface UserDAOInterface {
 	   //public void update();
 	   public List<TagPage> listPages(String tags,String dbQualifier,
 			   String tableQualifier);
+	   /** 
+	    * This method to be used to fetch
+	    * pages based on pageids,age,gender
+	    */
+	   List<Page> listPagesWithFbIds(String ids,String dbQualifier,
+			   String tableQualifier);
+	   /** 
+	    * This method to be used to fetch
+	    * users based on fbids,age,gender
+	    */
+	   List<User> listUsersWithFbIds(String fbIds,String dbQualifier,
+			   String tableQualifier) ;
 
 }

@@ -7,13 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.codeplay.repository.BObjects.Page;
+import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
+import org.springframework.jdbc.core.RowMapper;
 
 /**
  * @author surabh
  *
  */
-public class PageIDDetailsMapper {
+public class PageIDDetailsMapper implements RowMapper<Page>{
 
 	public Page mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Page pageObj = new Page();
