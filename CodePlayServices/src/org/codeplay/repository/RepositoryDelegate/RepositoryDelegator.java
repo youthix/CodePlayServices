@@ -40,6 +40,7 @@ public class RepositoryDelegator {
 
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);
+			System.out.println("Starttime >>"+ System.currentTimeMillis());
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
@@ -98,6 +99,7 @@ public class RepositoryDelegator {
 				}
 			}
 			
+			System.out.println("EndTime >>"+ System.currentTimeMillis());
 			System.out.println("Done for Gender = " + gender);
 
 		}
