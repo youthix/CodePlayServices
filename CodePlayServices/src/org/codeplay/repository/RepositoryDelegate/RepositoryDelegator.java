@@ -94,7 +94,7 @@ public class RepositoryDelegator {
 					dao.create(insertTagPageString);
 					
 					String insertPagetailsDeString = "insert into page_details_" + gender
-							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_'"+gender+")";
+							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_"+gender+"')";
 				    dao.create(insertPagetailsDeString);
 
 				}

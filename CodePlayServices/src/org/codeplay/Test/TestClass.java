@@ -47,7 +47,7 @@ public class TestClass {
 		userJDBCTemplate.setDataSource(ConnectionFactory.getDriverManagerDataSource());*/
 		
 		
-		//Test Insertion : Start
+		//Test Indexing : Start
 	
 	List<String> dbNameList =  new ArrayList<>();
 	
@@ -62,7 +62,7 @@ public class TestClass {
 	
 	userIndObj.startIndexing();
 	
-	//Test Insertion : END
+	//Test Indexing : END
 		
 /*		  long startTime,stopTime;
 	      ApplicationContext context = 
