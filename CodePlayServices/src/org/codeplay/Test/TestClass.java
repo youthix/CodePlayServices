@@ -56,7 +56,7 @@ public class TestClass {
 	RepositoryDelegator userIndObj = null;
 	
 	userIndObj = 
-		       (RepositoryDelegator)context.getBean("repositoryDelegator");
+		     (RepositoryDelegator)context.getBean("repositoryDelegator");
 	
 	userIndObj.setDbNameList(dbNameList);
 	
