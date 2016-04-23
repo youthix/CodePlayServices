@@ -47,10 +47,10 @@ public class ServiceDelegator {
 		String tags="";
 		tags=tags.concat(searchFields.getAgeGroup());tags=tags.concat(",");
 		tags=tags.concat(searchFields.getGender());tags=tags.concat(",");
-		tags=tags.concat(searchFields.getLivesInCountry());tags=tags.concat(",");
-		tags=tags.concat(searchFields.getLiveInId());tags=tags.concat(",");
+		tags=tags.concat(("".equals(searchFields.getLivesInCountry())?"%":searchFields.getLivesInCountry()));tags=tags.concat(",");
+		tags=tags.concat(("".equals(searchFields.getLiveInId())?"%":searchFields.getLiveInId()));tags=tags.concat(",");
 		tags=tags.concat(",");tags=tags.concat(",");
-		tags=tags.concat(searchFields.getCurrentlyAtId());
+		tags=tags.concat(("".equals(searchFields.getCurrentlyAtId())?"%":searchFields.getCurrentlyAtId()));
 		return tags;
 	}
 	
