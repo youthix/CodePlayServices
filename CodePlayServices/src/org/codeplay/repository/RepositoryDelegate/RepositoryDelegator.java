@@ -118,11 +118,7 @@ public class RepositoryDelegator {
 	 index=pages.lastIndexOf(",");
 	 if(index>0){
 	  pages=pages.substring(0,index);
-	 }
-	 
-	 fetchPagesWithFbIds("test", dbQualifier,
-			 "female");
-	 
+	 }	 
 	 return pages;
 	}
 	

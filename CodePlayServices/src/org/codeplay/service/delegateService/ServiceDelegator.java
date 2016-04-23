@@ -22,7 +22,7 @@ public class ServiceDelegator {
 						searchFields.getAgeGroup(), 
 						searchFields.getGender()));
 		userList.setTag(tags);
-		responseObj.getUserList().add(userList);
+		responseObj.getListOfUsers().add(userList);
 	   }
 	  return responseObj;
 	}
@@ -36,7 +36,7 @@ public class ServiceDelegator {
 		String tags=searchFields.getTag();
 		userList.setPageID(searchFields.getPageID());
 		userList.setTag(tags);
-		responseObj.getUserList().add(
+		responseObj.getListOfUsers().add(
 				repositoryDelegator.fetchUsers(tags, searchFields.getPageID(),
 				returnDbQualifier(tags), returnTableQualifier(tags)));
 	   }
@@ -47,10 +47,10 @@ public class ServiceDelegator {
 		String tags="";
 		tags=tags.concat(searchFields.getAgeGroup());tags=tags.concat(",");
 		tags=tags.concat(searchFields.getGender());tags=tags.concat(",");
-		tags=tags.concat(searchFields.getLives_in_country());tags=tags.concat(",");
-		tags=tags.concat(searchFields.getLive_in_id());tags=tags.concat(",");
+		tags=tags.concat(searchFields.getLivesInCountry());tags=tags.concat(",");
+		tags=tags.concat(searchFields.getLiveInId());tags=tags.concat(",");
 		tags=tags.concat(",");tags=tags.concat(",");
-		tags=tags.concat(searchFields.getCurrently_at_id());
+		tags=tags.concat(searchFields.getCurrentlyAtId());
 		return tags;
 	}
 	

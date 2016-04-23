@@ -7,19 +7,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "resparam")
 public class ResponseObj {
 
-	private List<UserList> userList;
+	private List<UserList> listOfUsers;
 
-	public List<UserList> getUserList() {
+	public List<UserList> getListOfUsers() {
 
-		if (userList == null) {
-			userList = new ArrayList<UserList>();
+		if (listOfUsers == null) {
+			listOfUsers = new ArrayList<UserList>();
 		}
 
-		return userList;
+		return listOfUsers;
 	}
 
-	public void setUserList(List<UserList> userList) {
-		this.userList = userList;
+	public void setUserList(List<UserList> listOfUsers) {
+		this.listOfUsers = listOfUsers;
 	}
 
 }
