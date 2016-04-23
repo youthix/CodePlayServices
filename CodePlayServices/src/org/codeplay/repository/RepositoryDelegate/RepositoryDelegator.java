@@ -27,24 +27,24 @@ public class RepositoryDelegator {
 			dao.setDataSource(ConnectionFactory.getDriverManagerDataSource());
 			/* doing for Male Users */
 
-			createIndexTables();
+			createIndexTables(dbName);
 		}
 
 	}
 
-	private void createIndexTables() {
+	private void createIndexTables(String dbName) {
 		List<String> genderList = new ArrayList<>();
 		genderList.add("male");
 		genderList.add("female");
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-
+		System.out.println("DatabaseName = " + dbName);	
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);			
 			long startTime=System.currentTimeMillis();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
-				System.out.println(usersUniqueTagList.size());
+				System.out.println("Number of records to be inserted >>> "+usersUniqueTagList.size());
 
 				for (User record : usersUniqueTagList) {
 					String concatpageIDs = "";
@@ -99,7 +99,7 @@ public class RepositoryDelegator {
 				}
 			}
 			long endTime=System.currentTimeMillis();
-			System.out.println("Total Time Taken (in seconds) >>"+ (startTime-endTime)/1000);
+			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
 			System.out.println("Done for Gender = " + gender);
 
 		}
