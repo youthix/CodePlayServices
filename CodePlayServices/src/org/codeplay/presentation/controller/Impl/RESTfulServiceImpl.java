@@ -13,7 +13,7 @@ import org.codeplay.service.delegateService.ServiceDelegator;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
-
+	
 	public ServiceDelegator serviceDelegator;
 	
 	@Override

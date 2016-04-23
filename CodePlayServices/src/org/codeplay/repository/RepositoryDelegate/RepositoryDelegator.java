@@ -6,12 +6,11 @@ import java.util.List;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
-import org.codeplay.repository.DAOImpl.UserJDBCTemplate;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
 import org.codeplay.repository.dbUtilities.ConnectionFactory;
 
 public class RepositoryDelegator {
-
+	
 	public UserDAOInterface dao;
 	private List<String> dbNameList;	
 
