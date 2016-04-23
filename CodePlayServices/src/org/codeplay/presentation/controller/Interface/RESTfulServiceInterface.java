@@ -8,19 +8,15 @@ import javax.ws.rs.core.MediaType;
 
 import org.codeplay.presentation.entities.UserList;
 
-@Path("/hotornot")
+
 public interface RESTfulServiceInterface {
 
-	@POST
-	@Path("/pages")
-	@Produces(MediaType.APPLICATION_JSON)
+	
 	String fetchPages(String tags);
 	
-	@POST
-	@Path("/users")
-	@Produces(MediaType.APPLICATION_JSON)
+	
 	UserList fetchUsers(String pageIds);
 	
-	@GET
+	
 	String helloWorld();
 }
