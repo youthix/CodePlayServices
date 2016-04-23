@@ -3,6 +3,8 @@
  */
 package org.codeplay.Test;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -83,6 +85,16 @@ public class TestClass {
 		//stopTime=System.currentTimeMillis();
 		//System.out.println("---Task completed in "+(stopTime-startTime)+" millisecinds---");
 	System.out.println("done");
+	
+/*	for (int i=0;i<8;i++){
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		//random.
+	    //random.setSeed(1234);
+	    System.out.println(random.nextInt());
+	    System.out.println(random.);
+		
+	}*/
+	
 	
 	}
 

@@ -2,6 +2,7 @@ package org.codeplay.repository.RepositoryDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.BObjects.TagPage;
@@ -34,6 +35,7 @@ public class RepositoryDelegator {
 		List<String> genderList = new ArrayList<>();
 		genderList.add("male");
 		genderList.add("female");
+		ThreadLocalRandom random = ThreadLocalRandom.current();
 
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);
@@ -63,14 +65,16 @@ public class RepositoryDelegator {
 						if (quotient > 0) {
 
 							for (int i = 1; i <= quotient; i++) {
-								newPageID = i + tagvalue;
+								//newPageID = i + tagvalue;
+								newPageID = String.valueOf(random.nextInt());
 								concatpageIDs = concatpageIDs + newPageID + "~~";
 							}
 
 						}
 						if (remainder > 0) {
 
-							newPageID = (quotient + 1) + tagvalue;
+							//newPageID = (quotient + 1) + tagvalue;
+							newPageID = String.valueOf(random.nextInt());
 							concatpageIDs = concatpageIDs + newPageID + "~~";
 						}
 

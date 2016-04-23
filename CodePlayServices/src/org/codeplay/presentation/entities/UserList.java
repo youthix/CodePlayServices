@@ -1,12 +1,16 @@
 package org.codeplay.presentation.entities;
 
 import java.util.List;
+
 import org.codeplay.repository.BObjects.User;
 
 public class UserList {
 
-	public List<User> userList;
-	public String tag;	
+	private List<User> userList;
+	private String tag;	
+	private String pageID;
+	
+	private SearchFields searchFields;
 
 	public List<User> getUserList() {
 		return userList;
@@ -23,5 +27,23 @@ public class UserList {
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
+
+	public String getPageID() {
+		return pageID;
+	}
+
+	public void setPageID(String pageID) {
+		this.pageID = pageID;
+	}
+
+	public SearchFields getSearchFields() {
+		return searchFields;
+	}
+
+	public void setSearchFields(SearchFields searchFields) {
+		this.searchFields = searchFields;
+	}
+	
+	
 	
 }
