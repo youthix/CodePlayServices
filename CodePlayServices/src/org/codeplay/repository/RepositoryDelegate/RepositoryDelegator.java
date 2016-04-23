@@ -118,17 +118,10 @@ public class RepositoryDelegator {
 	}
 	
 	private List<Page> fetchPagesWithFbIds(String ids,String dbQualifier,
-			   String tableQualifier) {	
-	 String fbIds="";	 
+			   String tableQualifier) {		  
 	 List<Page> pages=dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);	 
 	 return pages;
 	}	
-
-	
-	public UserList fetchUsers(String pageIds) {
-		
-		return null;
-	}
 	
 	public UserList fetchUsers(String tag,String ids,String dbQualifier,
 		   String tableQualifier) {
