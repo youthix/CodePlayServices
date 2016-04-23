@@ -55,22 +55,20 @@ public class RepositoryDelegator {
 					List<User> users = dao.listUsers(queryStringUsers);
 					if (users != null && users.size() > 0) {
 						
-						for(User userObj : users){
-							
-							userFBIdsConcat = userFBIdsConcat + ","+userObj.getFbId();
+						for(User userObj : users){							
+							userFBIdsConcat = userObj.getFbId()+ ","+userFBIdsConcat;
 							
 						}
 						index=userFBIdsConcat.lastIndexOf(",");
 						if(index !=-1) {
-						 userFBIdsConcat.substring(0, index);
+							userFBIdsConcat=userFBIdsConcat.substring(0, index);
 						}
 						int quotient = users.size() / 30;
 						int remainder = users.size() % 30;
 
 						if (quotient > 0) {
 
-							for (int i = 1; i <= quotient; i++) {
-								//newPageID = i + tagvalue;
+							for (int i = 1; i <= quotient; i++) {								
 								newPageID = String.valueOf(random.nextInt());
 								concatpageIDs = concatpageIDs + newPageID + ",";
 							}
@@ -85,7 +83,7 @@ public class RepositoryDelegator {
 						
 						index=concatpageIDs.lastIndexOf(",");
 						if(index !=-1) {
-							concatpageIDs.substring(0, index);
+							concatpageIDs=concatpageIDs.substring(0, index);
 						}
 
 					}
