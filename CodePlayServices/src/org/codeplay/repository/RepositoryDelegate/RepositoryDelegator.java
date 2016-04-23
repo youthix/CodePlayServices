@@ -50,16 +50,20 @@ public class RepositoryDelegator {
 					String newPageID = "";
 					String userFBIdsConcat= "";
 					String tagvalue = record.getTags();
+					int index=-1;
 					String queryStringUsers = "select * from users_sorted_" + gender + " where tags='" + tagvalue + "'";
 					List<User> users = dao.listUsers(queryStringUsers);
 					if (users != null && users.size() > 0) {
 						
 						for(User userObj : users){
 							
-							userFBIdsConcat = userFBIdsConcat + "~~"+userObj.getFbId();
+							userFBIdsConcat = userFBIdsConcat + ","+userObj.getFbId();
 							
 						}
-
+						index=userFBIdsConcat.lastIndexOf(",");
+						if(index !=-1) {
+						 userFBIdsConcat.substring(0, index);
+						}
 						int quotient = users.size() / 30;
 						int remainder = users.size() % 30;
 
@@ -68,7 +72,7 @@ public class RepositoryDelegator {
 							for (int i = 1; i <= quotient; i++) {
 								//newPageID = i + tagvalue;
 								newPageID = String.valueOf(random.nextInt());
-								concatpageIDs = concatpageIDs + newPageID + "~~";
+								concatpageIDs = concatpageIDs + newPageID + ",";
 							}
 
 						}
@@ -76,16 +80,21 @@ public class RepositoryDelegator {
 
 							//newPageID = (quotient + 1) + tagvalue;
 							newPageID = String.valueOf(random.nextInt());
-							concatpageIDs = concatpageIDs + newPageID + "~~";
+							concatpageIDs = concatpageIDs + newPageID + ",";
+						}
+						
+						index=concatpageIDs.lastIndexOf(",");
+						if(index !=-1) {
+							concatpageIDs.substring(0, index);
 						}
 
 					}
 					String insertTagPageString = "insert into tags_pages_mapping_" + gender
-							+ "(tags, page_ids) values ('" + tagvalue + "','" + concatpageIDs + "')";
+							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
 					dao.create(insertTagPageString);
 					
 					String insertPagetailsDeString = "insert into page_details_" + gender
-							+ "(page_id, fbids,table) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','tab1')";
+							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_'"+gender+")";
 				    dao.create(insertPagetailsDeString);
 
 				}
