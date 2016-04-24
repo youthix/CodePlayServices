@@ -3,9 +3,11 @@
  */
 package org.codeplay.Test;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
+import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -25,15 +27,17 @@ public class TestClass {
 	              new ClassPathXmlApplicationContext("Beans.xml");
 		
 		//Fetch Pages : Start
-		RESTfulServiceInterface userIndObj = null;
 		
-		userIndObj = 
+		
+		/*
+		 RESTfulServiceInterface userIndObj = null;
+		 userIndObj = 
 			       (RESTfulServiceInterface)context.getBean("restfulService");
 		System.out.println("Fetch Pages : Starttime >>"+ System.currentTimeMillis());
 		String pages=userIndObj.fetchPages("Armenia");
 		System.out.println("Pages fetched >>"+ pages);
 		System.out.println("Fetch Pages : Endtime >>"+ System.currentTimeMillis());
-		
+		*/
 		//Fetch Pages : End
 		
 /*		UserJDBCTemplate userJDBCTemplate = new UserJDBCTemplate();
@@ -43,22 +47,22 @@ public class TestClass {
 		userJDBCTemplate.setDataSource(ConnectionFactory.getDriverManagerDataSource());*/
 		
 		
-		//Test Insertion : Start
+	//Test Indexing : Start
 	
-	/*List<String> dbNameList =  new ArrayList<>();
+	List<String> dbNameList =  new ArrayList<>();
 	
 	dbNameList.add("hotornot_1519");
 	
 	RepositoryDelegator userIndObj = null;
 	
 	userIndObj = 
-		       (RepositoryDelegator)context.getBean("repositoryDelegator");
+		     (RepositoryDelegator)context.getBean("repositoryDelegator");
 	
 	userIndObj.setDbNameList(dbNameList);
 	
-	userIndObj.startIndexing();*/
+	userIndObj.startIndexing();
 	
-	//Test Insertion : END
+	//Test Indexing : END
 		
 /*		  long startTime,stopTime;
 	      ApplicationContext context = 

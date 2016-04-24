@@ -27,48 +27,51 @@ public class RepositoryDelegator {
 			dao.setDataSource(ConnectionFactory.getDriverManagerDataSource());
 			/* doing for Male Users */
 
-			createIndexTables();
+			createIndexTables(dbName);
 		}
 
 	}
 
-	private void createIndexTables() {
+	private void createIndexTables(String dbName) {
 		List<String> genderList = new ArrayList<>();
 		genderList.add("male");
 		genderList.add("female");
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-
+		System.out.println("DatabaseName = " + dbName);	
 		for (String gender : genderList) {
-			System.out.println("Start for Gender = " + gender);
+			System.out.println("Start for Gender = " + gender);			
+			long startTime=System.currentTimeMillis();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
-				System.out.println(usersUniqueTagList.size());
+				System.out.println("Number of records to be inserted >>> "+usersUniqueTagList.size());
 
 				for (User record : usersUniqueTagList) {
 					String concatpageIDs = "";
 					String newPageID = "";
 					String userFBIdsConcat= "";
 					String tagvalue = record.getTags();
+					int index=-1;
 					String queryStringUsers = "select * from users_sorted_" + gender + " where tags='" + tagvalue + "'";
 					List<User> users = dao.listUsers(queryStringUsers);
 					if (users != null && users.size() > 0) {
 						
-						for(User userObj : users){
-							
-							userFBIdsConcat = userFBIdsConcat + "~~"+userObj.getFbId();
+						for(User userObj : users){							
+							userFBIdsConcat = userObj.getFbId()+ ","+userFBIdsConcat;
 							
 						}
-
+						index=userFBIdsConcat.lastIndexOf(",");
+						if(index !=-1) {
+							userFBIdsConcat=userFBIdsConcat.substring(0, index);
+						}
 						int quotient = users.size() / 30;
 						int remainder = users.size() % 30;
 
 						if (quotient > 0) {
 
-							for (int i = 1; i <= quotient; i++) {
-								//newPageID = i + tagvalue;
+							for (int i = 1; i <= quotient; i++) {								
 								newPageID = String.valueOf(random.nextInt());
-								concatpageIDs = concatpageIDs + newPageID + "~~";
+								concatpageIDs = concatpageIDs + newPageID + ",";
 							}
 
 						}
@@ -76,21 +79,27 @@ public class RepositoryDelegator {
 
 							//newPageID = (quotient + 1) + tagvalue;
 							newPageID = String.valueOf(random.nextInt());
-							concatpageIDs = concatpageIDs + newPageID + "~~";
+							concatpageIDs = concatpageIDs + newPageID + ",";
+						}
+						
+						index=concatpageIDs.lastIndexOf(",");
+						if(index !=-1) {
+							concatpageIDs=concatpageIDs.substring(0, index);
 						}
 
 					}
 					String insertTagPageString = "insert into tags_pages_mapping_" + gender
-							+ "(tags, page_ids) values ('" + tagvalue + "','" + concatpageIDs + "')";
+							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
 					dao.create(insertTagPageString);
 					
 					String insertPagetailsDeString = "insert into page_details_" + gender
-							+ "(page_id, fbids,table) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','tab1')";
-					//userJDBCTemplate.create(insertPagetailsDeString);
+							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_"+gender+"')";
+				    dao.create(insertPagetailsDeString);
 
 				}
 			}
-			
+			long endTime=System.currentTimeMillis();
+			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
 			System.out.println("Done for Gender = " + gender);
 
 		}
@@ -109,26 +118,15 @@ public class RepositoryDelegator {
 	 index=pages.lastIndexOf(",");
 	 if(index>0){
 	  pages=pages.substring(0,index);
-	 }
-	 
-	 fetchPagesWithFbIds("test", dbQualifier,
-			 "female");
-	 
+	 }	 
 	 return pages;
 	}
 	
 	private List<Page> fetchPagesWithFbIds(String ids,String dbQualifier,
-			   String tableQualifier) {	
-	 String fbIds="";	 
+			   String tableQualifier) {		  
 	 List<Page> pages=dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);	 
 	 return pages;
 	}	
-
-	
-	public UserList fetchUsers(String pageIds) {
-		
-		return null;
-	}
 	
 	public UserList fetchUsers(String tag,String ids,String dbQualifier,
 		   String tableQualifier) {
@@ -141,9 +139,11 @@ public class RepositoryDelegator {
 		 fbIds=tagPage.getFbIds();	
 		 users=dao.listUsersWithFbIds(fbIds, dbQualifier, tableQualifier);
 		 userList.setTag(tag);
+		 userList.setUserList(users);
+		 userList.setPageID(tagPage.getId());
 	   }
 		System.out.println("fbIds>>"+fbIds);
-		return null;
+		return userList;
 	}
 	
 	public List<String> getDbNameList() {
