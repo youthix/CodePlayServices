@@ -6,6 +6,7 @@ import java.util.List;
 
 //github.com/youthix/CodePlayServices.git
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -93,6 +94,16 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ResponseObj fetchUsers(RequestObj reqparam) {		
 		return serviceDelegator.fetchUsers(reqparam);
+	}
+	
+	@Override
+	@POST
+	@Path("/index")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public String doIndexing(@FormParam("username") String username,
+			@FormParam("password") String password,
+			@FormParam("dbQualifiers") String dbQualifiers) {		
+		return serviceDelegator.doIndexing(username,password,dbQualifiers);
 	}
 
 	@Override

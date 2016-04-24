@@ -1,5 +1,9 @@
 package org.codeplay.service.delegateService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.SearchFields;
@@ -41,6 +45,28 @@ public class ServiceDelegator {
 				returnDbQualifier(tags), returnTableQualifier(tags)));
 	   }
 	  return responseObj;
+	}
+	
+	public String doIndexing(String username, 
+			String password, String dbQualifiers){
+		String[] dbArray=dbQualifiers.split(",");
+		int i=0;
+		if(!checkAuthUser(username,password)){
+			return "Username and Password do not match !!";
+		}
+		for(String dbId: dbArray){
+			dbArray[i++]="hotornot_"+dbId;
+		}
+		List<String> dbnamesList = 
+				new ArrayList<String>(Arrays.asList(dbArray));
+		
+		repositoryDelegator.setDbNameList(dbnamesList);		
+		repositoryDelegator.startIndexing();		
+		return "Indexing completed successfully !";
+	}
+	
+	private boolean checkAuthUser(String username,String password){
+		return ("codeplay".equalsIgnoreCase(username) && "codeplay".equalsIgnoreCase(password));
 	}
 	
 	private String returnTags(SearchFields searchFields){

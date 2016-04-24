@@ -12,4 +12,8 @@ public interface RESTfulServiceInterface {
 	
 	
 	String helloWorld();
+
+
+	String doIndexing(String username, 
+			String password, String dbQualifiers);
 }
