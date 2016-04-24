@@ -23,21 +23,27 @@ public class RepositoryDelegator {
 		for (String dbName : dbNameList) {
 
 			ConnectionFactory.getConnection(dbName);
-
 			dao.setDataSource(ConnectionFactory.getDriverManagerDataSource());
-			/* doing for Male Users */
-
+			System.out.println("DatabaseName = " + dbName);	
+			emptyIndexTables(dbName);
 			createIndexTables(dbName);
 		}
 
+	}
+	
+	private void emptyIndexTables(String dbName){
+		
+		System.out.println("START :: Cleaning Index Tables !");
+		dao.emptyIndexTables();		
+		System.out.println("END :: Cleaning Index Tables !");
+	
 	}
 
 	private void createIndexTables(String dbName) {
 		List<String> genderList = new ArrayList<>();
 		genderList.add("male");
 		genderList.add("female");
-		ThreadLocalRandom random = ThreadLocalRandom.current();
-		System.out.println("DatabaseName = " + dbName);	
+		ThreadLocalRandom random = ThreadLocalRandom.current();		
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);			
 			long startTime=System.currentTimeMillis();

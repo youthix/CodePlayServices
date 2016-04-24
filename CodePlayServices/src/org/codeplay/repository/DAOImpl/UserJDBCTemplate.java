@@ -65,6 +65,18 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		      System.out.println("Deleted Record with ID = " + id );
 		      return;
 		   }
+		   
+		   public void emptyIndexTables(){
+			      String SQL = "truncate table page_details_female;";
+			      jdbcTemplateObject.update(SQL);
+			      SQL = "truncate table page_details_male;";
+			      jdbcTemplateObject.update(SQL);
+			      SQL = "truncate table tags_pages_mapping_male;";
+			      jdbcTemplateObject.update(SQL);
+			      SQL = "truncate table tags_pages_mapping_female;";
+			      jdbcTemplateObject.update(SQL);			      
+			      return;
+			   }
 
 		   public void update(Integer id, Integer age){
 		      String SQL = "update tags_pages_mapping_male set age = ? where id = ?";
