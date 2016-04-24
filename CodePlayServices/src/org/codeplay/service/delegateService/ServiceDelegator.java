@@ -61,7 +61,8 @@ public class ServiceDelegator {
 				new ArrayList<String>(Arrays.asList(dbArray));
 		
 		repositoryDelegator.setDbNameList(dbnamesList);		
-		repositoryDelegator.startIndexing();		
+		repositoryDelegator.startIndexing();	
+		System.out.println("Indexing completed successfully !");
 		return "Indexing completed successfully !";
 	}
 	

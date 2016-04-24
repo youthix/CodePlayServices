@@ -82,8 +82,7 @@ public class RepositoryDelegator {
 
 						}
 						if (remainder > 0) {
-
-							//newPageID = (quotient + 1) + tagvalue;
+							
 							newPageID = String.valueOf(random.nextInt());
 							concatpageIDs = concatpageIDs + newPageID + ",";
 						}
