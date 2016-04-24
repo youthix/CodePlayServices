@@ -1,6 +1,6 @@
 package org.codeplay.presentation.controller.Impl;
 
-<<<<<<< HEAD
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +91,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Path("/users")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String fetchUsers(RequestObj reqparam) {		
+	public ResponseObj fetchUsers(RequestObj reqparam) {		
 		return serviceDelegator.fetchUsers(reqparam);
 	}
 
