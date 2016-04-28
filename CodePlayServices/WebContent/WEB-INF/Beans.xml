@@ -17,9 +17,9 @@
    <bean id="dataSource" 
       class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql://localhost:3306/hotornot_1519"/>
-      <property name="username" value="root"/>
-      <property name="password" value="root"/>
+      <property name="url" value="jdbc:mysql://166.62.27.146:3306/hotornot_1519"/>
+      <property name="username" value="cyberparkoffers"/>
+      <property name="password" value="Helpinghands4u"/>
    </bean>
 
    <!-- Definition for UserJDBCTemplate bean -->
