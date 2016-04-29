@@ -110,7 +110,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@GET
 	@Path("/hello")
 	public String helloWorld() {		
-		//serviceDelegator.doHello();
+		serviceDelegator.doHello();
 		return "Welcome to Code Play Services !!";
 	}
 
