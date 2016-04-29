@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="../../main/config/ehcache.xsd" updateCheck="false">
+         xsi:noNamespaceSchemaLocation="../../main/config/ehcache.xsd http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring
+    http://ehcache-spring-annotations.googlecode.com/svn/schema/ehcache-spring/ehcache-spring-1.1.xsd" updateCheck="false">
     
     <cache name="fetchPagesCache"
            maxElementsInMemory="1000"
