@@ -91,6 +91,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			System.out.println("Query in listPages >> "+SQL);
 		    List <TagPage> pages = jdbcTemplateObject.query(SQL, 
 			   		                                new TagsPageIDMapper());
+		    System.out.println("Fetch listPages size>>"+pages.size());
 		    System.out.println("Fetch listPages : Endtime >>"+ System.currentTimeMillis());
 			return pages;
 		}
@@ -101,9 +102,10 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			    System.out.println("Fetch listPagesWithFbIds : StartTime >>"+ System.currentTimeMillis());
 				String SQL = "SELECT * FROM "+dbName+"."+tableName+" WHERE FIND_IN_SET(page_id,'"+ids+"')";
 				System.out.println("Query in listPagesWithFbIds >> "+SQL);
-				System.out.println("Fetch listPagesWithFbIds : EndTime >>"+ System.currentTimeMillis());
+				
 			    List <Page> pages = jdbcTemplateObject.query(SQL,
 				   		                                new PageIDDetailsMapper());
+			    System.out.println("Fetch listPagesWithFbIds : EndTime >>"+ System.currentTimeMillis());
 				return pages;
 			}
 		   
