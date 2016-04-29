@@ -21,6 +21,16 @@
            memoryStoreEvictionPolicy="LFU"
            statistics="true"
             /> 
+     <cache name="HelloCache"
+           maxElementsInMemory="1000"
+           maxElementsOnDisk="0"
+           eternal="false"
+           overflowToDisk="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           memoryStoreEvictionPolicy="LFU"
+           statistics="true"
+            />            
          <defaultCache
             maxElementsInMemory="10000"
             eternal="false"

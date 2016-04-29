@@ -10,11 +10,14 @@ import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
+import com.googlecode.ehcache.annotations.Cacheable;
+
 public class ServiceDelegator {
 	
 	private RepositoryDelegator repositoryDelegator;
 	private UserList userList;
 	
+	@Cacheable(cacheName ="fetchPagesCache")
 	public ResponseObj fetchPages(RequestObj reqparam) {
 		ResponseObj responseObj= new ResponseObj();		
 		
@@ -31,7 +34,7 @@ public class ServiceDelegator {
 	  return responseObj;
 	}
 
-	
+	@Cacheable(cacheName ="fetchUsersCache")
 	public ResponseObj fetchUsers(RequestObj reqparam) {	
 
 		ResponseObj responseObj= new ResponseObj();		
@@ -65,6 +68,12 @@ public class ServiceDelegator {
 		System.out.println("Indexing completed successfully !");
 		return "Indexing completed successfully !";
 	}
+	@Cacheable(cacheName ="HelloCache")
+	public String doHello() {
+		System.out.println("Hi I am in dohello");
+		return null;
+		
+	}	
 	
 	private boolean checkAuthUser(String username,String password){
 		return ("codeplay".equalsIgnoreCase(username) && "codeplay".equalsIgnoreCase(password));
