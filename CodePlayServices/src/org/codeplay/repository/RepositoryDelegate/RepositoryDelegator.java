@@ -11,6 +11,10 @@ import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
 import org.codeplay.repository.dbUtilities.ConnectionFactory;
 
+import com.googlecode.ehcache.annotations.Cacheable;
+import com.googlecode.ehcache.annotations.KeyGenerator;
+import com.googlecode.ehcache.annotations.Property;
+
 public class RepositoryDelegator {
 	
 	private UserDAOInterface dao;
@@ -111,6 +115,11 @@ public class RepositoryDelegator {
 
 	}	
 
+	@Cacheable(cacheName ="fetchPagesCache",
+			keyGenerator = @KeyGenerator (
+					name="HashCodeCacheKeyGenerator",
+					properties = @Property (
+							name="includeMethod", value="false")))
 	public String fetchPages(String tags,String dbQualifier,
 			   String tableQualifier) {	
 	 String pages="";
@@ -131,8 +140,14 @@ public class RepositoryDelegator {
 			   String tableQualifier) {		  
 	 List<Page> pages=dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);	 
 	 return pages;
-	}	
+	}
 	
+	
+	@Cacheable(cacheName ="fetchUsersCache",
+	keyGenerator = @KeyGenerator (
+			name="HashCodeCacheKeyGenerator",
+			properties = @Property (
+					name="includeMethod", value="false")))
 	public UserList fetchUsers(String tag,String ids,String dbQualifier,
 		   String tableQualifier) {
 	   List<User> users;

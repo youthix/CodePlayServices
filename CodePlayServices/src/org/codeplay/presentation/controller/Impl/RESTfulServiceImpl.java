@@ -25,13 +25,13 @@ import org.codeplay.service.delegateService.ServiceDelegator;
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	
-	private ServiceDelegator serviceDelegator;
+	public ServiceDelegator serviceDelegator;
 		
 	@Override
 	@POST
 	@Path("/pages")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)	
 	public ResponseObj fetchPages(RequestObj reqparam) {			
 		
 		return serviceDelegator.fetchPages(reqparam);

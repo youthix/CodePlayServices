@@ -11,13 +11,14 @@ import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
 import com.googlecode.ehcache.annotations.Cacheable;
+import com.googlecode.ehcache.annotations.KeyGenerator;
+import com.googlecode.ehcache.annotations.Property;
 
 public class ServiceDelegator {
 	
 	private RepositoryDelegator repositoryDelegator;
 	private UserList userList;
 	
-	@Cacheable(cacheName ="fetchPagesCache")
 	public ResponseObj fetchPages(RequestObj reqparam) {
 		ResponseObj responseObj= new ResponseObj();		
 		
@@ -33,8 +34,7 @@ public class ServiceDelegator {
 	   }
 	  return responseObj;
 	}
-
-	@Cacheable(cacheName ="fetchUsersCache")
+	
 	public ResponseObj fetchUsers(RequestObj reqparam) {	
 
 		ResponseObj responseObj= new ResponseObj();		
