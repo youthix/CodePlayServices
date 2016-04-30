@@ -10,34 +10,27 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 public class ConnectionFactory
 {
-
-    private static MysqlDataSource mysqlDS;
-    private static DriverManagerDataSource driverManagerDataSource;
+    private DriverManagerDataSource driverManagerDataSource;
 
     private ConnectionFactory()
     {
     }
 
-    private static void initializeDataSource(String dbName)
-    {
-
-    	
+    private void initializeDataSource(String dbName)
+    {   	
         try
-        {        	
-        	String DBURLConstant = "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/" ;//For Localhost use "jdbc:mysql://localhost:3306/"
+        {        
+        	String DBURLConstant = "jdbc:mysql://localhost:3306/" ;//For JElastic use "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"
+        	String DB_URL = DBURLConstant+dbName;
+        	driverManagerDataSource.setUrl(DB_URL); 
+        	/*String DBURLConstant = "jdbc:mysql://localhost:3306/" ;//For JElastic use "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"
         	String userName = "root";
-        	String password= "YXRoxi95512";//For Localhost use "root"
-        	String DB_URL = DBURLConstant + dbName ;
-            mysqlDS = new MysqlDataSource();
-            mysqlDS.setURL(DB_URL);
-            mysqlDS.setUser(userName);
-            mysqlDS.setPassword(password);
-            
+        	String password= "root";//For Localhost use "root"
             driverManagerDataSource = new DriverManagerDataSource();
             driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            driverManagerDataSource.setPassword(password);
-            driverManagerDataSource.setUrl(DB_URL);
-            driverManagerDataSource.setUsername(userName);
+            driverManagerDataSource.setPassword(password);            
+            driverManagerDataSource.setUsername(userName);*/
+
         }
 
         catch(Exception e)
@@ -46,14 +39,13 @@ public class ConnectionFactory
         }
     }
 
-    public static Connection getConnection(String dbName)
+    public Connection getConnection(String dbName)
     {
         Connection con = null;
         try
         {
-
                 initializeDataSource(dbName);
-                con = mysqlDS.getConnection();
+                con = driverManagerDataSource.getConnection();
 
         }
         catch(SQLException e)
@@ -63,14 +55,13 @@ public class ConnectionFactory
         return con;
     }
 
-	public static MysqlDataSource getMysqlDS() {
-		return mysqlDS;
-	}
-
-	public static DriverManagerDataSource getDriverManagerDataSource() {
+	public DriverManagerDataSource getDriverManagerDataSource() {
 		return driverManagerDataSource;
 	}
-	
-	
+
+	public void setDriverManagerDataSource(
+			DriverManagerDataSource driverManagerDataSource) {
+		this.driverManagerDataSource = driverManagerDataSource;
+	}
     
 }

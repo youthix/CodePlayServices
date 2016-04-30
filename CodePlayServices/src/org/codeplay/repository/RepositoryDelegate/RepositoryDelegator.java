@@ -18,7 +18,8 @@ import com.googlecode.ehcache.annotations.Property;
 public class RepositoryDelegator {
 	
 	private UserDAOInterface dao;
-	private List<String> dbNameList;	
+	private List<String> dbNameList;
+	private ConnectionFactory connectionFactory;
 
 	public void startIndexing() {
 
@@ -26,8 +27,8 @@ public class RepositoryDelegator {
 
 		for (String dbName : dbNameList) {
 
-			ConnectionFactory.getConnection(dbName);
-			dao.setDataSource(ConnectionFactory.getDriverManagerDataSource());
+			connectionFactory.getConnection(dbName); 
+			dao.setDataSource(connectionFactory.getDriverManagerDataSource());
 			System.out.println("DatabaseName = " + dbName);	
 			emptyIndexTables(dbName);
 			createIndexTables(dbName);
@@ -181,5 +182,15 @@ public class RepositoryDelegator {
 	public void setDao(UserDAOInterface dao) {
 		this.dao = dao;
 	}
+
+	public ConnectionFactory getConnectionFactory() {
+		return connectionFactory;
+	}
+
+	public void setConnectionFactory(ConnectionFactory connectionFactory) {
+		this.connectionFactory = connectionFactory;
+	}
+
+	
 
 }
