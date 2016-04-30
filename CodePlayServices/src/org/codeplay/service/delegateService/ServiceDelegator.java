@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.sf.ehcache.CacheManager;
+
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
+import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 
 import com.googlecode.ehcache.annotations.Cacheable;
-import com.googlecode.ehcache.annotations.KeyGenerator;
-import com.googlecode.ehcache.annotations.Property;
 
 public class ServiceDelegator {
 	
 	private RepositoryDelegator repositoryDelegator;
 	private UserList userList;
+	private CacheManager cacheManager;
 	
 	public ResponseObj fetchPages(RequestObj reqparam) {
 		ResponseObj responseObj= new ResponseObj();		
@@ -64,7 +66,8 @@ public class ServiceDelegator {
 				new ArrayList<String>(Arrays.asList(dbArray));
 		
 		repositoryDelegator.setDbNameList(dbnamesList);		
-		repositoryDelegator.startIndexing();	
+		repositoryDelegator.startIndexing();
+		cacheManager.clearAll();
 		System.out.println("Indexing completed successfully !");
 		return "Indexing completed successfully !";
 	}
@@ -112,4 +115,11 @@ public class ServiceDelegator {
 		this.repositoryDelegator = repositoryDelegator;
 	}
 
+	public CacheManager getCacheManager() {
+		return cacheManager;
+	}
+
+	public void setCacheManager(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
 }

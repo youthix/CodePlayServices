@@ -62,13 +62,13 @@
    
    <bean id="serviceDelegator" 
       class="org.codeplay.service.delegateService.ServiceDelegator">
-      <property name="repositoryDelegator"  ref="repositoryDelegator" />    
+      <property name="repositoryDelegator"  ref="repositoryDelegator" />
+      <property name="cacheManager"  ref="cacheManager" />     
    </bean>  
    
    <bean id="restfulService" 
       class="org.codeplay.presentation.controller.Impl.RESTfulServiceImpl">
-      <property name="serviceDelegator"  ref="serviceDelegator" />   
-     
+      <property name="serviceDelegator"  ref="serviceDelegator" />           
    </bean> 
       
 </beans>
