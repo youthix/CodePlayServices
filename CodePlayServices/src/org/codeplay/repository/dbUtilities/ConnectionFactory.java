@@ -23,19 +23,21 @@ public class ConnectionFactory
 
     	
         try
-        {
-        	String DBURLConstant = "jdbc:mysql://166.62.27.146:3306/" ;
+        {        	
+        	String DBURLConstant = "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/" ;//For Localhost use "jdbc:mysql://localhost:3306/"
+        	String userName = "root";
+        	String password= "YXRoxi95512";//For Localhost use "root"
         	String DB_URL = DBURLConstant + dbName ;
             mysqlDS = new MysqlDataSource();
             mysqlDS.setURL(DB_URL);
-            mysqlDS.setUser("cyberparkoffers");
-            mysqlDS.setPassword("Helpinghands4u");
+            mysqlDS.setUser(userName);
+            mysqlDS.setPassword(password);
             
             driverManagerDataSource = new DriverManagerDataSource();
             driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            driverManagerDataSource.setPassword("Helpinghands4u");
+            driverManagerDataSource.setPassword(password);
             driverManagerDataSource.setUrl(DB_URL);
-            driverManagerDataSource.setUsername("cyberparkoffers");
+            driverManagerDataSource.setUsername(userName);
         }
 
         catch(Exception e)
