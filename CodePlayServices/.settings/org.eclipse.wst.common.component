@@ -2,6 +2,66 @@
     <wb-module deploy-name="CodePlayServices">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="org.springframework.context.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org.springframework.context.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org-apache-commons-logging.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org-apache-commons-logging.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-all-1.9.4.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jackson-all-1.9.4.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-jaxrs-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jackson-jaxrs-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.core.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org.springframework.core.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-servlet-1.17.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jersey-servlet-1.17.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/asm-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsr311-api-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jsr311-api-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-core-1.17.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jersey-core-1.17.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.mysql.jdbc_5.1.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/com.mysql.jdbc_5.1.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-mapper-asl-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-client-1.17.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jersey-client-1.17.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-server-1.17.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jersey-server-1.17.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-core-asl-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jackson-core-asl-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jettison-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jettison-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.transaction-3.0.0.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org.springframework.transaction-3.0.0.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.jdbc.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org.springframework.jdbc.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-xc-1.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jackson-xc-1.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.beans.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/org.springframework.beans.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jersey-json-1.17.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CodePlayServices/WebContent/WEB-INF/lib/jersey-json-1.17.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="CodePlayServices"/>
         <property name="java-output-path" value="/CodePlayServices/build/classes"/>
     </wb-module>
