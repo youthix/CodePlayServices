@@ -7,43 +7,21 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-4.1.xsd">
 
-    <!-- 
-    <context:property-placeholder location="classpath:/database.properties" />
-     
-    <context:component-scan base-package="org.codeplay" />
-    -->
+   
+    <context:property-placeholder location="WEB-INF/properties/app-runtime.properties" />
+      <!-- 
+    <context:component-scan base-package="org.codeplay" />-->  
 
-   <!-- Initialization for data source on Localhost -->
+   <!-- Initialization for data source -->
 	   <bean id="dataSource" 
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	      <property name="url" value="jdbc:mysql://localhost:3306/"/>
-	      <property name="username" value="root"/>
-	      <property name="password" value="root"/>
+	      <property name="driverClassName" value="${db.driverClassName"/>
+	      <property name="url" value="${db.url"/>
+	      <property name="username" value="${db.username}"/>
+	      <property name="password" value="${db.password"/>
 	   </bean>
-	
-	
-	<!-- Initialization for data source on Go Daddy 
-	   <bean id="dataSource" 
-	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	      <property name="url" value="jdbc:mysql://166.62.27.146:3306/"/>
-	      <property name="username" value="cyberparkoffers"/>
-	      <property name="password" value="Helpinghands4u"/>
-	   </bean>
-	-->
-	
-	<!-- Initialization for data source on JElastic 
-	   <bean id="dataSource" 
-	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-	      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	      <property name="url" value="jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"/>
-	      <property name="username" value="root"/>
-	      <property name="password" value="YXRoxi95512"/>
-	   </bean>
-	-->
-	
-   <!-- Definition for UserJDBCTemplate bean -->
+	   	
+   <!-- Definition for UserJDBCTemplate bean -->   
    <bean id="dao" 
       class="org.codeplay.repository.DAOImpl.UserJDBCTemplate">
       <property name="dataSource"  ref="dataSource" />    
