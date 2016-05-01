@@ -11,6 +11,7 @@ import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 public class ConnectionFactory
 {
     private DriverManagerDataSource driverManagerDataSource;
+    private String baseUrl;
 
     private ConnectionFactory()
     {
@@ -19,9 +20,8 @@ public class ConnectionFactory
     private void initializeDataSource(String dbName)
     {   	
         try
-        {        
-        	String DBURLConstant = "jdbc:mysql://localhost:3306/" ;//For JElastic use "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"
-        	String DB_URL = DBURLConstant+dbName;
+        {       	
+        	String DB_URL = baseUrl+dbName;
         	driverManagerDataSource.setUrl(DB_URL); 
         	/*String DBURLConstant = "jdbc:mysql://localhost:3306/" ;//For JElastic use "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"
         	String userName = "root";
@@ -62,6 +62,14 @@ public class ConnectionFactory
 	public void setDriverManagerDataSource(
 			DriverManagerDataSource driverManagerDataSource) {
 		this.driverManagerDataSource = driverManagerDataSource;
+	}
+
+	public String getBaseUrl() {
+		return baseUrl;
+	}
+
+	public void setBaseUrl(String baseUrl) {
+		this.baseUrl = baseUrl;
 	}
     
 }

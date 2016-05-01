@@ -29,7 +29,8 @@
    
    <bean id="connectionFactory" 
       class="org.codeplay.repository.dbUtilities.ConnectionFactory">
-      <property name="driverManagerDataSource"  ref="dataSource" />    
+      <property name="driverManagerDataSource"  ref="dataSource" /> 
+      <property name="baseUrl"  value="${db.url}" />    
    </bean> 
    
    <bean id="repositoryDelegator" 
