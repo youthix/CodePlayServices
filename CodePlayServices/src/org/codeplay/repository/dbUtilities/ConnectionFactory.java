@@ -22,15 +22,7 @@ public class ConnectionFactory
         try
         {       	
         	String DB_URL = baseUrl+dbName;
-        	driverManagerDataSource.setUrl(DB_URL); 
-        	/*String DBURLConstant = "jdbc:mysql://localhost:3306/" ;//For JElastic use "jdbc:mysql://mysql17939-dev-codeplay.cloud.cms500.com:3306/"
-        	String userName = "root";
-        	String password= "root";//For Localhost use "root"
-            driverManagerDataSource = new DriverManagerDataSource();
-            driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-            driverManagerDataSource.setPassword(password);            
-            driverManagerDataSource.setUsername(userName);*/
-
+        	driverManagerDataSource.setUrl(DB_URL);
         }
 
         catch(Exception e)
