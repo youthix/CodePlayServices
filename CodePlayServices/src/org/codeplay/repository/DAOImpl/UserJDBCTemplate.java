@@ -1,6 +1,8 @@
 
 package org.codeplay.repository.DAOImpl;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,7 +14,8 @@ import org.codeplay.repository.DAOInterface.UserDAOInterface;
 import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
+import org.springframework.jdbc.core.*;
 
 /**
  * @author saurabh
@@ -29,20 +32,56 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	   }
 	   
 	   public void create() {
-		      String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";
+/*		      String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";
 		      
-/*		      jdbcTemplateObject.update("name","age");
-		      System.out.println("Created Record Name = " + name + " Age = " + age);*/
-		      return;
+		      jdbcTemplateObject.update("name","age");
+		      System.out.println("Created Record Name = " + name + " Age = " + age);
+		      return;*/
 		   }
 	   
 	   public void create(String sqlQueryString) {
-		      String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";
+		      /*String SQL = "insert into tags_pages_mapping_male (name, age) values (?, ?)";*/
 		      
 		      jdbcTemplateObject.update(sqlQueryString);
 
 		      return;
-		   }	   
+		   }
+	   public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier) {
+		   
+		   final String insertTagPageString = "insert into "+ "tags_pages_mapping_" + tableQualifier
+					+ "(`tags`, `page_ids`) values (?,?)";
+		   
+
+		   jdbcTemplateObject.batchUpdate(insertTagPageString, 
+		                new BatchPreparedStatementSetter() {
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					TagPage tagPageObject = tagPagesBatchList.get(i);
+					ps.setString(1, tagPageObject.getTags());
+					ps.setString(2, tagPageObject.getPageIds());
+
+				}
+
+				public int getBatchSize() {
+					return tagPagesBatchList.size();
+				}
+			});
+		   }
+/*	   public void insertBatchTagsToPageID2( List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier) {
+		   
+		   final String insertTagPageString = "insert into hotornot_"+ dbQualifier+"tags_pages_mapping_" + tableQualifier
+					+ "(`tags`, `page_ids`) values (?,?)";
+		   
+		   List<Object[]> inputList = new ArrayList<Object[]>();
+	        for(TagPage tagPageObj:tagPagesBatchList){
+	            Object[] tmp = {tagPageObj.getTags(), tagPageObj.getPageIds()};
+	            inputList.add(tmp);
+	        }
+	        jdbcTemplateObject.batchUpdate(sql)
+	        getJdbcTemplate().batchUpdate(query, inputList);
+	    }
+	- See more at: http://www.java2novice.com/spring/jdbctemplate-batch-update/#sthash.wItNBgev.dpuf
+
+		   }*/	   
 
 		   public User getUser(Integer id) {
 		      String SQL = "select * from users_sorted_male where id = ?";

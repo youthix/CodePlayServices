@@ -66,5 +66,7 @@ public interface UserDAOInterface {
 			   String tableQualifier) ;
 	   
 	   void emptyIndexTables();
+	   
+	   public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier);
 
 }

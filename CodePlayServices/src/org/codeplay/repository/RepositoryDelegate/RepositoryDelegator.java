@@ -48,10 +48,13 @@ public class RepositoryDelegator {
 		List<String> genderList = new ArrayList<>();
 		genderList.add("male");
 		genderList.add("female");
+		List<TagPage> tagPageList = null;
+		
 		ThreadLocalRandom random = ThreadLocalRandom.current();		
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);			
 			long startTime=System.currentTimeMillis();
+			tagPageList= new ArrayList<TagPage>();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
@@ -98,16 +101,23 @@ public class RepositoryDelegator {
 						}
 
 					}
-					String insertTagPageString = "insert into tags_pages_mapping_" + gender
-							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
-					dao.create(insertTagPageString);
+					TagPage tagPageObj = new TagPage();
+					tagPageObj.setTags(tagvalue);
+					tagPageObj.setPageIds(concatpageIDs);
 					
-					String insertPagetailsDeString = "insert into page_details_" + gender
+					tagPageList.add(tagPageObj);
+					
+/*					String insertTagPageString = "insert into tags_pages_mapping_" + gender
+							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
+					dao.create(insertTagPageString);*/
+					
+/*					String insertPagetailsDeString = "insert into page_details_" + gender
 							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_"+gender+"')";
-				    dao.create(insertPagetailsDeString);
+				    dao.create(insertPagetailsDeString);*/
 
 				}
 			}
+			dao.insertBatchTagsToPageID(tagPageList,dbName,gender);
 			long endTime=System.currentTimeMillis();
 			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
 			System.out.println("Done for Gender = " + gender);
