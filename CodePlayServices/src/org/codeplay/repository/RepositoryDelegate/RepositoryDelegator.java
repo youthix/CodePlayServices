@@ -49,12 +49,14 @@ public class RepositoryDelegator {
 		genderList.add("male");
 		genderList.add("female");
 		List<TagPage> tagPageList = null;
+		List<Page> pageList = null;
 		
 		ThreadLocalRandom random = ThreadLocalRandom.current();		
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);			
 			long startTime=System.currentTimeMillis();
 			tagPageList= new ArrayList<TagPage>();
+			pageList= new ArrayList<Page>();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
@@ -101,11 +103,25 @@ public class RepositoryDelegator {
 						}
 
 					}
+					
+					/*
+					 * Creating a list of object to be passed as a parameter for Batch Insert in TagPageMapping Table
+					 * */
 					TagPage tagPageObj = new TagPage();
 					tagPageObj.setTags(tagvalue);
 					tagPageObj.setPageIds(concatpageIDs);
 					
 					tagPageList.add(tagPageObj);
+					
+					/*
+					 * Creating a list of object to be passed as a parameter for Batch Insert in PageDetails Table
+					 * */
+					Page pageObj = new Page();
+					pageObj.setId(concatpageIDs);
+					pageObj.setFbIds(userFBIdsConcat);
+					pageObj.setTable("users_sorted_"+gender);
+					
+					pageList.add(pageObj);					
 					
 /*					String insertTagPageString = "insert into tags_pages_mapping_" + gender
 							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
@@ -118,6 +134,7 @@ public class RepositoryDelegator {
 				}
 			}
 			dao.insertBatchTagsToPageID(tagPageList,dbName,gender);
+			dao.insertBatchPageIDToFBID(pageList,dbName,gender);
 			long endTime=System.currentTimeMillis();
 			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
 			System.out.println("Done for Gender = " + gender);

@@ -66,22 +66,28 @@ public class UserJDBCTemplate implements UserDAOInterface {
 				}
 			});
 		   }
-/*	   public void insertBatchTagsToPageID2( List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier) {
+	   public void insertBatchPageIDToFBID(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) {
 		   
-		   final String insertTagPageString = "insert into hotornot_"+ dbQualifier+"tags_pages_mapping_" + tableQualifier
-					+ "(`tags`, `page_ids`) values (?,?)";
+	   
+		   final String insertPageDetailsString = "insert into page_details_" + tableQualifier
+					+ "(`page_id`, `fbids`,`table`) values (?,?,?)";
 		   
-		   List<Object[]> inputList = new ArrayList<Object[]>();
-	        for(TagPage tagPageObj:tagPagesBatchList){
-	            Object[] tmp = {tagPageObj.getTags(), tagPageObj.getPageIds()};
-	            inputList.add(tmp);
-	        }
-	        jdbcTemplateObject.batchUpdate(sql)
-	        getJdbcTemplate().batchUpdate(query, inputList);
-	    }
-	- See more at: http://www.java2novice.com/spring/jdbctemplate-batch-update/#sthash.wItNBgev.dpuf
+		   jdbcTemplateObject.batchUpdate(insertPageDetailsString, 
+		                new BatchPreparedStatementSetter() {
+				public void setValues(PreparedStatement ps, int i) throws SQLException {
+					Page pageObject = pagesBatchList.get(i);
+					ps.setString(1, pageObject.getId());
+					ps.setString(2, pageObject.getFbIds());
+					ps.setString(3, pageObject.getTable());
 
-		   }*/	   
+				}
+
+				public int getBatchSize() {
+					return pagesBatchList.size();
+				}
+			});
+		   }	   
+   
 
 		   public User getUser(Integer id) {
 		      String SQL = "select * from users_sorted_male where id = ?";
