@@ -27,14 +27,50 @@ public class ServiceDelegator {
 		for(SearchFields searchFields:reqparam.getSearchFieldsList()){
 		userList= new UserList();
 		String tags=returnTags(searchFields);
-		userList.setPageID(
-				repositoryDelegator.fetchPages(tags, 
-						searchFields.getAgeGroup(), 
-						searchFields.getGender()));
+		String pageIds=repositoryDelegator.fetchPages(tags, 
+				searchFields.getAgeGroup(), 
+				searchFields.getGender());
+		userList=populatePages(userList, pageIds,searchFields.getChapterNo());		
 		userList.setTag(tags);
 		responseObj.getListOfUsers().add(userList);
 	   }
 	  return responseObj;
+	}
+	
+	private  UserList populatePages(UserList userList,String pageIds, String chapterNo){	
+		//Setting total number of chapters
+		String[] pageIdArr=pageIds.split(",");
+		String pageId="";;
+		int totalChapters=-1;
+		int totalPages=pageIdArr.length;
+		int remainder=totalPages%5;
+		int quotient=totalPages/5;
+		int chapterNumber=0;
+		int startIndex=-1;
+		if(remainder==0){
+			totalChapters=quotient;
+		}else{
+			totalChapters=quotient+1;
+		}
+		
+		userList.setTotalChapters(String.valueOf(totalChapters));
+		
+		//Setting pageIds based on chapterNo
+		
+		chapterNo=(null==chapterNo || "".equals(chapterNo))?"1":chapterNo;
+		userList.setCurrChapterNo(chapterNo);
+		chapterNumber=Integer.valueOf(chapterNo);
+		startIndex=chapterNumber*5-5;
+		for(int i=startIndex;i<totalPages && i<startIndex+5;i++){
+			pageId=	pageId.concat(pageIdArr[i]).concat(",");
+		}
+		int index=pageId.lastIndexOf(",");
+		 if(index>0){
+			 pageId=pageId.substring(0,index);
+		 }
+		userList.setPageID(pageId);
+		
+		return userList;		
 	}
 	
 	public ResponseObj fetchUsers(RequestObj reqparam) {	

@@ -15,6 +15,8 @@ public class SearchFields {
 	private String pageID;
 	
 	private String tag;
+	
+	private String chapterNo;
 
 	public String getAgeGroup() {
 		return ageGroup;
@@ -70,6 +72,14 @@ public class SearchFields {
 
 	public void setCurrentlyAtId(String currentlyAtId) {
 		this.currentlyAtId = currentlyAtId;
+	}
+
+	public String getChapterNo() {
+		return chapterNo;
+	}
+
+	public void setChapterNo(String chapterNo) {
+		this.chapterNo = chapterNo;
 	}	
 
 }

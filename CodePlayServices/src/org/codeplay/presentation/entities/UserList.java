@@ -9,6 +9,8 @@ public class UserList {
 	private List<User> userList;
 	private String tag;	
 	private String pageID;
+	private String currChapterNo;
+	private String totalChapters;
 	
 	private SearchFields searchFields;
 
@@ -43,7 +45,21 @@ public class UserList {
 	public void setSearchFields(SearchFields searchFields) {
 		this.searchFields = searchFields;
 	}
-	
-	
+
+	public String getTotalChapters() {
+		return totalChapters;
+	}
+
+	public void setTotalChapters(String totalChapters) {
+		this.totalChapters = totalChapters;
+	}
+
+	public String getCurrChapterNo() {
+		return currChapterNo;
+	}
+
+	public void setCurrChapterNo(String currChapterNo) {
+		this.currChapterNo = currChapterNo;
+	}
 	
 }
