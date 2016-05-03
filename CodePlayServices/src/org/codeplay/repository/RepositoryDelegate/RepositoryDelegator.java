@@ -52,6 +52,7 @@ public class RepositoryDelegator {
 		List<Page> pageList = null;
 		
 		ThreadLocalRandom random = ThreadLocalRandom.current();		
+		int pageCount = 0;
 		for (String gender : genderList) {
 			System.out.println("Start for Gender = " + gender);			
 			long startTime=System.currentTimeMillis();
@@ -86,14 +87,16 @@ public class RepositoryDelegator {
 						if (quotient > 0) {
 
 							for (int i = 1; i <= quotient; i++) {								
-								newPageID = String.valueOf(random.nextInt());
+								//newPageID = String.valueOf(random.nextInt());
+								newPageID = "P"+ String.valueOf(++pageCount);
 								concatpageIDs = concatpageIDs + newPageID + ",";
 							}
 
 						}
 						if (remainder > 0) {
 							
-							newPageID = String.valueOf(random.nextInt());
+							//newPageID = String.valueOf(random.nextInt());
+							newPageID = "P"+ String.valueOf(++pageCount);
 							concatpageIDs = concatpageIDs + newPageID + ",";
 						}
 						
