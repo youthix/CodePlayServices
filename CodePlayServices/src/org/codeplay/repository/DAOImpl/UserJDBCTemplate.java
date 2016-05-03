@@ -1,8 +1,10 @@
 
 package org.codeplay.repository.DAOImpl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -15,7 +17,9 @@ import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+
 
 /**
  * @author saurabh
@@ -50,7 +54,9 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		   
 		   final String insertTagPageString = "insert into "+ "tags_pages_mapping_" + tableQualifier
 					+ "(`tags`, `page_ids`) values (?,?)";
-		   
+		   try{
+		   Connection con= jdbcTemplateObject.getDataSource().getConnection();
+		   con.setAutoCommit(false);
 
 		   jdbcTemplateObject.batchUpdate(insertTagPageString, 
 		                new BatchPreparedStatementSetter() {
@@ -65,13 +71,41 @@ public class UserJDBCTemplate implements UserDAOInterface {
 					return tagPagesBatchList.size();
 				}
 			});
+		   con.commit();
+		   }catch(Exception e){
+			   e.printStackTrace();
 		   }
+		   }
+	   
+	   public void insertBatchTagsToPageIDTest(final List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier) {
+		   try {
+			   Connection con= jdbcTemplateObject.getDataSource().getConnection();
+			   con.setAutoCommit(false);
+			   Statement stmt = con.createStatement();
+			   for(TagPage tp: tagPagesBatchList){
+				   
+					stmt.addBatch("insert into "+ "tags_pages_mapping_" + tableQualifier
+							+ "(`tags`, `page_ids`) values ('"+tp.getTags()+"','"+tp.getPageIds()+"')");
+				
+			   }
+			// Create an int[] to hold returned values
+			   int[] count = stmt.executeBatch();
+	
+			   //Explicitly commit statements to apply changes
+			   con.commit();
+		   } catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+
 	   public void insertBatchPageIDToFBID(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) {
 		   
-	   
+	   try{
 		   final String insertPageDetailsString = "insert into page_details_" + tableQualifier
 					+ "(`page_id`, `fbids`,`table`) values (?,?,?)";
-		   
+		   Connection con= jdbcTemplateObject.getDataSource().getConnection();		   
+		   con.setAutoCommit(false);
 		   jdbcTemplateObject.batchUpdate(insertPageDetailsString, 
 		                new BatchPreparedStatementSetter() {
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
@@ -86,8 +120,33 @@ public class UserJDBCTemplate implements UserDAOInterface {
 					return pagesBatchList.size();
 				}
 			});
-		   }	   
-   
+		   con.commit();
+	   }
+		   catch(Exception e){
+			   e.printStackTrace();
+		   }
+		   }
+	   
+	   public void insertBatchPageIDToFBIDTest(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) {	   
+		   
+			try {
+				   Connection con= jdbcTemplateObject.getDataSource().getConnection();		   
+				   con.setAutoCommit(false);		
+				   Statement stmt = con.createStatement();
+				   for(Page p: pagesBatchList){
+					   stmt.addBatch("insert into page_details_" + tableQualifier
+								+ "(`page_id`, `fbids`,`table`) values ('"+p.getId()+"','"+p.getFbIds()+"','"+p.getTable()+"')"); 
+				   }
+				// Create an int[] to hold returned values
+				   int[] count = stmt.executeBatch();
+		
+				   //Explicitly commit statements to apply changes
+				   con.commit();
+			   }catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			  }
+		   }
 
 		   public User getUser(Integer id) {
 		      String SQL = "select * from users_sorted_male where id = ?";

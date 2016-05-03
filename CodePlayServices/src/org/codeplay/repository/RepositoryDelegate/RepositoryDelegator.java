@@ -136,8 +136,8 @@ public class RepositoryDelegator {
 
 				}
 			}
-			dao.insertBatchTagsToPageID(tagPageList,dbName,gender);
-			dao.insertBatchPageIDToFBID(pageList,dbName,gender);
+			dao.insertBatchTagsToPageIDTest(tagPageList,dbName,gender);
+			dao.insertBatchPageIDToFBIDTest(pageList,dbName,gender);
 			long endTime=System.currentTimeMillis();
 			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
 			System.out.println("Done for Gender = " + gender);

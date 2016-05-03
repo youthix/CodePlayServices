@@ -76,5 +76,15 @@ public interface UserDAOInterface {
 	    * This method to be used to batch insert records in the PageDetails Table
 	    */	   
 	   public void insertBatchPageIDToFBID(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) ;
+	   
+	   /** 
+	    * This method to be used to batch insert records in the TapPageMapping Table
+	    */	   
+	   public void insertBatchTagsToPageIDTest(final List<TagPage> tagPagesBatchList,String dbQualifier,String tableQualifier);
+	   
+	   /** 
+	    * This method to be used to batch insert records in the PageDetails Table
+	    */	   
+	   public void insertBatchPageIDToFBIDTest(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) ;
 
 }
