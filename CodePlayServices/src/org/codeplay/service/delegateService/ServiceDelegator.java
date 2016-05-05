@@ -40,14 +40,18 @@ public class ServiceDelegator {
 	private  UserList populatePages(UserList userList,String pageIds, String chapterNo){	
 		//Setting total number of chapters
 		String[] pageIdArr=pageIds.split(",");
-		String pageId="";;
-		int totalChapters=-1;
+		String pageId="";
+		int totalChapters=0;
 		int totalPages=pageIdArr.length;
 		int remainder=totalPages%5;
 		int quotient=totalPages/5;
 		int chapterNumber=0;
 		int startIndex=-1;
-		if(remainder==0){
+		if("".equals(pageIds) || ",".equals(pageIds)){
+			totalChapters=0;
+			chapterNo="0";
+		}
+		else if(remainder==0){
 			totalChapters=quotient;
 		}else{
 			totalChapters=quotient+1;
@@ -56,9 +60,9 @@ public class ServiceDelegator {
 		userList.setTotalChapters(String.valueOf(totalChapters));
 		
 		//Setting pageIds based on chapterNo
-		
-		chapterNo=(null==chapterNo || "".equals(chapterNo))?"1":chapterNo;
-		userList.setCurrChapterNo(chapterNo);
+		if(totalChapters!=0){
+			
+		chapterNo=(null==chapterNo || "".equals(chapterNo))?"1":chapterNo;		
 		chapterNumber=Integer.valueOf(chapterNo);
 		startIndex=chapterNumber*5-5;
 		for(int i=startIndex;i<totalPages && i<startIndex+5;i++){
@@ -68,6 +72,8 @@ public class ServiceDelegator {
 		 if(index>0){
 			 pageId=pageId.substring(0,index);
 		 }
+		} 
+		userList.setCurrChapterNo(chapterNo);
 		userList.setPageID(pageId);
 		
 		return userList;		
