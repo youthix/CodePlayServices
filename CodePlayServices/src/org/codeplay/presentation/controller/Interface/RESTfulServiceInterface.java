@@ -2,6 +2,8 @@ package org.codeplay.presentation.controller.Interface;
 
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
+import org.springframework.http.HttpRequest;
+
 
 public interface RESTfulServiceInterface {
 	
@@ -17,5 +19,7 @@ public interface RESTfulServiceInterface {
 
 
 	String doIndexing(String username, 
-			String password, String dbQualifiers);
+			String password, String dbQualifiers);	
+	
+	String doLogin(HttpRequest request,String code);
 }
