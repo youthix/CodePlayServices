@@ -21,6 +21,8 @@ public class User {
 	public String age;
 	public String ageGroup;
 	public String tags;
+	public String email;
+	
 		
 	public String getId() {
 		return id;
@@ -135,6 +137,12 @@ public class User {
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
