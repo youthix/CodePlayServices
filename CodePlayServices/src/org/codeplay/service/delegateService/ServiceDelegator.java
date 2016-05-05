@@ -36,47 +36,6 @@ public class ServiceDelegator {
 	  return responseObj;
 	}
 	
-	private  UserList populatePages(UserList userList,String pageIds, String chapterNo){	
-		//Setting total number of chapters
-		String[] pageIdArr=pageIds.split(",");
-		String pageId="";
-		int totalChapters=0;
-		int totalPages=pageIdArr.length;
-		int remainder=totalPages%5;
-		int quotient=totalPages/5;
-		int chapterNumber=0;
-		int startIndex=-1;
-		if("".equals(pageIds) || ",".equals(pageIds)){
-			totalChapters=0;
-			chapterNo="0";
-		}
-		else if(remainder==0){
-			totalChapters=quotient;
-		}else{
-			totalChapters=quotient+1;
-		}
-		
-		userList.setTotalChapters(String.valueOf(totalChapters));
-		
-		//Setting pageIds based on chapterNo
-		if(totalChapters!=0){
-			
-		chapterNo=(null==chapterNo || "".equals(chapterNo))?"1":chapterNo;		
-		chapterNumber=Integer.valueOf(chapterNo);
-		startIndex=chapterNumber*5-5;
-		for(int i=startIndex;i<totalPages && i<startIndex+5;i++){
-			pageId=	pageId.concat(pageIdArr[i]).concat(",");
-		}
-		int index=pageId.lastIndexOf(",");
-		 if(index>0){
-			 pageId=pageId.substring(0,index);
-		 }
-		} 
-		userList.setCurrChapterNo(chapterNo);
-		userList.setPageID(pageId);
-		
-		return userList;		
-	}
 	
 	public ResponseObj fetchUsers(RequestObj reqparam) {	
 
@@ -92,6 +51,22 @@ public class ServiceDelegator {
 	   }
 	  return responseObj;
 	}
+	
+	public ResponseObj fetchUserCount(RequestObj reqparam) {
+		ResponseObj responseObj= new ResponseObj();		
+		
+		for(SearchFields searchFields:reqparam.getSearchFieldsList()){
+		userList= new UserList();
+		String tags=returnTags(searchFields);
+		String userCount=repositoryDelegator.fetchUserCount(tags, 
+				searchFields.getAgeGroup(), 
+				searchFields.getGender());
+		userList.setTag(tags);
+		userList.setTotalUserCount(userCount);
+		responseObj.getListOfUsers().add(userList);
+	   }
+	  return responseObj;
+	}	
 	
 	public String doIndexing(String username, 
 			String password, String dbQualifiers){
@@ -145,7 +120,47 @@ public class ServiceDelegator {
 		return temp[1];
 	}
 
-
+	private  UserList populatePages(UserList userList,String pageIds, String chapterNo){	
+		//Setting total number of chapters
+		String[] pageIdArr=pageIds.split(",");
+		String pageId="";
+		int totalChapters=0;
+		int totalPages=pageIdArr.length;
+		int remainder=totalPages%5;
+		int quotient=totalPages/5;
+		int chapterNumber=0;
+		int startIndex=-1;
+		if("".equals(pageIds) || ",".equals(pageIds)){
+			totalChapters=0;
+			chapterNo="0";
+		}
+		else if(remainder==0){
+			totalChapters=quotient;
+		}else{
+			totalChapters=quotient+1;
+		}
+		
+		userList.setTotalChapters(String.valueOf(totalChapters));
+		
+		//Setting pageIds based on chapterNo
+		if(totalChapters!=0){
+			
+		chapterNo=(null==chapterNo || "".equals(chapterNo))?"1":chapterNo;		
+		chapterNumber=Integer.valueOf(chapterNo);
+		startIndex=chapterNumber*5-5;
+		for(int i=startIndex;i<totalPages && i<startIndex+5;i++){
+			pageId=	pageId.concat(pageIdArr[i]).concat(",");
+		}
+		int index=pageId.lastIndexOf(",");
+		 if(index>0){
+			 pageId=pageId.substring(0,index);
+		 }
+		} 
+		userList.setCurrChapterNo(chapterNo);
+		userList.setPageID(pageId);
+		
+		return userList;		
+	}
 
 	public RepositoryDelegator getRepositoryDelegator() {
 		return repositoryDelegator;

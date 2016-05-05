@@ -10,6 +10,8 @@ public interface RESTfulServiceInterface {
 	
 	ResponseObj fetchUsers(RequestObj reqparam);
 	
+	ResponseObj fetchUserCount(RequestObj reqparam);
+	
 	
 	String helloWorld();
 

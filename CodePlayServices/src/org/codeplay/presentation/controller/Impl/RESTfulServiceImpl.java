@@ -37,6 +37,43 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		return serviceDelegator.fetchPages(reqparam);
 	}
 	
+
+	@Override
+	@POST
+	@Path("/users")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj fetchUsers(RequestObj reqparam) {		
+		return serviceDelegator.fetchUsers(reqparam);
+	}
+	
+	@Override
+	@POST
+	@Path("/users-count")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj fetchUserCount(RequestObj reqparam) {		
+		return serviceDelegator.fetchUserCount(reqparam);
+	}	
+	
+	@Override
+	@POST
+	@Path("/index")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public String doIndexing(@FormParam("username") String username,
+			@FormParam("password") String password,
+			@FormParam("dbQualifiers") String dbQualifiers) {		
+		return serviceDelegator.doIndexing(username,password,dbQualifiers);
+	}
+
+	@Override
+	@GET
+	@Path("/hello")
+	public String helloWorld() {		
+		serviceDelegator.doHello();
+		return "Welcome to Code Play Services !!";
+	}
+	
 	
 	@POST
 	@Path("/pageIds")
@@ -75,44 +112,11 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 			
 			listOfuserList.add(userListObj);
 		}
-		
-		
-		
-		
 		responseObj.setUserList(listOfuserList);
-		
-		
 		//String pages=serviceDelegator.fetchPages(tags,"1519","female");
 		//return null;
 		return responseObj;
-	}
-
-	@Override
-	@POST
-	@Path("/users")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseObj fetchUsers(RequestObj reqparam) {		
-		return serviceDelegator.fetchUsers(reqparam);
-	}
-	
-	@Override
-	@POST
-	@Path("/index")
-	@Produces(MediaType.APPLICATION_JSON)	
-	public String doIndexing(@FormParam("username") String username,
-			@FormParam("password") String password,
-			@FormParam("dbQualifiers") String dbQualifiers) {		
-		return serviceDelegator.doIndexing(username,password,dbQualifiers);
-	}
-
-	@Override
-	@GET
-	@Path("/hello")
-	public String helloWorld() {		
-		serviceDelegator.doHello();
-		return "Welcome to Code Play Services !!";
-	}
+	}	
 
 	public ServiceDelegator getServiceDelegator() {
 		return serviceDelegator;

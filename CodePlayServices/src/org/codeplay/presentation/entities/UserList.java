@@ -11,6 +11,7 @@ public class UserList {
 	private String pageID;
 	private String currChapterNo;
 	private String totalChapters;
+	private String totalUserCount;
 	
 	private SearchFields searchFields;
 
@@ -60,6 +61,14 @@ public class UserList {
 
 	public void setCurrChapterNo(String currChapterNo) {
 		this.currChapterNo = currChapterNo;
+	}
+
+	public String getTotalUserCount() {
+		return totalUserCount;
+	}
+
+	public void setTotalUserCount(String totalUserCount) {
+		this.totalUserCount = totalUserCount;
 	}
 	
 }
