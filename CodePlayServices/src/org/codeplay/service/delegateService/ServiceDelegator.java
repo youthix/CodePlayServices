@@ -11,7 +11,6 @@ import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 
 import com.googlecode.ehcache.annotations.Cacheable;
 
