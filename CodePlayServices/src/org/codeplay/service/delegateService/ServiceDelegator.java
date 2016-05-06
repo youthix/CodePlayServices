@@ -75,7 +75,7 @@ public class ServiceDelegator {
 			if (null != userObj) {
 
 				String tags = returnTags(userObj);
-				String userCount = repositoryDelegator.registerUser(tags, userObj.getAgeGroup(), userObj.getGender(),
+				User user = repositoryDelegator.registerUser(tags, userObj.getAgeGroup(), userObj.getGender(),
 						userObj);
 
 /*				userList.setTag(tags);
