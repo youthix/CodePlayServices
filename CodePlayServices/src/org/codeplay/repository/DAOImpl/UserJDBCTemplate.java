@@ -162,6 +162,14 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		                                new UserMapper());
 		      return users;
 		   }
+		   
+		   public List<User> listUsers(String tags,String dbQualifier,
+				   String tableQualifier) {			   		      
+			   		      String SQL = "select * from hotornot_"+dbQualifier+".users_sorted_" + tableQualifier + " where tags like '%"+tags+"%'";
+			   		      List <User> users = jdbcTemplateObject.query(SQL, 
+			   		                                new UserMapper());
+			   		      return users;
+			   		   }
 
 		   public void delete(Integer id){
 		      String SQL = "delete from tags_pages_mapping_male where id = ?";

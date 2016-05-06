@@ -173,11 +173,10 @@ public class RepositoryDelegator {
 					properties = @Property (
 							name="includeMethod", value="false")))
 	public String fetchUserCount(String tags,String dbQualifier,
-			   String tableQualifier) {	
+			   String tableQualifier) {		
 		
-		String queryStringUsers = "select * from hotornot_"+dbQualifier+".users_sorted_" + tableQualifier + " where tags like '%"+tags+"%'";
-		
-		List<User> users = dao.listUsers(queryStringUsers);	
+		List<User> users = dao.listUsers( tags, dbQualifier,
+				    tableQualifier);
 		
 		if(null!=users)
 		{

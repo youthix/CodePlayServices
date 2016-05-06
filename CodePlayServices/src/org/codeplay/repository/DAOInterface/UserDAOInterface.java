@@ -39,6 +39,8 @@ public interface UserDAOInterface {
 	    * all the records from the Student table.
 	    */
 	   public List<User> listUsers(String sqlQueryString);
+	   public List<User> listUsers(String tags,String dbQualifier,
+			   String tableQualifier);
 	   /** 
 	    * This is the method to be used to delete
 	    * a record from the Student table corresponding
