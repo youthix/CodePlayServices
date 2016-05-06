@@ -175,7 +175,7 @@ public class RepositoryDelegator {
 	public String fetchUserCount(String tags,String dbQualifier,
 			   String tableQualifier) {	
 		
-		String queryStringUsers = "select * from users_sorted_" + tableQualifier + " where tags like '%"+tags+"%'";
+		String queryStringUsers = "select * from hotornot_"+dbQualifier+".users_sorted_" + tableQualifier + " where tags like '%"+tags+"%'";
 		
 		List<User> users = dao.listUsers(queryStringUsers);	
 		
