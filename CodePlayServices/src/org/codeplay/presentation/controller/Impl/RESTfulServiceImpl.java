@@ -3,14 +3,13 @@ package org.codeplay.presentation.controller.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//github.com/youthix/CodePlayServices.git
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
@@ -19,13 +18,15 @@ import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.BObjects.User;
-//github.com/youthix/CodePlayServices.git
 import org.codeplay.service.delegateService.ServiceDelegator;
+import org.springframework.http.HttpRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	
 	public ServiceDelegator serviceDelegator;
+	
 		
 	@Override
 	@POST
@@ -37,7 +38,6 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		return serviceDelegator.fetchPages(reqparam);
 	}
 	
-
 	@Override
 	@POST
 	@Path("/users")
@@ -52,7 +52,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Path("/users-count")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseObj fetchUserCount(RequestObj reqparam) {		
+	public ResponseObj fetchUserCount(RequestObj reqparam) {
 		return serviceDelegator.fetchUserCount(reqparam);
 	}	
 	
@@ -74,6 +74,16 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		return "Welcome to Code Play Services !!";
 	}
 	
+
+	@Override
+	@GET
+	@Path("/login")		
+	public String doLogin(@Context HttpRequest request,@RequestParam("code") String code) {
+		// TODO Auto-generated method stub
+	
+		return null;
+	}
+
 	
 	@POST
 	@Path("/pageIds")
