@@ -78,7 +78,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Override
 	@GET
 	@Path("/login")		
-	public String doLogin(@Context HttpRequest request,@RequestParam("code") String code) {
+	public String doLogin(@RequestParam("code") String code) {
 		// TODO Auto-generated method stub
 	
 		return null;
