@@ -74,6 +74,13 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		return "Welcome to Code Play Services !!";
 	}
 	
+	@GET
+	@Path("/helloTestQueryParam")
+	public String helloWorldTest(@DefaultValue("2") @QueryParam("test") String test) {	
+		System.out.println("value=" + test);
+		//serviceDelegator.doHello();
+		return "Welcome to Code Play Services !!";
+	}	
 
 	@POST
 	@Path("/pageIds")
