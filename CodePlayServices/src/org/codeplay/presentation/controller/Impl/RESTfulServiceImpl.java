@@ -3,13 +3,15 @@ package org.codeplay.presentation.controller.Impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
@@ -19,8 +21,6 @@ import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.service.delegateService.ServiceDelegator;
-import org.springframework.http.HttpRequest;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
