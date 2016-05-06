@@ -240,10 +240,8 @@ public class RepositoryDelegator {
 		
 	}
 	
-	private void insertUser(User userObjParam){
-		
-		createProfile(userObjParam);		
-		
+	private void insertUser(User userObjParam){		
+		createProfile(userObjParam);			
 	}
 	
 	private void updateProfile(User userObjParam){
@@ -251,7 +249,7 @@ public class RepositoryDelegator {
 	}
 	
 	private void copyProfile(User userObjParam,User userObjDBase){
-		//to be done later
+		//To be done when we will introduce likes,dislikes,ratings and rankings
 	}
 	
 	private void deleteProfile(User userObjDBase){
