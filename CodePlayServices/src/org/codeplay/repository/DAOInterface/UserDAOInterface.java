@@ -89,4 +89,9 @@ public interface UserDAOInterface {
 	    */	   
 	   public void insertBatchPageIDToFBIDTest(final List<Page> pagesBatchList,String dbQualifier,String tableQualifier) ;
 
+	   /** 
+	    * This method to be used to fetch User Record on basis of FBID
+	    */	   
+	   public User getUser(User user)
+
 }

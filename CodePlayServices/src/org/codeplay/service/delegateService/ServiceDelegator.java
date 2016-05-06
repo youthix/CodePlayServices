@@ -72,13 +72,16 @@ public class ServiceDelegator {
 
 			userObj = searchFields.getUser();
 			userList = new UserList();
+			if (null != userObj) {
 
-			String tags = returnTags(searchFields.getUser());
-			String userCount = repositoryDelegator.fetchUserCount(tags, searchFields.getAgeGroup(),
-					searchFields.getGender());
-			userList.setTag(tags);
-			userList.setTotalUserCount(userCount);
-			responseObj.getListOfUsers().add(userList);
+				String tags = returnTags(userObj);
+				String userCount = repositoryDelegator.registerUser(tags, userObj.getAgeGroup(), userObj.getGender(),
+						userObj);
+
+/*				userList.setTag(tags);
+				userList.setTotalUserCount(userCount);
+				responseObj.getListOfUsers().add(userList);*/
+			}
 		}
 		return responseObj;
 	}

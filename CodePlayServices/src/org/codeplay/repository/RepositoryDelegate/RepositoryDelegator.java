@@ -16,32 +16,30 @@ import com.googlecode.ehcache.annotations.KeyGenerator;
 import com.googlecode.ehcache.annotations.Property;
 
 public class RepositoryDelegator {
-	
+
 	private UserDAOInterface dao;
 	private List<String> dbNameList;
 	private ConnectionFactory connectionFactory;
 
 	public void startIndexing() {
 
-		
-
 		for (String dbName : dbNameList) {
 
-			connectionFactory.getConnection(dbName); 
+			connectionFactory.getConnection(dbName);
 			dao.setDataSource(connectionFactory.getDriverManagerDataSource());
-			System.out.println("DatabaseName = " + dbName);	
+			System.out.println("DatabaseName = " + dbName);
 			emptyIndexTables(dbName);
 			createIndexTables(dbName);
 		}
 
 	}
-	
-	private void emptyIndexTables(String dbName){
-		
+
+	private void emptyIndexTables(String dbName) {
+
 		System.out.println("START :: Cleaning Index Tables !");
-		dao.emptyIndexTables();		
+		dao.emptyIndexTables();
 		System.out.println("END :: Cleaning Index Tables !");
-	
+
 	}
 
 	private void createIndexTables(String dbName) {
@@ -50,195 +48,181 @@ public class RepositoryDelegator {
 		genderList.add("female");
 		List<TagPage> tagPageList = null;
 		List<Page> pageList = null;
-		
-		ThreadLocalRandom random = ThreadLocalRandom.current();		
+
+		ThreadLocalRandom random = ThreadLocalRandom.current();
 		int pageCount = 0;
 		for (String gender : genderList) {
-			System.out.println("Start for Gender = " + gender);			
-			long startTime=System.currentTimeMillis();
-			tagPageList= new ArrayList<TagPage>();
-			pageList= new ArrayList<Page>();
+			System.out.println("Start for Gender = " + gender);
+			long startTime = System.currentTimeMillis();
+			tagPageList = new ArrayList<TagPage>();
+			pageList = new ArrayList<Page>();
 			String queryStringTags = "select * from users_sorted_" + gender + " group by tags";
 			List<User> usersUniqueTagList = dao.listUsers(queryStringTags);
 			if (usersUniqueTagList != null) {
-				System.out.println("Number of records to be inserted >>> "+usersUniqueTagList.size());
+				System.out.println("Number of records to be inserted >>> " + usersUniqueTagList.size());
 
 				for (User record : usersUniqueTagList) {
 					String concatpageIDs = "";
 					String newPageID = "";
-					String userFBIdsConcat= "";
+					String userFBIdsConcat = "";
 					String tagvalue = record.getTags();
-					int index=-1;
+					int index = -1;
 					String queryStringUsers = "select * from users_sorted_" + gender + " where tags='" + tagvalue + "'";
 					List<User> users = dao.listUsers(queryStringUsers);
 					if (users != null && users.size() > 0) {
-						
-						for(User userObj : users){							
-							userFBIdsConcat = userObj.getFbId()+ ","+userFBIdsConcat;
-							
+
+						for (User userObj : users) {
+							userFBIdsConcat = userObj.getFbId() + "," + userFBIdsConcat;
+
 						}
-						index=userFBIdsConcat.lastIndexOf(",");
-						if(index !=-1) {
-							userFBIdsConcat=userFBIdsConcat.substring(0, index);
+						index = userFBIdsConcat.lastIndexOf(",");
+						if (index != -1) {
+							userFBIdsConcat = userFBIdsConcat.substring(0, index);
 						}
 						int quotient = users.size() / 30;
 						int remainder = users.size() % 30;
 
 						if (quotient > 0) {
 
-							for (int i = 1; i <= quotient; i++) {								
-								//newPageID = String.valueOf(random.nextInt());
-								newPageID = "P"+ String.valueOf(++pageCount);
+							for (int i = 1; i <= quotient; i++) {
+								// newPageID = String.valueOf(random.nextInt());
+								newPageID = "P" + String.valueOf(++pageCount);
 								concatpageIDs = concatpageIDs + newPageID + ",";
 							}
 
 						}
 						if (remainder > 0) {
-							
-							//newPageID = String.valueOf(random.nextInt());
-							newPageID = "P"+ String.valueOf(++pageCount);
+
+							// newPageID = String.valueOf(random.nextInt());
+							newPageID = "P" + String.valueOf(++pageCount);
 							concatpageIDs = concatpageIDs + newPageID + ",";
 						}
-						
-						index=concatpageIDs.lastIndexOf(",");
-						if(index !=-1) {
-							concatpageIDs=concatpageIDs.substring(0, index);
+
+						index = concatpageIDs.lastIndexOf(",");
+						if (index != -1) {
+							concatpageIDs = concatpageIDs.substring(0, index);
 						}
 
 					}
-					
+
 					/*
-					 * Creating a list of object to be passed as a parameter for Batch Insert in TagPageMapping Table
-					 * */
+					 * Creating a list of object to be passed as a parameter for
+					 * Batch Insert in TagPageMapping Table
+					 */
 					TagPage tagPageObj = new TagPage();
 					tagPageObj.setTags(tagvalue);
 					tagPageObj.setPageIds(concatpageIDs);
-					
+
 					tagPageList.add(tagPageObj);
-					
+
 					/*
-					 * Creating a list of object to be passed as a parameter for Batch Insert in PageDetails Table
-					 * */
+					 * Creating a list of object to be passed as a parameter for
+					 * Batch Insert in PageDetails Table
+					 */
 					Page pageObj = new Page();
 					pageObj.setId(concatpageIDs);
 					pageObj.setFbIds(userFBIdsConcat);
-					pageObj.setTable("users_sorted_"+gender);
-					
-					pageList.add(pageObj);					
-					
-/*					String insertTagPageString = "insert into tags_pages_mapping_" + gender
-							+ "(`tags`, `page_ids`) values ('" + tagvalue + "','" + concatpageIDs + "')";
-					dao.create(insertTagPageString);*/
-					
-/*					String insertPagetailsDeString = "insert into page_details_" + gender
-							+ "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs + "','" + userFBIdsConcat + "','users_sorted_"+gender+"')";
-				    dao.create(insertPagetailsDeString);*/
+					pageObj.setTable("users_sorted_" + gender);
+
+					pageList.add(pageObj);
+
+					/*
+					 * String insertTagPageString =
+					 * "insert into tags_pages_mapping_" + gender +
+					 * "(`tags`, `page_ids`) values ('" + tagvalue + "','" +
+					 * concatpageIDs + "')"; dao.create(insertTagPageString);
+					 */
+
+					/*
+					 * String insertPagetailsDeString =
+					 * "insert into page_details_" + gender +
+					 * "(`page_id`, `fbids`,`table`) values ('" + concatpageIDs
+					 * + "','" + userFBIdsConcat +
+					 * "','users_sorted_"+gender+"')";
+					 * dao.create(insertPagetailsDeString);
+					 */
 
 				}
 			}
-			dao.insertBatchTagsToPageIDTest(tagPageList,dbName,gender);
-			dao.insertBatchPageIDToFBIDTest(pageList,dbName,gender);
-			long endTime=System.currentTimeMillis();
-			System.out.println("Total Time Taken (in seconds) >>"+ (endTime-startTime)/1000);
+			dao.insertBatchTagsToPageIDTest(tagPageList, dbName, gender);
+			dao.insertBatchPageIDToFBIDTest(pageList, dbName, gender);
+			long endTime = System.currentTimeMillis();
+			System.out.println("Total Time Taken (in seconds) >>" + (endTime - startTime) / 1000);
 			System.out.println("Done for Gender = " + gender);
 
 		}
 
-	}	
+	}
 
-	@Cacheable(cacheName ="fetchPagesCache",
-			keyGenerator = @KeyGenerator (
-					name="HashCodeCacheKeyGenerator",
-					properties = @Property (
-							name="includeMethod", value="false")))
-	public String fetchPages(String tags,String dbQualifier,
-			   String tableQualifier) {	
-	 String pages="";
-	 int index=-1;
-	 List<TagPage> tagPages=dao.listPages(tags, dbQualifier, tableQualifier);
-	 for(TagPage tagPage:tagPages){
-		 pages=pages.concat(tagPage.getPageIds());
-		 pages=pages.concat(",");
-	 }
-	 index=pages.lastIndexOf(",");
-	 if(index>0){
-	  pages=pages.substring(0,index);
-	 }	 
-	 return pages;
-	}
-	
-	@Cacheable(cacheName ="fetchUserCount",
-			keyGenerator = @KeyGenerator (
-					name="HashCodeCacheKeyGenerator",
-					properties = @Property (
-							name="includeMethod", value="false")))
-	public String fetchUserCount(String tags,String dbQualifier,
-			   String tableQualifier) {		
-		
-		List<User> users = dao.listUsers( tags, dbQualifier,
-				    tableQualifier);
-		
-		if(null!=users)
-		{
-			return String.valueOf(users.size());
+	@Cacheable(cacheName = "fetchPagesCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
+	public String fetchPages(String tags, String dbQualifier, String tableQualifier) {
+		String pages = "";
+		int index = -1;
+		List<TagPage> tagPages = dao.listPages(tags, dbQualifier, tableQualifier);
+		for (TagPage tagPage : tagPages) {
+			pages = pages.concat(tagPage.getPageIds());
+			pages = pages.concat(",");
 		}
-		else {
+		index = pages.lastIndexOf(",");
+		if (index > 0) {
+			pages = pages.substring(0, index);
+		}
+		return pages;
+	}
+
+	@Cacheable(cacheName = "fetchUserCount", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
+	public String fetchUserCount(String tags, String dbQualifier, String tableQualifier) {
+
+		List<User> users = dao.listUsers(tags, dbQualifier, tableQualifier);
+
+		if (null != users) {
+			return String.valueOf(users.size());
+		} else {
 			return "0";
 		}
-	  
+
 	}
-	
-	@Cacheable(cacheName ="registerUser",
-			keyGenerator = @KeyGenerator (
-					name="HashCodeCacheKeyGenerator",
-					properties = @Property (
-							name="includeMethod", value="false")))
-	public String registerUser(String tags,String dbQualifier,
-			   String tableQualifier) {		
-		
-		List<User> users = dao.listUsers( tags, dbQualifier,
-				    tableQualifier);
-		
-		if(null!=users)
-		{
-			return String.valueOf(users.size());
+
+	@Cacheable(cacheName = "registerUser", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
+	public User registerUser(String tags, String dbQualifier, String tableQualifier, User userObjParam) {
+
+		User userObjDBase = dao.getUser(userObjParam);
+		if (null!=userObjDBase){
+			
+			/*Update*/
+			
 		}
 		else {
-			return "0";
+			
+			/*Insert*/
 		}
-	  
-	}	
-	
-	private List<Page> fetchPagesWithFbIds(String ids,String dbQualifier,
-			   String tableQualifier) {		  
-	 List<Page> pages=dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);	 
-	 return pages;
+
+		return userObjDBase;
+
 	}
-	
-	
-	@Cacheable(cacheName ="fetchUsersCache",
-	keyGenerator = @KeyGenerator (
-			name="HashCodeCacheKeyGenerator",
-			properties = @Property (
-					name="includeMethod", value="false")))
-	public UserList fetchUsers(String tag,String ids,String dbQualifier,
-		   String tableQualifier) {
-	   List<User> users;
-	   UserList userList=new UserList();
-	   String fbIds="";
-	   List<Page> pages=fetchPagesWithFbIds( ids, dbQualifier,
-		    tableQualifier); 	   
-	   for(Page tagPage:pages){
-		 fbIds=tagPage.getFbIds();	
-		 users=dao.listUsersWithFbIds(fbIds, dbQualifier, tableQualifier);
-		 userList.setTag(tag);
-		 userList.setUserList(users);
-		 userList.setPageID(tagPage.getId());
-	   }
-		System.out.println("fbIds>>"+fbIds);
+
+	@Cacheable(cacheName = "fetchUsersCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
+	public UserList fetchUsers(String tag, String pageIds, String dbQualifier, String tableQualifier) {
+		List<User> users;
+		UserList userList = new UserList();
+		String fbIds = "";
+		List<Page> pages = fetchPagesWithFbIds(pageIds, dbQualifier, tableQualifier);
+		for (Page tagPage : pages) {
+			fbIds = tagPage.getFbIds();
+			users = dao.listUsersWithFbIds(fbIds, dbQualifier, tableQualifier);
+			userList.setTag(tag);
+			userList.setUserList(users);
+			userList.setPageID(tagPage.getId());
+		}
+		System.out.println("fbIds>>" + fbIds);
 		return userList;
 	}
-	
+
+	private List<Page> fetchPagesWithFbIds(String ids, String dbQualifier, String tableQualifier) {
+		List<Page> pages = dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);
+		return pages;
+	}
+
 	public List<String> getDbNameList() {
 		return dbNameList;
 	}
@@ -262,7 +246,5 @@ public class RepositoryDelegator {
 	public void setConnectionFactory(ConnectionFactory connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
-
-	
 
 }
