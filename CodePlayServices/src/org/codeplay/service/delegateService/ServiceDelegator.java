@@ -68,6 +68,22 @@ public class ServiceDelegator {
 	  return responseObj;
 	}	
 	
+	public ResponseObj registerUser(RequestObj reqparam) {
+		ResponseObj responseObj= new ResponseObj();		
+		
+/*		for(SearchFields searchFields:reqparam.getSearchFieldsList()){
+		userList= new UserList();
+		String tags=returnTags(searchFields);
+		String userCount=repositoryDelegator.fetchUserCount(tags, 
+				searchFields.getAgeGroup(), 
+				searchFields.getGender());
+		userList.setTag(tags);
+		userList.setTotalUserCount(userCount);
+		responseObj.getListOfUsers().add(userList);
+	   }*/
+	  return responseObj;
+	}	
+	
 	public String doIndexing(String username, 
 			String password, String dbQualifiers){
 		String[] dbArray=dbQualifiers.split(",");

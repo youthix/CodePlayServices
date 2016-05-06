@@ -37,7 +37,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		
 		return serviceDelegator.fetchPages(reqparam);
 	}
-	
+		
 	@Override
 	@POST
 	@Path("/users")
@@ -54,6 +54,16 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ResponseObj fetchUserCount(RequestObj reqparam) {
 		return serviceDelegator.fetchUserCount(reqparam);
+	}	
+	
+	@Override
+	@POST
+	@Path("/register")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)	
+	public ResponseObj registerUser(RequestObj reqparam) {			
+		
+		return serviceDelegator.registerUser(reqparam);
 	}	
 	
 	@Override

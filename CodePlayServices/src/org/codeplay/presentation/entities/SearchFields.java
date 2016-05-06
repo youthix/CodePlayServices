@@ -1,5 +1,7 @@
 package org.codeplay.presentation.entities;
 
+import org.codeplay.repository.BObjects.User;
+
 public class SearchFields {
 	
 	private String ageGroup;
@@ -17,6 +19,8 @@ public class SearchFields {
 	private String tag;
 	
 	private String chapterNo;
+	
+	private User user;
 
 	public String getAgeGroup() {
 		return ageGroup;
@@ -80,6 +84,16 @@ public class SearchFields {
 
 	public void setChapterNo(String chapterNo) {
 		this.chapterNo = chapterNo;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}	
+	
+	
 
 }

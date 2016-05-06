@@ -9,14 +9,13 @@ public interface RESTfulServiceInterface {
 	
 	ResponseObj fetchPages(RequestObj reqparam);
 	
-	
 	ResponseObj fetchUsers(RequestObj reqparam);
 	
 	ResponseObj fetchUserCount(RequestObj reqparam);
 	
+	ResponseObj registerUser(RequestObj reqparam);	
 	
 	String helloWorld();
-
 
 	String doIndexing(String username, 
 			String password, String dbQualifiers);	
