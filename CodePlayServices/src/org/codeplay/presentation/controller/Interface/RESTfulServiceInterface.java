@@ -20,6 +20,4 @@ public interface RESTfulServiceInterface {
 
 	String doIndexing(String username, 
 			String password, String dbQualifiers);	
-	
-	String doLogin(String code);
 }
