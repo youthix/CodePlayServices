@@ -53,6 +53,58 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 		return;
 	}
+	
+	public void createUser(User user) {
+		
+		  String SQL =
+		  "insert into hotornot.users_sorted (`name`, `profile_picture`,"
+		  + " `fbId`, `gender`, `lives_in`, `live_in_id`, `lives_in_country`, `home_town`, "
+		  + "`home_town_id`, `home_town_country`, `currently_at`, `currently_at_id`, `date_of_birth`, "
+		  + " `app_name`, `raw_data`,`email`) values ('"+user.getName()+"',' "
+		  + user.getProfilePicture()+"',' "+user.getFbId()+"',' "+ user.getGender()+"',' "+ user.getLivesIn()+"',' "+ user.getLivesInId()+"',' "
+		  + user.getLivesInCountry()+"',' "+ user.getHomeTown()+"',' "+ user.getHomeTownId()+"',' "+ user.getHomeTownCountry()+"',' "+ user.getCurrentlyAt()+"',' "
+		  + user.getCurrentlyAtId()+"',' "+ user.getDateOfBirth()+"',' "+ user.getAppName()+"',' "+ user.getRawData()+"',' "+ user.getEmail()
+		  		+ "')";	 
+
+		jdbcTemplateObject.update(SQL);
+
+		return;
+	}
+	
+	public void deleteUser(User user) {
+		
+		  String SQL =
+		  "delete * from hotornot.users_sorted where fbid='"+user.getFbId()+"'";
+		  jdbcTemplateObject.update(SQL);
+		  
+		  SQL =
+		  "delete * from hotornot_"+user.getAgeGroup()+".users_sorted_"+user.getGender()+" where fbid='"+user.getFbId()+"'";
+		  jdbcTemplateObject.update(SQL);
+
+		 return;
+	}
+	
+	
+	public void updateUser(User user) {
+		
+		  String SQL =
+		  "update hotornot.users_sorted set `name`='"+user.getName()+"',"
+		  +"`profile_picture`='"+user.getProfilePicture()+"',`gender`='"+user.getGender()+"',`lives_in`='"+user.getLivesIn()+"',"
+		  +"`live_in_id`='"+user.getLivesInId()+"', `lives_in_country`='"+user.getLivesInCountry()+"',`home_town`='"+user.getHomeTown()+"',`home_town_id`='"+user.getHomeTownId()+"',"
+		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()+"',`date_of_birth`='"+user.getDateOfBirth()+"',"
+		  +"`app_name`='"+user.getAppName()+"',`raw_data`='"+user.getRawData()+"',`email`='"+user.getEmail()+"',`logintime`=CURRENT_TIMESTAMP WHERE fbId='"+user.getFbId()+"'";
+		  jdbcTemplateObject.update(SQL);
+		  
+		  SQL =
+		  "update hotornot_"+user.getAgeGroup()+".users_sorted_"+user.getGender()+" set `name`='"+user.getName()+"',"
+		  +"`profile_picture`='"+user.getProfilePicture()+"',`gender`='"+user.getGender()+"',`lives_in`='"+user.getLivesIn()+"',"
+		  +"`live_in_id`='"+user.getLivesInId()+"', `lives_in_country`='"+user.getLivesInCountry()+"',`home_town`='"+user.getHomeTown()+"',`home_town_id`='"+user.getHomeTownId()+"',"
+		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()+"',`date_of_birth`='"+user.getDateOfBirth()+"',"
+		  +"`app_name`='"+user.getAppName()+"',`raw_data`='"+user.getRawData()+"',`email`='"+user.getEmail()+"' WHERE fbId='"+user.getFbId()+"'";
+		  jdbcTemplateObject.update(SQL);
+				  
+		return;
+	}
 
 	public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList, String dbQualifier,
 			String tableQualifier) {

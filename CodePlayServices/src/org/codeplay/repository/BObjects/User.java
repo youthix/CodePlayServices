@@ -8,6 +8,7 @@ public class User {
 	public String fbId;
 	public String gender;
 	public String livesIn;
+	public String livesInId;
 	public String livesInCountry;
 	public String homeTown;
 	public String homeTownId;
@@ -143,6 +144,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getLivesInId() {
+		return livesInId;
+	}
+	public void setLivesInId(String livesInId) {
+		this.livesInId = livesInId;
 	}
 	
 	

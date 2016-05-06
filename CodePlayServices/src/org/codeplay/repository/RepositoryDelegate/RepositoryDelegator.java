@@ -190,16 +190,19 @@ public class RepositoryDelegator {
 		if (null!=userObjDBase){
 			
 			/*Update*/
+			updateUser( userObjParam, userObjDBase);
 			
 		}
 		else {
 			
 			/*Insert*/
+			insertUser(userObjParam);
 		}
 
 		return userObjDBase;
 
 	}
+	
 
 	@Cacheable(cacheName = "fetchUsersCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
 	public UserList fetchUsers(String tag, String pageIds, String dbQualifier, String tableQualifier) {
@@ -221,6 +224,75 @@ public class RepositoryDelegator {
 	private List<Page> fetchPagesWithFbIds(String ids, String dbQualifier, String tableQualifier) {
 		List<Page> pages = dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);
 		return pages;
+	}
+	
+	private void updateUser(User userObjParam,User userObjDBase){		
+		String tagsObjParam=returnTags(userObjParam);
+		String tagsObjDBase=returnTags(userObjParam);
+		if(tagsObjParam.equalsIgnoreCase(tagsObjDBase)){
+			updateProfile(userObjParam);
+		}
+		else{
+			copyProfile(userObjParam, userObjDBase);
+			deleteProfile(userObjDBase);
+			createProfile(userObjParam);
+		}
+		
+	}
+	
+	private void insertUser(User userObjParam){
+		
+		createProfile(userObjParam);		
+		
+	}
+	
+	private void updateProfile(User userObjParam){
+		dao.updateUser(userObjParam);
+	}
+	
+	private void copyProfile(User userObjParam,User userObjDBase){
+		//to be done later
+	}
+	
+	private void deleteProfile(User userObjDBase){
+		dao.deleteUser(userObjDBase);
+	}
+	
+	private void createProfile(User userObjParam){
+		dao.createUser(userObjParam);
+	}
+
+	private String returnTags(User userObj) {
+		String tags = "";
+		if (userObj != null) {
+
+			tags = tags.concat(userObj.getAgeGroup());
+			tags = tags.concat(",");
+			tags = tags.concat(userObj.getGender());
+			tags = tags.concat(",");
+			tags = tags.concat((null == userObj.getLivesInCountry() || "".equals(userObj.getLivesInCountry()) ? "%"
+					: userObj.getLivesInCountry()));
+			tags = tags.concat(",");
+			tags = tags.concat(
+					(null == userObj.getLivesIn() || "".equals(userObj.getLivesIn()) ? "%" : userObj.getLivesIn()));
+			tags = tags.concat(",");
+			tags = tags.concat(",");
+			tags = tags.concat(",");
+			tags = tags.concat((null == userObj.getCurrentlyAtId() || "".equals(userObj.getCurrentlyAtId()) ? "%"
+					: userObj.getCurrentlyAtId()));
+
+		}
+		return tags;
+	}
+
+	private String returnDbQualifier(String tags) {
+		String[] temp = tags.split(",");
+		return temp[0];
+	}
+
+	private String returnTableQualifier(String tags) {
+		String[] temp = tags.split(",");
+		return temp[1];
 	}
 
 	public List<String> getDbNameList() {

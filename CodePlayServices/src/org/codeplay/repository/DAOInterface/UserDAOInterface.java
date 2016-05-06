@@ -33,6 +33,12 @@ public interface UserDAOInterface {
 	   
 	   public void create(String sqlQueryString);
 	   
+	   public void createUser(User user);
+	   
+	   public void deleteUser(User user);
+	   
+	   public void updateUser(User user);
+	   
 	   public User getUser(Integer id);
 	   /** 
 	    * This is the method to be used to list down
