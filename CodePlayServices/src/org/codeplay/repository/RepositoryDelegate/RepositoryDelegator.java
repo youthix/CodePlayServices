@@ -186,6 +186,27 @@ public class RepositoryDelegator {
 			return "0";
 		}
 	  
+	}
+	
+	@Cacheable(cacheName ="registerUser",
+			keyGenerator = @KeyGenerator (
+					name="HashCodeCacheKeyGenerator",
+					properties = @Property (
+							name="includeMethod", value="false")))
+	public String registerUser(String tags,String dbQualifier,
+			   String tableQualifier) {		
+		
+		List<User> users = dao.listUsers( tags, dbQualifier,
+				    tableQualifier);
+		
+		if(null!=users)
+		{
+			return String.valueOf(users.size());
+		}
+		else {
+			return "0";
+		}
+	  
 	}	
 	
 	private List<Page> fetchPagesWithFbIds(String ids,String dbQualifier,
