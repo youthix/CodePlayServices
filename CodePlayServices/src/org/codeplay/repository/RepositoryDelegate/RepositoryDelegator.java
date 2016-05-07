@@ -206,6 +206,11 @@ public class RepositoryDelegator {
 
 	}
 	
+	public User logout(String fbIdParam) {
+
+		return null;
+	}
+	
 
 	@Cacheable(cacheName = "fetchUsersCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
 	public UserList fetchUsers(String tag, String pageIds, String dbQualifier, String tableQualifier) {

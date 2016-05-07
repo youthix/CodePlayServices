@@ -119,6 +119,13 @@ public class ServiceDelegator {
 		return "Indexing completed successfully !";
 	}
 
+	
+	public ResponseObj logout(String fbIdParam) {
+		
+		repositoryDelegator.logout(fbIdParam);
+		return null ;
+	}
+	
 	@Cacheable(cacheName = "HelloCache")
 	public String doHello() {
 		System.out.println("Hi I am in dohello");

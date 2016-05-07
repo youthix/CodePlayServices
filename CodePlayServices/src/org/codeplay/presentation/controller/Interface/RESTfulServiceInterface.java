@@ -1,5 +1,7 @@
 package org.codeplay.presentation.controller.Interface;
 
+import javax.ws.rs.FormParam;
+
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
 import org.springframework.http.HttpRequest;
@@ -14,6 +16,8 @@ public interface RESTfulServiceInterface {
 	ResponseObj fetchUserCount(RequestObj reqparam);
 	
 	ResponseObj registerUser(RequestObj reqparam);	
+	
+	ResponseObj logout(String fbId);
 	
 	String helloWorld();
 

@@ -67,6 +67,16 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 			@FormParam("dbQualifiers") String dbQualifiers) {		
 		return serviceDelegator.doIndexing(username,password,dbQualifiers);
 	}
+	
+	@Override
+	@POST
+	@Path("/logout")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public ResponseObj logout(@FormParam("fbID") String fbId) {		
+		return serviceDelegator.logout(fbId);
+	}	
+	
+	
 
 	@Override
 	@GET
