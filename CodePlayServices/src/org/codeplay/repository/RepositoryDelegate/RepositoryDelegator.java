@@ -182,8 +182,7 @@ public class RepositoryDelegator {
 		}
 
 	}
-
-	@Cacheable(cacheName = "registerUser", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
+	
 	public User registerUser(String tags, String dbQualifier, String tableQualifier, User userObjParam) {
 
 		User userObjDBase = dao.getUser(userObjParam);
@@ -281,16 +280,6 @@ public class RepositoryDelegator {
 
 		}
 		return tags;
-	}
-
-	private String returnDbQualifier(String tags) {
-		String[] temp = tags.split(",");
-		return temp[0];
-	}
-
-	private String returnTableQualifier(String tags) {
-		String[] temp = tags.split(",");
-		return temp[1];
 	}
 
 	public List<String> getDbNameList() {
