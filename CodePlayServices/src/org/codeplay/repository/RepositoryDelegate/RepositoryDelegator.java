@@ -190,12 +190,15 @@ public class RepositoryDelegator {
 			
 			/*Update*/
 			updateUser( userObjParam, userObjDBase);
+			userObjDBase.setUserExists("Y");
 			
 		}
 		else {
 			
 			/*Insert*/
 			insertUser(userObjParam);
+			userObjDBase=dao.getUser(userObjParam);
+			userObjDBase.setUserExists("N");
 		}
 
 		return userObjDBase;
