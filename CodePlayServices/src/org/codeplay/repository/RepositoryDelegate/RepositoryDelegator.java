@@ -190,7 +190,7 @@ public class RepositoryDelegator {
 			
 			/*Update*/
 			updateUser( userObjParam, userObjDBase);
-			userObjDBase=userObjParam;
+			userObjDBase=dao.getUser(userObjParam);
 			userObjDBase.setUserExists("Y");
 			
 		}
