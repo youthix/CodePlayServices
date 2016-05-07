@@ -61,9 +61,9 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		  + " `fbId`, `gender`, `lives_in`, `live_in_id`, `lives_in_country`, `home_town`, "
 		  + "`home_town_id`, `home_town_country`, `currently_at`, `currently_at_id`, `date_of_birth`, "
 		  + " `app_name`, `raw_data`,`email`) values ('"+user.getName()+"',' "
-		  + user.getProfilePicture()+"',' "+user.getFbId()+"',' "+ user.getGender()+"',' "+ user.getLivesIn()+"',' "+ user.getLivesInId()+"',' "
-		  + user.getLivesInCountry()+"',' "+ user.getHomeTown()+"',' "+ user.getHomeTownId()+"',' "+ user.getHomeTownCountry()+"',' "+ user.getCurrentlyAt()+"',' "
-		  + user.getCurrentlyAtId()+"',' "+ user.getDateOfBirth()+"',' "+ user.getAppName()+"',' "+ user.getRawData()+"',' "+ user.getEmail()
+		  + user.getProfilePicture()+"','"+user.getFbId()+"','"+ user.getGender()+"','"+ user.getLivesIn()+"','"+ user.getLivesInId()+"','"
+		  + user.getLivesInCountry()+"','"+ user.getHomeTown()+"','"+ user.getHomeTownId()+"','"+ user.getHomeTownCountry()+"','"+ user.getCurrentlyAt()+"','"
+		  + user.getCurrentlyAtId()+"','"+ user.getDateOfBirth()+"','"+ user.getAppName()+"','"+ user.getRawData()+"','"+ user.getEmail()
 		  		+ "')";	 
 
 		jdbcTemplateObject.update(SQL);
