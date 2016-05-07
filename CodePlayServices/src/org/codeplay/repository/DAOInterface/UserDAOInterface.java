@@ -73,7 +73,7 @@ public interface UserDAOInterface {
 	   List<User> listUsersWithFbIds(String fbIds,String dbQualifier,
 			   String tableQualifier) ;
 	   
-	   void emptyIndexTables();
+	   void emptyIndexTables(String dbName);
 	   
 	  /** 
 	    * This method to be used to batch insert records in the TapPageMapping Table

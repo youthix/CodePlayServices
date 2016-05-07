@@ -37,13 +37,14 @@ public class RepositoryDelegator {
 	private void emptyIndexTables(String dbName) {
 
 		System.out.println("START :: Cleaning Index Tables !");
-		dao.emptyIndexTables();
+		dao.emptyIndexTables(dbName);
 		System.out.println("END :: Cleaning Index Tables !");
 
 	}
 
 	private void createIndexTables(String dbName) {
 		List<String> genderList = new ArrayList<>();
+		String lastPageId="";
 		genderList.add("male");
 		genderList.add("female");
 		List<TagPage> tagPageList = null;
@@ -104,7 +105,7 @@ public class RepositoryDelegator {
 						}
 
 					}
-
+					lastPageId=newPageID;
 					/*
 					 * Creating a list of object to be passed as a parameter for
 					 * Batch Insert in TagPageMapping Table
@@ -151,7 +152,7 @@ public class RepositoryDelegator {
 			System.out.println("Done for Gender = " + gender);
 
 		}
-
+		dao.insertIndexingInfo(dbName,lastPageId);
 	}
 
 	@Cacheable(cacheName = "fetchPagesCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
