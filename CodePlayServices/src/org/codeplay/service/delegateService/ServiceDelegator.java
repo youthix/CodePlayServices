@@ -77,10 +77,8 @@ public class ServiceDelegator {
 				String tags = returnTags(userObj);
 				User user = repositoryDelegator.registerUser(tags, userObj.getAgeGroup(), userObj.getGender(),
 						userObj);
-
-/*				userList.setTag(tags);
-				userList.setTotalUserCount(userCount);
-				responseObj.getListOfUsers().add(userList);*/
+				userList.getUserList().add(user);
+				responseObj.getListOfUsers().add(userList);
 			}
 		}
 		return responseObj;
