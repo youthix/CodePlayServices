@@ -108,33 +108,6 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 	public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList, String dbQualifier,
 			String tableQualifier) {
-
-		final String insertTagPageString = "insert into " + "tags_pages_mapping_" + tableQualifier
-				+ "(`tags`, `page_ids`) values (?,?)";
-		try {
-			Connection con = jdbcTemplateObject.getDataSource().getConnection();
-			con.setAutoCommit(false);
-
-			jdbcTemplateObject.batchUpdate(insertTagPageString, new BatchPreparedStatementSetter() {
-				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					TagPage tagPageObject = tagPagesBatchList.get(i);
-					ps.setString(1, tagPageObject.getTags());
-					ps.setString(2, tagPageObject.getPageIds());
-
-				}
-
-				public int getBatchSize() {
-					return tagPagesBatchList.size();
-				}
-			});
-			con.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void insertBatchTagsToPageIDTest(final List<TagPage> tagPagesBatchList, String dbQualifier,
-			String tableQualifier) {
 		try {
 			Connection con = jdbcTemplateObject.getDataSource().getConnection();
 			con.setAutoCommit(false);
@@ -156,33 +129,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		}
 	}
 
-	public void insertBatchPageIDToFBID(final List<Page> pagesBatchList, String dbQualifier, String tableQualifier) {
-
-		try {
-			final String insertPageDetailsString = "insert into page_details_" + tableQualifier
-					+ "(`page_id`, `fbids`,`table`) values (?,?,?)";
-			Connection con = jdbcTemplateObject.getDataSource().getConnection();
-			con.setAutoCommit(false);
-			jdbcTemplateObject.batchUpdate(insertPageDetailsString, new BatchPreparedStatementSetter() {
-				public void setValues(PreparedStatement ps, int i) throws SQLException {
-					Page pageObject = pagesBatchList.get(i);
-					ps.setString(1, pageObject.getId());
-					ps.setString(2, pageObject.getFbIds());
-					ps.setString(3, pageObject.getTable());
-
-				}
-
-				public int getBatchSize() {
-					return pagesBatchList.size();
-				}
-			});
-			con.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void insertBatchPageIDToFBIDTest(final List<Page> pagesBatchList, String dbQualifier,
+	public void insertBatchPageIDToFBID(final List<Page> pagesBatchList, String dbQualifier,
 			String tableQualifier) {
 
 		try {
