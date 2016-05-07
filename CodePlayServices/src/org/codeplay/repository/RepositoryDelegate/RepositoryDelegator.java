@@ -231,7 +231,7 @@ public class RepositoryDelegator {
 	
 	private void updateUser(User userObjParam,User userObjDBase){		
 		String tagsObjParam=returnTags(userObjParam);
-		String tagsObjDBase=returnTags(userObjParam);
+		String tagsObjDBase=returnTags(userObjDBase);
 		if(tagsObjParam.equalsIgnoreCase(tagsObjDBase)){
 			updateProfile(userObjParam);
 		}

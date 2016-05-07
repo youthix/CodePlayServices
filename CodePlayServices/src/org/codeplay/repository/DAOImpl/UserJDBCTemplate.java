@@ -74,11 +74,11 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	public void deleteUser(User user) {
 		
 		  String SQL =
-		  "delete * from hotornot.users_sorted where fbid='"+user.getFbId()+"'";
+		  "delete from hotornot.users_sorted where fbid='"+user.getFbId()+"'";
 		  jdbcTemplateObject.update(SQL);
 		  
 		  SQL =
-		  "delete * from hotornot_"+user.getAgeGroup()+".users_sorted_"+user.getGender()+" where fbid='"+user.getFbId()+"'";
+		  "delete from hotornot_"+user.getAgeGroup()+".users_sorted_"+user.getGender()+" where fbid='"+user.getFbId()+"'";
 		  jdbcTemplateObject.update(SQL);
 
 		 return;
