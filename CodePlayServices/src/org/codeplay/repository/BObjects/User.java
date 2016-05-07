@@ -1,5 +1,8 @@
 package org.codeplay.repository.BObjects;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class User {
 	
 	public String id;

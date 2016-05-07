@@ -2,8 +2,10 @@ package org.codeplay.presentation.entities;
 
 import java.util.List;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codeplay.repository.BObjects.User;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class UserList {
 
 	private List<User> userList;
