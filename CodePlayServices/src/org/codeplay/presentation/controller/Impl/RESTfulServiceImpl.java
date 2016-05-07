@@ -84,57 +84,6 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		return "Welcome to Code Play Services !!";
 	}
 	
-	@GET
-	@Path("/helloTestQueryParam")
-	public String helloWorldTest(@DefaultValue("2") @QueryParam("test") String test) {	
-		System.out.println("value=" + test);
-		//serviceDelegator.doHello();
-		return "Welcome to Code Play Services !!";
-	}	
-
-	@POST
-	@Path("/pageIds")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public ResponseObj fetchPageIds(RequestObj requestParam) {
-		
-		System.out.println(requestParam.getSearchFieldsList().size());
-		
-		List <SearchFields> searchFieldsList = requestParam.getSearchFieldsList();
-		
-		for (SearchFields searchFieldsObj : searchFieldsList){
-			
-			System.out.println(searchFieldsObj.getTag());
-		}
-		
-		ResponseObj responseObj = new ResponseObj();
-		
-		List<UserList> listOfuserList = new ArrayList<UserList>();
-		
-		for (int i=1; i<5;i++){
-			
-			UserList userListObj = new UserList();
-			
-			userListObj.setPageID("1");
-			userListObj.setTag("Tag");
-			List<User> users = new ArrayList<User>();
-			for(int j=1; j<5;j++){
-				User userObj= new User();
-				userObj.setAge("15");
-				userObj.setDateOfBirth("1234");
-				users.add(userObj);
-			}
-
-			userListObj.setUserList(users);
-			
-			listOfuserList.add(userListObj);
-		}
-		responseObj.setUserList(listOfuserList);
-		//String pages=serviceDelegator.fetchPages(tags,"1519","female");
-		//return null;
-		return responseObj;
-	}	
-
 	public ServiceDelegator getServiceDelegator() {
 		return serviceDelegator;
 	}
