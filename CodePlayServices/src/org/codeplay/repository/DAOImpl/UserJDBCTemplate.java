@@ -157,6 +157,12 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			e.printStackTrace();
 		}
 	}
+	
+	public void insertIndexingInfo(String db,String pageId){
+		String SQL="insert into hotornot.indexing_info (`id`,`lastPageId`) values ('"+db+"','"+pageId+"')";
+		jdbcTemplateObject.update(SQL);		  
+		return;
+	}
 
 	public User getUser(Integer id) {
 		String SQL = "select * from users_sorted_male where id = ?";
@@ -200,14 +206,16 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		return;
 	}
 
-	public void emptyIndexTables() {
-		String SQL = "truncate table page_details_female;";
+	public void emptyIndexTables(String dbName) {
+		String SQL = "truncate "+dbName+".table page_details_female;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate table page_details_male;";
+		SQL = "truncate "+dbName+".table page_details_male;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate table tags_pages_mapping_male;";
+		SQL = "truncate "+dbName+".table tags_pages_mapping_male;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate table tags_pages_mapping_female;";
+		SQL = "truncate "+dbName+".table tags_pages_mapping_female;";
+		jdbcTemplateObject.update(SQL);
+		SQL = "delete from hotornot.indexing_info where id='"+dbName+"';";
 		jdbcTemplateObject.update(SQL);
 		return;
 	}
