@@ -71,6 +71,7 @@ public class ServiceDelegator {
 		for (SearchFields searchFields : reqparam.getSearchFieldsList()) {
 
 			userObj = searchFields.getUser();
+			userObj=setAgeGroup(userObj);
 			userList = new UserList();
 			if (null != userObj) {				
 				User user = repositoryDelegator.registerUser(userObj);
@@ -79,6 +80,25 @@ public class ServiceDelegator {
 			}
 		}
 		return responseObj;
+	}
+	
+	private User setAgeGroup(User userObj){
+		int age=Integer.valueOf(userObj.getAge());		
+		String ageGroup="";
+		if(age>=15 && age<=19){ageGroup="1519";}
+		else if(age>=20 && age<=24){ageGroup="2024";}
+		else if(age>=25 && age<=29){ageGroup="2529";}
+		else if(age>=30 && age<=34){ageGroup="3034";}
+		else if(age>=35 && age<=39){ageGroup="3539";}
+		else if(age>=40 && age<=44){ageGroup="4044";}
+		else if(age>=45 && age<=49){ageGroup="4549";}
+		else if(age>=50 && age<=54){ageGroup="5054";}
+		else if(age>=55 && age<=59){ageGroup="5559";}
+		else if(age>=60 && age<=64){ageGroup="6064";}
+		else if(age>=65 && age<=70){ageGroup="6570";}
+		else ageGroup="Age Group Not Valid !!";
+		userObj.setAgeGroup(ageGroup);		
+		return userObj;
 	}
 
 	public String doIndexing(String username, String password, String dbQualifiers) {
