@@ -208,6 +208,8 @@ public class RepositoryDelegator {
 	}
 	
 	public User logout(String fbIdParam) {
+		
+		updateLogOut(fbIdParam);
 
 		return null;
 	}
@@ -255,6 +257,10 @@ public class RepositoryDelegator {
 	
 	private void updateProfile(User userObjParam){
 		dao.updateUser(userObjParam);
+	}
+	
+	private void updateLogOut(String fbIdParam){
+		dao.updateLogOut(fbIdParam);
 	}
 	
 	private void copyProfile(User userObjParam,User userObjDBase){

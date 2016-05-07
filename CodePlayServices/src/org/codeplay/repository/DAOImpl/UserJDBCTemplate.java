@@ -110,6 +110,17 @@ public class UserJDBCTemplate implements UserDAOInterface {
 				  
 		return;
 	}
+	
+	public void updateLogOut(String fbIdParam) {
+		
+		  String SQL =
+		  "update hotornot.users_sorted set `logintime`=CURRENT_TIMESTAMP WHERE fbId='"
+		  +fbIdParam+"'";
+		  jdbcTemplateObject.update(SQL);
+		  
+				  
+		return;
+	}	
 
 	public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList, String dbQualifier,
 			String tableQualifier) {
