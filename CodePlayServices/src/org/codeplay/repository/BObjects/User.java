@@ -26,6 +26,8 @@ public class User {
 	public String ageGroup;
 	public String tags;
 	public String email;
+	public String userExists;
+	public String userType;
 	
 		
 	public String getId() {
@@ -154,7 +156,17 @@ public class User {
 	public void setLivesInId(String livesInId) {
 		this.livesInId = livesInId;
 	}
-	
-	
+	public String getUserExists() {
+		return userExists;
+	}
+	public void setUserExists(String userExists) {
+		this.userExists = userExists;
+	}
+	public String getUserType() {
+		return userType;
+	}
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 	
 }
