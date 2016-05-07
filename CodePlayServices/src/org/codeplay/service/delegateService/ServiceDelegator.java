@@ -72,11 +72,8 @@ public class ServiceDelegator {
 
 			userObj = searchFields.getUser();
 			userList = new UserList();
-			if (null != userObj) {
-
-				String tags = returnTags(userObj);
-				User user = repositoryDelegator.registerUser(tags, userObj.getAgeGroup(), userObj.getGender(),
-						userObj);
+			if (null != userObj) {				
+				User user = repositoryDelegator.registerUser(userObj);
 				userList.getUserList().add(user);
 				responseObj.getListOfUsers().add(userList);
 			}

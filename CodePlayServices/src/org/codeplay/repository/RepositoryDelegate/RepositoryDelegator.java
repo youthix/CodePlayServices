@@ -183,7 +183,7 @@ public class RepositoryDelegator {
 
 	}
 	
-	public User registerUser(String tags, String dbQualifier, String tableQualifier, User userObjParam) {
+	public User registerUser(User userObjParam) {
 
 		User userObjDBase = dao.getUser(userObjParam);
 		if (null!=userObjDBase){
