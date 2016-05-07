@@ -91,15 +91,20 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		  "update hotornot.users_sorted set `name`='"+user.getName()+"',"
 		  +"`profile_picture`='"+user.getProfilePicture()+"',`gender`='"+user.getGender()+"',`lives_in`='"+user.getLivesIn()+"',"
 		  +"`live_in_id`='"+user.getLivesInId()+"', `lives_in_country`='"+user.getLivesInCountry()+"',`home_town`='"+user.getHomeTown()+"',`home_town_id`='"+user.getHomeTownId()+"',"
-		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()+"',`date_of_birth`='"+user.getDateOfBirth()+"',"
-		  +"`app_name`='"+user.getAppName()+"',`raw_data`='"+user.getRawData()+"',`email`='"+user.getEmail()+"',`logintime`=CURRENT_TIMESTAMP WHERE fbId='"+user.getFbId()+"'";
+		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()
+		  +"',`date_of_birth`='"+user.getDateOfBirth()+"',"
+		  +"`age`='"+user.getAge()+"',"
+		  +"`app_name`='"+user.getAppName()+"',`raw_data`='"+user.getRawData()+"',`email`='"+user.getEmail()+"',`logintime`=CURRENT_TIMESTAMP WHERE fbId='"
+		  +user.getFbId()+"'";
 		  jdbcTemplateObject.update(SQL);
 		  
 		  SQL =
 		  "update hotornot_"+user.getAgeGroup()+".users_sorted_"+user.getGender()+" set `name`='"+user.getName()+"',"
 		  +"`profile_picture`='"+user.getProfilePicture()+"',`gender`='"+user.getGender()+"',`lives_in`='"+user.getLivesIn()+"',"
 		  +"`live_in_id`='"+user.getLivesInId()+"', `lives_in_country`='"+user.getLivesInCountry()+"',`home_town`='"+user.getHomeTown()+"',`home_town_id`='"+user.getHomeTownId()+"',"
-		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()+"',`date_of_birth`='"+user.getDateOfBirth()+"',"
+		  +"`home_town_country`='"+user.getHomeTownCountry()+"',`currently_at`='"+user.getCurrentlyAt()+"',`currently_at_id`='"+user.getCurrentlyAtId()
+		  +"',`date_of_birth`='"+user.getDateOfBirth()+"',"
+		  +"`age`='"+user.getAge()+"',"
 		  +"`app_name`='"+user.getAppName()+"',`raw_data`='"+user.getRawData()+"',`email`='"+user.getEmail()+"' WHERE fbId='"+user.getFbId()+"'";
 		  jdbcTemplateObject.update(SQL);
 				  
