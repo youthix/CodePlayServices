@@ -207,13 +207,13 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	}
 
 	public void emptyIndexTables(String dbName) {
-		String SQL = "truncate "+dbName+".table page_details_female;";
+		String SQL = "truncate table "+dbName+".page_details_female;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate "+dbName+".table page_details_male;";
+		SQL = "truncate table "+dbName+".page_details_male;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate "+dbName+".table tags_pages_mapping_male;";
+		SQL = "truncate table "+dbName+".tags_pages_mapping_male;";
 		jdbcTemplateObject.update(SQL);
-		SQL = "truncate "+dbName+".table tags_pages_mapping_female;";
+		SQL = "truncate table "+dbName+".tags_pages_mapping_female;";
 		jdbcTemplateObject.update(SQL);
 		SQL = "delete from hotornot.indexing_info where id='"+dbName+"';";
 		jdbcTemplateObject.update(SQL);
