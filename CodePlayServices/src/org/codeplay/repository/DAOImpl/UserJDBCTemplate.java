@@ -157,6 +157,12 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			e.printStackTrace();
 		}
 	}
+	
+	public void insertIndexingInfo(String db,String pageId){
+		String SQL="insert into hotornot.indexing_info (`id`,`lastPageId`) values ('"+db+"','"+pageId+"')";
+		jdbcTemplateObject.update(SQL);		  
+		return;
+	}
 
 	public User getUser(Integer id) {
 		String SQL = "select * from users_sorted_male where id = ?";

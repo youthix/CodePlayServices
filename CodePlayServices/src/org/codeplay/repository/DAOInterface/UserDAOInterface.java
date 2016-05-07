@@ -89,5 +89,7 @@ public interface UserDAOInterface {
 	    * This method to be used to fetch User Record on basis of FBID
 	    */	   
 	   public User getUser(User user);
+	   
+	   public void insertIndexingInfo(String db,String pageId);
 
 }
