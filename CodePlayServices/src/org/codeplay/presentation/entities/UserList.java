@@ -1,5 +1,6 @@
 package org.codeplay.presentation.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
@@ -18,11 +19,14 @@ public class UserList {
 	private SearchFields searchFields;
 
 	public List<User> getUserList() {
+		if (this.userList == null) {
+			this.userList = new ArrayList<User>();
+		}
 		return userList;
 	}
 
 	public void setUserList(List<User> userList) {
-		this.userList = userList;
+				this.userList = userList;
 	}
 
 	public String getTag() {

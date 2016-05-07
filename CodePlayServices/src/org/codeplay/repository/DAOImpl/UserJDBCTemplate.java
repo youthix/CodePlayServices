@@ -163,10 +163,10 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		
 		User userRetObj = null;
 		
-		String SQL = "select * from hotornot.users_sorted_" +  userParam.getGender()+ " where fbId ='" +userParam.getFbId() + "'";
+		String SQL = "select * from hotornot.users_sorted where fbId ='" +userParam.getFbId() + "'";
 		
 		List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
-		if (null!=null && users.size()>0){
+		if (null!=users && users.size()>0){
 			userRetObj = users.get(0);
 		}
 		return userRetObj;
