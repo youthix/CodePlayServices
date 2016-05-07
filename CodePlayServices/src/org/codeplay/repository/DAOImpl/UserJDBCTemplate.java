@@ -123,6 +123,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 			// Explicitly commit statements to apply changes
 			con.commit();
+			con.setAutoCommit(true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,6 +146,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 
 			// Explicitly commit statements to apply changes
 			con.commit();
+			con.setAutoCommit(true);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
