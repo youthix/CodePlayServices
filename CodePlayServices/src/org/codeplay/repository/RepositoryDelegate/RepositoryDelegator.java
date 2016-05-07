@@ -190,6 +190,7 @@ public class RepositoryDelegator {
 			
 			/*Update*/
 			updateUser( userObjParam, userObjDBase);
+			userObjDBase=userObjParam;
 			userObjDBase.setUserExists("Y");
 			
 		}
