@@ -92,6 +92,8 @@ public interface UserDAOInterface {
 	   
 	   public void insertIndexingInfo(String db,String pageId);
 	   
+	   public void updateIndexingInfo(String db,String pageId);
+	   
 	   public void updateLogOut(String fbIdParam);
 
 }

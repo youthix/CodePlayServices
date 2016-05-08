@@ -2,7 +2,6 @@
 package org.codeplay.repository.DAOImpl;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.codeplay.repository.DAOInterface.UserDAOInterface;
 import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
-import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -171,6 +169,12 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	
 	public void insertIndexingInfo(String db,String pageId){
 		String SQL="insert into hotornot.indexing_info (`id`,`lastPageId`) values ('"+db+"','"+pageId+"')";
+		jdbcTemplateObject.update(SQL);		  
+		return;
+	}
+	
+	public void updateIndexingInfo(String db,String pageId){
+		String SQL="update hotornot.indexing_info set `lastPageId`= '"+pageId+"' where id='"+db+"'";
 		jdbcTemplateObject.update(SQL);		  
 		return;
 	}
