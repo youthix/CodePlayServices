@@ -91,5 +91,7 @@ public interface UserDAOInterface {
 	   public User getUser(User user);
 	   
 	   public void insertIndexingInfo(String db,String pageId);
+	   
+	   public void updateLogOut(String fbIdParam);
 
 }
