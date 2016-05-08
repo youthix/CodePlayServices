@@ -26,6 +26,7 @@ public class User {
 	public String ageGroup;
 	public String tags;
 	public String email;
+	public String active;
 	public String userExists;
 	public String userType;
 	
@@ -168,5 +169,10 @@ public class User {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
+	public String getActive() {
+		return active;
+	}
+	public void setActive(String active) {
+		this.active = active;
+	}	
 }

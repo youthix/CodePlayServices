@@ -190,10 +190,14 @@ public class RepositoryDelegator {
 		if (null!=userObjDBase){
 			
 			/*Update*/
-			updateUser( userObjParam, userObjDBase);
-			userObjDBase=dao.getUser(userObjParam);
-			userObjDBase.setUserExists("Y");
-			
+			if("N".equalsIgnoreCase(userObjDBase.getActive())){
+				//TODO::return error that user is disabled by admin				
+			}
+			else{
+				updateUser( userObjParam, userObjDBase);
+				userObjDBase=dao.getUser(userObjParam);
+				userObjDBase.setUserExists("Y");
+			}
 		}
 		else {
 			
