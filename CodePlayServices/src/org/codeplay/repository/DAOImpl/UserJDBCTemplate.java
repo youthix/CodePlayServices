@@ -174,7 +174,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	}
 	
 	public void updateIndexingInfo(String db,String pageId){
-		String SQL="update hotornot.indexing_info set `lastPageId`= '"+pageId+"' where id='"+db+"'";
+		String SQL="update hotornot.indexing_info set `lastPageId`= '"+pageId+"',executionDate=CURRENT_TIMESTAMP where id='"+db+"'";
 		jdbcTemplateObject.update(SQL);		  
 		return;
 	}
