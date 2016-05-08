@@ -264,7 +264,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	public List<User> listUsersWithFbIds(String fbIds, String dbQualifier, String tableQualifier) {
 		String dbName = "hotornot_" + dbQualifier;
 		String tableName = "users_sorted_" + tableQualifier;
-		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE FIND_IN_SET(fbId,'" + fbIds + "')";
+		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE FIND_IN_SET(fbId,'" + fbIds + "') AND active='Y'";
 		System.out.println("Query in listUsersWithFbIds >> " + SQL);
 		List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
 		return users;
