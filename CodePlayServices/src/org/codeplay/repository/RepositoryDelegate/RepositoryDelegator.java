@@ -289,7 +289,7 @@ public class RepositoryDelegator {
 		String dbQualifier=returnDbQualifier(tags);
 		String tableQualifier=returnTableQualifier(tags);		
 		List<Page> oldPage=
-				dao.listPagesWithFbIds(userObjDBase.getFbId(),
+				dao.listPageWithFbId(userObjDBase.getFbId(),
 						dbQualifier, 
 						tableQualifier);
 		String oldUserList=oldPage.get(0).getFbIds();
@@ -303,7 +303,16 @@ public class RepositoryDelegator {
 	private void insertIntoNewPage(User userObjParam){
 		String tags=userObjParam.getTags();
 		String dbQualifier=returnDbQualifier(tags);
-		String tableQualifier=returnTableQualifier(tags);		
+		String tableQualifier=returnTableQualifier(tags);	
+		//Start: Just in case avoid duplicate insertion in same DB
+		List<Page> oldPage=
+				dao.listPageWithFbId(userObjParam.getFbId(),
+						dbQualifier, 
+						tableQualifier);
+		if(oldPage.size()>0){
+			return;
+		}
+		//End
 		List<TagPage> tagPage=
 				dao.listPages(tags,
 						dbQualifier, 
