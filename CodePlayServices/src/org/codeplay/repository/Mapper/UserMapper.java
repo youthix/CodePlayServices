@@ -33,6 +33,7 @@ public class UserMapper implements RowMapper<User> {
 		userObj.setHomeTownId(rs.getString("home_town_id"));
 		userObj.setId(Integer.toString(rs.getInt("id")));
 		userObj.setLivesIn(rs.getString("lives_in"));
+		userObj.setLivesInId(rs.getString("live_in_id"));
 		userObj.setLivesInCountry(rs.getString("lives_in_country"));
 		userObj.setName(rs.getString("name"));
 		userObj.setProfilePicture(rs.getString("profile_picture"));
