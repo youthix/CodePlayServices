@@ -264,6 +264,18 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		System.out.println("Fetch listPagesWithFbIds : EndTime >>" + System.currentTimeMillis());
 		return pages;
 	}
+	
+	public List<Page> listPageWithFbId(String ids, String dbQualifier, String tableQualifier) {
+		String dbName = "hotornot_" + dbQualifier;
+		String tableName = "page_details_" + tableQualifier;
+		System.out.println("Fetch listPageWithFbId : StartTime >>" + System.currentTimeMillis());
+		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE fbId like '%"+ids+"%'";
+		System.out.println("Query in listPageWithFbId >> " + SQL);
+
+		List<Page> pages = jdbcTemplateObject.query(SQL, new PageIDDetailsMapper());
+		System.out.println("Fetch listPageWithFbId : EndTime >>" + System.currentTimeMillis());
+		return pages;
+	}
 
 	public List<User> listUsersWithFbIds(String fbIds, String dbQualifier, String tableQualifier) {
 		String dbName = "hotornot_" + dbQualifier;

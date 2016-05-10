@@ -66,6 +66,9 @@ public interface UserDAOInterface {
 	    */
 	   List<Page> listPagesWithFbIds(String ids,String dbQualifier,
 			   String tableQualifier);
+	   
+	   public List<Page> listPageWithFbId(String ids, String dbQualifier, 
+			   String tableQualifier);
 	   /** 
 	    * This method to be used to fetch
 	    * users based on fbids,age,gender
