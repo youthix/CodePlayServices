@@ -177,7 +177,7 @@ public class ServiceDelegator {
 					: userObj.getLivesInCountry()));
 			tags = tags.concat(",");
 			tags = tags.concat(
-					(null == userObj.getLivesIn() || "".equals(userObj.getLivesIn()) ? "%" : userObj.getLivesIn()));
+					(null == userObj.getLivesInId() || "".equals(userObj.getLivesInId()) ? "%" : userObj.getLivesInId()));
 			tags = tags.concat(",");
 			tags = tags.concat(",");
 			tags = tags.concat(",");
