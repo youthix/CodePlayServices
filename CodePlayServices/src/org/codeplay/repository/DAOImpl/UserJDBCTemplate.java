@@ -299,16 +299,5 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		return ;
 	}
 	
-	public List<TagPage> fetchTagPageList(String tags,
-			String dbQualifier, String tableQualifier) {
-		String dbName = "hotornot_" + dbQualifier;
-		String tableName = "tags_pages_mapping_" + tableQualifier;
-		System.out.println("FetchTagPageList : StartTime >>" + System.currentTimeMillis());
-		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE tags = '"+tags+"'";
-		System.out.println("Query in fetchTagPageList >> " + SQL);
-		List<TagPage> tagPageList = jdbcTemplateObject.query(SQL, new TagsPageIDMapper());
-		System.out.println("FetchTagPageList : EndTime >>" + System.currentTimeMillis());
-		return tagPageList;
-	}
 
 }

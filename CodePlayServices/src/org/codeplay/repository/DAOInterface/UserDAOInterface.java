@@ -79,8 +79,6 @@ public interface UserDAOInterface {
 	   List<User> listUsersWithFbIds(String fbIds,String dbQualifier,
 			   String tableQualifier) ;
 	   
-	   public List<TagPage> fetchTagPageList(String tags,
-				String dbQualifier, String tableQualifier);
 	   
 	   void emptyIndexTables(String dbName);
 	   

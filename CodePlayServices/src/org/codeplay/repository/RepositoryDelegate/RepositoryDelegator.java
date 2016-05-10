@@ -243,7 +243,9 @@ public class RepositoryDelegator {
 	
 	private void updateUser(User userObjParam,User userObjDBase){		
 		String tagsObjParam=returnTags(userObjParam);
+		userObjParam.setTags(tagsObjParam);
 		String tagsObjDBase=returnTags(userObjDBase);
+		userObjDBase.setTags(tagsObjDBase);
 		if(tagsObjParam.equalsIgnoreCase(tagsObjDBase)){
 			updateProfile(userObjParam);
 		}
@@ -275,6 +277,7 @@ public class RepositoryDelegator {
 	
 	private void repaginate(User userObjParam,User userObjDBase){
 		deleteFromOldPage(userObjDBase);
+		insertIntoNewPage(userObjParam);
 	}
 	
 	private void deleteFromOldPage(User userObjDBase){
@@ -293,6 +296,31 @@ public class RepositoryDelegator {
 				tableQualifier);
 	}
 	
+	private void insertIntoNewPage(User userObjParam){
+		String tags=userObjParam.getTags();
+		String dbQualifier=returnDbQualifier(tags);
+		String tableQualifier=returnTableQualifier(tags);		
+		List<TagPage> tagPage=
+				dao.listPages(tags,
+						dbQualifier, 
+						tableQualifier);
+		String [] pageList=tagPage.get(0).getPageIds().split(",");
+		int pageListSize=pageList.length;
+		String lastPageId=pageList[pageListSize-1];
+		List<Page> pageDetails=dao.listPagesWithFbIds(lastPageId, dbQualifier, tableQualifier);
+		String[] usersArray=pageDetails.get(0).getFbIds().split(",");
+		if(usersArray.length==30){
+			//create new page
+			
+		}
+		else{
+			//update existing list
+			String newUserList=pageDetails.get(0).getFbIds()+","+userObjParam.getFbId();
+			dao.updateFbUsersList(lastPageId, newUserList, dbQualifier, tableQualifier);
+		}
+		
+	}
+	
 	private void deleteProfile(User userObjDBase){
 		dao.deleteUser(userObjDBase);
 	}
@@ -304,22 +332,17 @@ public class RepositoryDelegator {
 	private String returnTags(User userObj) {
 		String tags = "";
 		if (userObj != null) {
-
 			tags = tags.concat(userObj.getAgeGroup());
 			tags = tags.concat(",");
 			tags = tags.concat(userObj.getGender());
 			tags = tags.concat(",");
-			tags = tags.concat((null == userObj.getLivesInCountry() || "".equals(userObj.getLivesInCountry()) ? "%"
-					: userObj.getLivesInCountry()));
+			tags = tags.concat(userObj.getLivesInCountry());
 			tags = tags.concat(",");
-			tags = tags.concat(
-					(null == userObj.getLivesIn() || "".equals(userObj.getLivesIn()) ? "%" : userObj.getLivesIn()));
+			tags = tags.concat(userObj.getLivesInId());
 			tags = tags.concat(",");
 			tags = tags.concat(",");
 			tags = tags.concat(",");
-			tags = tags.concat((null == userObj.getCurrentlyAtId() || "".equals(userObj.getCurrentlyAtId()) ? "%"
-					: userObj.getCurrentlyAtId()));
-
+			tags = tags.concat(userObj.getCurrentlyAtId());
 		}
 		return tags;
 	}
