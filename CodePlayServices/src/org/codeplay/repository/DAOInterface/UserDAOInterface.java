@@ -106,5 +106,8 @@ public interface UserDAOInterface {
 	   public void updateIndexingInfo(String db,String pageId);
 	   
 	   public void updateLogOut(String fbIdParam);
+	   
+	   public void updatePageIdList(String tags, String newPageList,
+				String dbQualifier, String tableQualifier);
 
 }

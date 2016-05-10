@@ -145,7 +145,8 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
 	public void insertBatchPageIDToFBID(final List<Page> pagesBatchList, String dbQualifier,
 			String tableQualifier) {
 
@@ -295,7 +296,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		return users;
 	}
 
-	@Override
+	
 	public void updateFbUsersList(String oldPageId, String newUserList,
 			String dbQualifier, String tableQualifier) {
 		String dbName = "hotornot_" + dbQualifier;
@@ -306,6 +307,18 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		jdbcTemplateObject.update(SQL);
 		System.out.println("UpdateFbUsersList : EndTime >>" + System.currentTimeMillis());
 		return ;
+	}
+	
+	public void updatePageIdList(String tags, String newPageList,
+			String dbQualifier, String tableQualifier){
+		String dbName = "hotornot_" + dbQualifier;
+		String tableName = "tags_pages_mapping_" + tableQualifier;
+		System.out.println("UpdatePageIdList : StartTime >>" + System.currentTimeMillis());
+		String SQL = "UPDATE " + dbName + "." + tableName + " SET page_ids='"+newPageList+"' WHERE tags='"+tags+"'";
+		System.out.println("Query in UpdatePageIdList >> " + SQL);
+		jdbcTemplateObject.update(SQL);
+		System.out.println("UpdatePageIdList : EndTime >>" + System.currentTimeMillis());
+		return;
 	}
 	
 
