@@ -101,7 +101,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 			return exceptionObj.getMessage();
 		}
 
-		return "Welcome to Code Play Services !!";
+		return "Welcome to Code Play Service !!";
 	}
 	
 	public ServiceDelegator getServiceDelegator() {
