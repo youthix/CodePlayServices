@@ -8,12 +8,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
+import org.codeplay.presentation.util.ServiceException;
 import org.codeplay.service.delegateService.ServiceDelegator;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Path("/hotornot")
 public class RESTfulServiceImpl implements RESTfulServiceInterface{
@@ -88,7 +89,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	
 	
 
-	@Override
+/*	@Override
 	@GET
 	@Path("/hello")
 	public String helloWorld() {
@@ -102,6 +103,23 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		}
 
 		return "Welcome to Code Play Service !!";
+	}*/
+	
+	@Override
+	@GET
+	@Path("/hello")
+	public String helloWorld() {
+		
+		serviceDelegator.doHelloExceptionTest();
+		return "Welcome to Code Play Service !!";
+	}
+	
+	@ExceptionHandler(ServiceException.class)
+	public String handleCustomException(ServiceException ex) {
+
+		System.out.println("Hi");
+		return "In Exception Handler";
+
 	}
 	
 	public ServiceDelegator getServiceDelegator() {
