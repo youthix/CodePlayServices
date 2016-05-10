@@ -269,7 +269,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		String dbName = "hotornot_" + dbQualifier;
 		String tableName = "page_details_" + tableQualifier;
 		System.out.println("Fetch listPageWithFbId : StartTime >>" + System.currentTimeMillis());
-		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE fbId like '%"+ids+"%'";
+		String SQL = "SELECT * FROM " + dbName + "." + tableName + " WHERE fbIds like '%"+ids+"%'";
 		System.out.println("Query in listPageWithFbId >> " + SQL);
 
 		List<Page> pages = jdbcTemplateObject.query(SQL, new PageIDDetailsMapper());
@@ -284,6 +284,19 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		System.out.println("Query in listUsersWithFbIds >> " + SQL);
 		List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
 		return users;
+	}
+
+	@Override
+	public void updateFbUsersList(String oldPageId, String newUserList,
+			String dbQualifier, String tableQualifier) {
+		String dbName = "hotornot_" + dbQualifier;
+		String tableName = "page_details_" + tableQualifier;
+		System.out.println("UpdateFbUsersList : StartTime >>" + System.currentTimeMillis());
+		String SQL = "UPDATE " + dbName + "." + tableName + " SET fbIds='"+newUserList+"' WHERE id='"+oldPageId+"'";
+		System.out.println("Query in UpdateFbUsersList >> " + SQL);
+		jdbcTemplateObject.update(SQL);
+		System.out.println("UpdateFbUsersList : EndTime >>" + System.currentTimeMillis());
+		return ;
 	}
 
 }

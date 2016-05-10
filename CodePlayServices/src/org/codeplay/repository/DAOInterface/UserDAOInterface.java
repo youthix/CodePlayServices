@@ -67,6 +67,9 @@ public interface UserDAOInterface {
 	   List<Page> listPagesWithFbIds(String ids,String dbQualifier,
 			   String tableQualifier);
 	   
+	   public void updateFbUsersList(String oldPageId,String newUserList,
+				String dbQualifier,String tableQualifier);
+	   
 	   public List<Page> listPageWithFbId(String ids, String dbQualifier, 
 			   String tableQualifier);
 	   /** 
