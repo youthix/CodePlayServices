@@ -8,6 +8,7 @@ import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.entities.SearchFields;
 import org.codeplay.presentation.entities.UserList;
+import org.codeplay.presentation.util.ServiceException;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
@@ -129,7 +130,15 @@ public class ServiceDelegator {
 	@Cacheable(cacheName = "HelloCache")
 	public String doHello() {
 		System.out.println("Hi I am in dohello");
-		return null;
+		throw new ServiceException("ExceptionTest");
+		//return null;
+
+	}
+	
+	public String doHelloExceptionTest() {
+		System.out.println("Hi I am in dohello");
+		throw new ServiceException("ExceptionTest");
+		//return null;
 
 	}
 

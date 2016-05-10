@@ -1,10 +1,9 @@
 package org.codeplay.presentation.controller.Interface;
 
-import javax.ws.rs.FormParam;
+import javax.ws.rs.core.Response;
 
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
-import org.springframework.http.HttpRequest;
 
 
 public interface RESTfulServiceInterface {

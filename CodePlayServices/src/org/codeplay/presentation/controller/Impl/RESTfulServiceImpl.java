@@ -8,6 +8,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.codeplay.presentation.entities.RequestObj;
@@ -82,7 +83,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@GET
 	@Path("/hello")
 	public String helloWorld() {		
-		serviceDelegator.doHello();
+		serviceDelegator.doHelloExceptionTest();
 		return "Welcome to Code Play Services !!";
 	}
 	
