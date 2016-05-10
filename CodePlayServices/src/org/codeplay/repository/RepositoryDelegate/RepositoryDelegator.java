@@ -259,8 +259,11 @@ public class RepositoryDelegator {
 		
 	}
 	
-	private void insertUser(User userObjParam){		
-		createProfile(userObjParam);			
+	private void insertUser(User userObjParam){	
+		String tagsObjParam=returnTags(userObjParam);
+		userObjParam.setTags(tagsObjParam);
+		createProfile(userObjParam);		
+		insertIntoNewPage(userObjParam);
 	}
 	
 	private void updateProfile(User userObjParam){
@@ -338,19 +341,20 @@ public class RepositoryDelegator {
 
 	private String returnTags(User userObj) {
 		String tags = "";
-		if (userObj != null) {
-			tags = tags.concat(userObj.getAgeGroup());
-			tags = tags.concat(",");
-			tags = tags.concat(userObj.getGender());
-			tags = tags.concat(",");
-			tags = tags.concat(userObj.getLivesInCountry());
-			tags = tags.concat(",");
-			tags = tags.concat(userObj.getLivesInId());
-			tags = tags.concat(",");
-			tags = tags.concat(",");
-			tags = tags.concat(",");
-			tags = tags.concat(userObj.getCurrentlyAtId());
-		}
+		tags = tags.concat(userObj.getAgeGroup());
+		tags = tags.concat(",");
+		tags = tags.concat(userObj.getGender());
+		tags = tags.concat(",");
+		tags = tags.concat((null == userObj.getLivesInCountry())
+				? "" : userObj.getLivesInCountry());
+		tags = tags.concat(",");
+		tags = tags.concat((null == userObj.getLivesInId()) ? ""
+				: userObj.getLivesInId());
+		tags = tags.concat(",");
+		tags = tags.concat(",");
+		tags = tags.concat(",");
+		tags = tags.concat((null == userObj.getCurrentlyAtId()) ? ""
+				: userObj.getCurrentlyAtId());
 		return tags;
 	}
 	
