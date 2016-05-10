@@ -27,8 +27,17 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)	
 	public ResponseObj fetchPages(RequestObj reqparam) {			
-		
-		return serviceDelegator.fetchPages(reqparam);
+		ResponseObj respObj = new ResponseObj();
+		try{
+			respObj = serviceDelegator.fetchPages(reqparam);
+			respObj.setErrorStatus("SUCCESS");
+		}
+		catch(Exception excepObj){
+			respObj.setErrorStatus("FAILURE"); 
+			respObj.setErrorCode(excepObj.getMessage());
+			
+		}
+		return respObj;
 	}
 		
 	@Override
@@ -82,8 +91,16 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	@Override
 	@GET
 	@Path("/hello")
-	public String helloWorld() {		
-		serviceDelegator.doHelloExceptionTest();
+	public String helloWorld() {
+		
+		try{
+			serviceDelegator.doHelloExceptionTest();
+		}
+		catch(Exception exceptionObj){
+			
+			return exceptionObj.getMessage();
+		}
+
 		return "Welcome to Code Play Services !!";
 	}
 	

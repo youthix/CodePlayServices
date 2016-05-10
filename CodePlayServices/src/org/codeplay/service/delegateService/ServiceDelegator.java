@@ -135,7 +135,7 @@ public class ServiceDelegator {
 
 	}
 	
-	public String doHelloExceptionTest() {
+	public String doHelloExceptionTest()  {
 		System.out.println("Hi I am in dohello");
 		throw new ServiceException("ExceptionTest");
 		//return null;
