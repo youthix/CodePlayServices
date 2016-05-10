@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.codeplay.presentation.entities.UserList;
+import org.codeplay.repository.BObjects.IndexingInfo;
 import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
@@ -311,7 +312,13 @@ public class RepositoryDelegator {
 		String[] usersArray=pageDetails.get(0).getFbIds().split(",");
 		if(usersArray.length==30){
 			//create new page
-			
+			IndexingInfo ii=dao.selectIndexingInfo(userObjParam.getAgeGroup());
+			String pageId=ii.getLastPageId();			
+			int pageIdentifier=Integer.valueOf(pageId.substring(1,pageId.length()));
+			String newPageId="P"+String.valueOf(++pageIdentifier);
+			String newPageList=tagPage.get(0)+","+newPageId;
+			dao.updateIndexingInfo(userObjParam.getAgeGroup(), newPageId);
+			dao.updatePageIdList(tags, newPageList, dbQualifier, tableQualifier);
 		}
 		else{
 			//update existing list
