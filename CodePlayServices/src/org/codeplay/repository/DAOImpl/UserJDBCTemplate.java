@@ -302,7 +302,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		String dbName = "hotornot_" + dbQualifier;
 		String tableName = "page_details_" + tableQualifier;
 		System.out.println("UpdateFbUsersList : StartTime >>" + System.currentTimeMillis());
-		String SQL = "UPDATE " + dbName + "." + tableName + " SET fbIds='"+newUserList+"' WHERE id='"+oldPageId+"'";
+		String SQL = "UPDATE " + dbName + "." + tableName + " SET fbIds='"+newUserList+"' WHERE page_id='"+oldPageId+"'";
 		System.out.println("Query in UpdateFbUsersList >> " + SQL);
 		jdbcTemplateObject.update(SQL);
 		System.out.println("UpdateFbUsersList : EndTime >>" + System.currentTimeMillis());
