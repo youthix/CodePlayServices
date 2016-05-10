@@ -11,6 +11,10 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 public class ResponseObj {
 
 	private List<UserList> listOfUsers;
+	
+	private String errorCode;
+	
+	private String errorStatus;
 
 	public List<UserList> getListOfUsers() {
 
@@ -24,5 +28,23 @@ public class ResponseObj {
 	public void setUserList(List<UserList> listOfUsers) {
 		this.listOfUsers = listOfUsers;
 	}
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getErrorStatus() {
+		return errorStatus;
+	}
+
+	public void setErrorStatus(String errorStatus) {
+		this.errorStatus = errorStatus;
+	}
+	
+	
 
 }
