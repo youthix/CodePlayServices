@@ -251,6 +251,7 @@ public class RepositoryDelegator {
 			copyProfile(userObjParam, userObjDBase);
 			deleteProfile(userObjDBase);
 			createProfile(userObjParam);
+			repaginate(userObjParam, userObjDBase);
 		}
 		
 	}
@@ -269,6 +270,27 @@ public class RepositoryDelegator {
 	
 	private void copyProfile(User userObjParam,User userObjDBase){
 		//To be done when we will introduce likes,dislikes,ratings and rankings
+		//In case we are maintaining separate tables it will not be needed
+	}
+	
+	private void repaginate(User userObjParam,User userObjDBase){
+		deleteFromOldPage(userObjDBase);
+	}
+	
+	private void deleteFromOldPage(User userObjDBase){
+		String tags=userObjDBase.getTags();
+		String dbQualifier=returnDbQualifier(tags);
+		String tableQualifier=returnTableQualifier(tags);		
+		List<Page> oldPage=
+				dao.listPagesWithFbIds(userObjDBase.getFbId(),
+						dbQualifier, 
+						tableQualifier);
+		String oldUserList=oldPage.get(0).getFbIds();
+		String newUserList=oldUserList.replaceAll(
+				userObjDBase.getFbId(),"");
+		dao.updateFbUsersList(oldPage.get(0).getId(),newUserList,
+				dbQualifier, 
+				tableQualifier);
 	}
 	
 	private void deleteProfile(User userObjDBase){
@@ -300,6 +322,16 @@ public class RepositoryDelegator {
 
 		}
 		return tags;
+	}
+	
+	private String returnDbQualifier(String tags) {
+		String[] temp = tags.split(",");
+		return temp[0];
+	}
+
+	private String returnTableQualifier(String tags) {
+		String[] temp = tags.split(",");
+		return temp[1];
 	}
 
 	public List<String> getDbNameList() {
