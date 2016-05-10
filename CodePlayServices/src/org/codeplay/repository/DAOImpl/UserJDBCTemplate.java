@@ -8,10 +8,12 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.IndexingInfo;
 import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.DAOInterface.UserDAOInterface;
+import org.codeplay.repository.Mapper.IndexingInfoMapper;
 import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
@@ -165,6 +167,13 @@ public class UserJDBCTemplate implements UserDAOInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public IndexingInfo selectIndexingInfo(String db){
+		db="hotornot_"+db;
+		String SQL="select * from hotornot.indexing_info where id = '"+db+"'";
+		List<IndexingInfo> indexingInfo=jdbcTemplateObject.query(SQL,new IndexingInfoMapper());		  
+		return indexingInfo.get(0);
 	}
 	
 	public void insertIndexingInfo(String db,String pageId){

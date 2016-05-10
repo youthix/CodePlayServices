@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.codeplay.repository.BObjects.IndexingInfo;
 import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
 import org.codeplay.repository.BObjects.User;
@@ -94,8 +95,11 @@ public interface UserDAOInterface {
 
 	   /** 
 	    * This method to be used to fetch User Record on basis of FBID
-	    */	   
+	    */	
+	   
 	   public User getUser(User user);
+	   
+	   public IndexingInfo selectIndexingInfo(String db);
 	   
 	   public void insertIndexingInfo(String db,String pageId);
 	   
