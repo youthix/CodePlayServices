@@ -13,6 +13,7 @@ import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
 import org.codeplay.presentation.util.ServiceException;
+import org.codeplay.presentation.util.ServiceExceptionMapper;
 import org.codeplay.service.delegateService.ServiceDelegator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -34,8 +35,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 			respObj.setErrorStatus("SUCCESS");
 		}
 		catch(Exception excepObj){
-			respObj.setErrorStatus("FAILURE"); 
-			respObj.setErrorCode(excepObj.getMessage());
+			return ServiceExceptionMapper.toResponse(excepObj);
 			
 		}
 		return respObj;
@@ -89,7 +89,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 	
 	
 
-/*	@Override
+	@Override
 	@GET
 	@Path("/hello")
 	public String helloWorld() {
@@ -99,20 +99,12 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface{
 		}
 		catch(Exception exceptionObj){
 			
-			return exceptionObj.getMessage();
+			 ServiceExceptionMapper.toResponse(exceptionObj);
 		}
 
 		return "Welcome to Code Play Service !!";
-	}*/
-	
-	@Override
-	@GET
-	@Path("/hello")
-	public String helloWorld() {
-		
-		serviceDelegator.doHelloExceptionTest();
-		return "Welcome to Code Play Service !!";
 	}
+	
 	
 	@ExceptionHandler(ServiceException.class)
 	public String handleCustomException(ServiceException ex) {

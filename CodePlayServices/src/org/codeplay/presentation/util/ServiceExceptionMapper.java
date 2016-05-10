@@ -1,29 +1,27 @@
 package org.codeplay.presentation.util;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
+
+import org.codeplay.presentation.entities.ResponseObj;
 
 /**
- * JAX-RS supports exception inheritance as well. In case an exception is thrown
- * JAX-RS will try and map an ExceptionMapper for that exception type, if it
- * cannot then it will try and find an exception mapper for the exception's
- * superclass. It will continue till there are no more classes left in the
- * heirarchy.
+ The utility class is used to map the Exception instances to the particular functions and to accordingly set the require values.
  */
-@Provider
-public class ServiceExceptionMapper implements ExceptionMapper<RuntimeException> {
-	@Override
-    public Response toResponse(RuntimeException exceptionObj) {
 
-        if (exceptionObj instanceof ServiceException) {
-            //return Response.status(ContentServiceConstants.EXPERT_OPINION_MISSING).build();
-           return Response.status(00).entity(exceptionObj.getMessage()).build();
-        } 
-        else {
-            return Response.status(01).build();
-        }
+public class ServiceExceptionMapper {
 
-    }
+	public static ResponseObj toResponse(Exception exceptionObj) {
+		ResponseObj respObj = new ResponseObj();
+		if (exceptionObj instanceof ServiceException) {
+			System.out.println("EMapperIn");
+			respObj.setErrorStatus("FAILURE");
+			respObj.setErrorCode(exceptionObj.getMessage());
+			System.out.println("EMapperOut");
+			return respObj;
+		} else {
+			return null;
+		}
+
+	}
 
 }
