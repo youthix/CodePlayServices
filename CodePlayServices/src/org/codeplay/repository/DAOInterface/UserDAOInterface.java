@@ -41,6 +41,7 @@ public interface UserDAOInterface {
 	   public void updateUser(User user);
 	   
 	   public User getUser(Integer id);
+	  
 	   /** 
 	    * This is the method to be used to list down
 	    * all the records from the Student table.
@@ -109,5 +110,7 @@ public interface UserDAOInterface {
 	   
 	   public void updatePageIdList(String tags, String newPageList,
 				String dbQualifier, String tableQualifier);
+	   
+	   public void deactivateUser(User user);
 
 }

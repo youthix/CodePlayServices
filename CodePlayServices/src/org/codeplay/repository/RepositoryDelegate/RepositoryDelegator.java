@@ -191,7 +191,7 @@ public class RepositoryDelegator {
 		if (null!=userObjDBase){
 			
 			/*Update*/
-			if("N".equalsIgnoreCase(userObjDBase.getActive())){
+			if("D".equalsIgnoreCase(userObjDBase.getActive())){
 				//TODO::return error that user is disabled by admin				
 			}
 			else{
@@ -210,6 +210,22 @@ public class RepositoryDelegator {
 
 		return userObjDBase;
 
+	}
+	
+	public boolean deactivateUser(User userObjParam){
+		boolean success=false;
+		User userObjDBase = dao.getUser(userObjParam);
+		if("D".equalsIgnoreCase(userObjDBase.getActive())){
+			//TODO::return error that user is disabled by admin				
+		}
+		else if(!userObjDBase.getKey().equals(userObjParam.getKey())){
+			////TODO::return error that keys donot match, hence cannot deactivate profile	
+		}
+		else{
+			dao.deactivateUser(userObjParam);
+			success=true;
+		}
+		return success;
 	}
 	
 	public User logout(String fbIdParam) {
@@ -243,10 +259,13 @@ public class RepositoryDelegator {
 	}
 	
 	private void updateUser(User userObjParam,User userObjDBase){		
-		String tagsObjParam=returnTags(userObjParam);
-		userObjParam.setTags(tagsObjParam);
-		String tagsObjDBase=returnTags(userObjDBase);
-		userObjDBase.setTags(tagsObjDBase);
+		
+		if(userObjDBase.getKey().equals(userObjParam.getKey())){
+			String tagsObjParam=returnTags(userObjParam);
+			userObjParam.setTags(tagsObjParam);
+			String tagsObjDBase=returnTags(userObjDBase);
+			userObjDBase.setTags(tagsObjDBase);
+		
 		if(tagsObjParam.equalsIgnoreCase(tagsObjDBase)){
 			updateProfile(userObjParam);
 		}
@@ -256,12 +275,17 @@ public class RepositoryDelegator {
 			createProfile(userObjParam);
 			repaginate(userObjParam, userObjDBase);
 		}
+	  }
+	  else{
+		  //TODO:Throw runtime exception corresponding to keys mismatch		  
+	  }
 		
 	}
 	
 	private void insertUser(User userObjParam){	
 		String tagsObjParam=returnTags(userObjParam);
 		userObjParam.setTags(tagsObjParam);
+		userObjParam.setKey(generateKey());
 		createProfile(userObjParam);		
 		insertIntoNewPage(userObjParam);
 	}
@@ -359,7 +383,13 @@ public class RepositoryDelegator {
 	private void createProfile(User userObjParam){
 		dao.createUser(userObjParam);
 	}
-
+	
+	private String generateKey(){
+		long currTime=System.currentTimeMillis();
+		String key=String.valueOf(currTime);
+	
+		return key;
+	}
 	private String returnTags(User userObj) {
 		String tags = "";
 		tags = tags.concat(userObj.getAgeGroup());
