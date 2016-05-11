@@ -14,7 +14,9 @@ public interface RESTfulServiceInterface {
 	
 	ResponseObj fetchUserCount(RequestObj reqparam);
 	
-	ResponseObj registerUser(RequestObj reqparam);	
+	ResponseObj registerUser(RequestObj reqparam);
+	
+	ResponseObj deleteUser(RequestObj reqparam);
 	
 	ResponseObj logout(String fbId);
 	

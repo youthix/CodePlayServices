@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
+import org.codeplay.presentation.util.ServiceConstant;
 import org.codeplay.presentation.util.ServiceException;
 import org.codeplay.presentation.util.ServiceExceptionMapper;
 import org.codeplay.service.delegateService.ServiceDelegator;
@@ -112,6 +113,30 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		try {
 			respObj = serviceDelegator.logout(fbId);
 			respObj.setErrorStatus("SUCCESS");
+		} catch (Exception excepObj) {
+			return ServiceExceptionMapper.toResponse(excepObj);
+
+		}
+		return respObj;
+	}
+
+	@Override
+	@POST
+	@Path("/delte")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj deleteUser(RequestObj reqparam) {
+
+		ResponseObj respObj = new ResponseObj();
+		try {
+			boolean success = serviceDelegator.deleteUser(reqparam);
+			if (success) {
+				respObj.setErrorStatus("SUCCESS");
+			} else {
+				respObj.setErrorStatus("FAILURE");
+				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+			}
+
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
