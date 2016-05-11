@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.codeplay.presentation.entities.UserList;
+import org.codeplay.presentation.util.ServiceConstant;
+import org.codeplay.presentation.util.ServiceException;
 import org.codeplay.repository.BObjects.IndexingInfo;
 import org.codeplay.repository.BObjects.Page;
 import org.codeplay.repository.BObjects.TagPage;
@@ -45,7 +47,7 @@ public class RepositoryDelegator {
 
 	private void createIndexTables(String dbName) {
 		List<String> genderList = new ArrayList<>();
-		String lastPageId="";
+		String lastPageId = "";
 		genderList.add("male");
 		genderList.add("female");
 		List<TagPage> tagPageList = null;
@@ -106,7 +108,7 @@ public class RepositoryDelegator {
 						}
 
 					}
-					lastPageId=newPageID;
+					lastPageId = newPageID;
 					/*
 					 * Creating a list of object to be passed as a parameter for
 					 * Batch Insert in TagPageMapping Table
@@ -153,7 +155,7 @@ public class RepositoryDelegator {
 			System.out.println("Done for Gender = " + gender);
 
 		}
-		dao.insertIndexingInfo(dbName,lastPageId);
+		dao.insertIndexingInfo(dbName, lastPageId);
 	}
 
 	@Cacheable(cacheName = "fetchPagesCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
@@ -184,57 +186,57 @@ public class RepositoryDelegator {
 		}
 
 	}
-	
+
 	public User registerUser(User userObjParam) {
 
 		User userObjDBase = dao.getUser(userObjParam);
-		if (null!=userObjDBase){
-			
-			/*Update*/
-			if("D".equalsIgnoreCase(userObjDBase.getActive())){
-				//TODO::return error that user is disabled by admin				
-			}
-			else{
-				updateUser( userObjParam, userObjDBase);
-				userObjDBase=dao.getUser(userObjParam);
+		if (null != userObjDBase) {
+
+			/* Update */
+			if ("D".equalsIgnoreCase(userObjDBase.getActive())) {
+
+				// USER_INACTIVE::return error that user is disabled by admin
+				throw new ServiceException(ServiceConstant.USER_INACTIVE);
+			} else {
+				updateUser(userObjParam, userObjDBase);
+				userObjDBase = dao.getUser(userObjParam);
 				userObjDBase.setUserExists("Y");
 			}
-		}
-		else {
-			
-			/*Insert*/
+		} else {
+
+			/* Insert */
 			insertUser(userObjParam);
-			userObjDBase=dao.getUser(userObjParam);
+			userObjDBase = dao.getUser(userObjParam);
 			userObjDBase.setUserExists("N");
 		}
 
 		return userObjDBase;
 
 	}
-	
-	public boolean deactivateUser(User userObjParam){
-		boolean success=false;
+
+	public boolean deactivateUser(User userObjParam) {
+		boolean success = false;
 		User userObjDBase = dao.getUser(userObjParam);
-		if("D".equalsIgnoreCase(userObjDBase.getActive())){
-			//TODO::return error that user is disabled by admin				
-		}
-		else if(!userObjDBase.getKey().equals(userObjParam.getKey())){
-			////TODO::return error that keys donot match, hence cannot deactivate profile	
-		}
-		else{
+		if ("D".equalsIgnoreCase(userObjDBase.getActive())) {
+			// USER_INACTIVE::return error that user is disabled by admin
+			throw new ServiceException(ServiceConstant.USER_INACTIVE);
+		} else if (!userObjDBase.getKey().equals(userObjParam.getKey())) {
+			// KEY_MISMATCH::Throw runtime exception corresponding to keys
+			// mismatch
+			throw new ServiceException(ServiceConstant.KEY_MISMATCH);
+		} else {
 			dao.deactivateUser(userObjParam);
-			success=true;
+			success = true;
 		}
 		return success;
 	}
-	
+
 	public User logout(String fbIdParam) {
-		
+
 		updateLogOut(fbIdParam);
 
 		return null;
 	}
-	
 
 	@Cacheable(cacheName = "fetchUsersCache", keyGenerator = @KeyGenerator(name = "HashCodeCacheKeyGenerator", properties = @Property(name = "includeMethod", value = "false") ) )
 	public UserList fetchUsers(String tag, String pageIds, String dbQualifier, String tableQualifier) {
@@ -257,158 +259,141 @@ public class RepositoryDelegator {
 		List<Page> pages = dao.listPagesWithFbIds(ids, dbQualifier, tableQualifier);
 		return pages;
 	}
-	
-	private void updateUser(User userObjParam,User userObjDBase){		
-		
-		if(userObjDBase.getKey().equals(userObjParam.getKey())){
-			String tagsObjParam=returnTags(userObjParam);
+
+	private void updateUser(User userObjParam, User userObjDBase) {
+
+		if (userObjDBase.getKey().equals(userObjParam.getKey())) {
+			String tagsObjParam = returnTags(userObjParam);
 			userObjParam.setTags(tagsObjParam);
-			String tagsObjDBase=returnTags(userObjDBase);
+			String tagsObjDBase = returnTags(userObjDBase);
 			userObjDBase.setTags(tagsObjDBase);
-		
-		if(tagsObjParam.equalsIgnoreCase(tagsObjDBase)){
-			updateProfile(userObjParam);
+
+			if (tagsObjParam.equalsIgnoreCase(tagsObjDBase)) {
+				updateProfile(userObjParam);
+			} else {
+				copyProfile(userObjParam, userObjDBase);
+				deleteProfile(userObjDBase);
+				createProfile(userObjParam);
+				repaginate(userObjParam, userObjDBase);
+			}
+		} else {
+			// KEY_MISMATCH::Throw runtime exception corresponding to keys
+			// mismatch
+			throw new ServiceException(ServiceConstant.KEY_MISMATCH);
+
 		}
-		else{
-			copyProfile(userObjParam, userObjDBase);
-			deleteProfile(userObjDBase);
-			createProfile(userObjParam);
-			repaginate(userObjParam, userObjDBase);
-		}
-	  }
-	  else{
-		  //TODO:Throw runtime exception corresponding to keys mismatch		  
-	  }
-		
+
 	}
-	
-	private void insertUser(User userObjParam){	
-		String tagsObjParam=returnTags(userObjParam);
+
+	private void insertUser(User userObjParam) {
+		String tagsObjParam = returnTags(userObjParam);
 		userObjParam.setTags(tagsObjParam);
 		userObjParam.setKey(generateKey());
-		createProfile(userObjParam);		
+		createProfile(userObjParam);
 		insertIntoNewPage(userObjParam);
 	}
-	
-	private void updateProfile(User userObjParam){
+
+	private void updateProfile(User userObjParam) {
 		dao.updateUser(userObjParam);
 	}
-	
-	private void updateLogOut(String fbIdParam){
+
+	private void updateLogOut(String fbIdParam) {
 		dao.updateLogOut(fbIdParam);
 	}
-	
-	private void copyProfile(User userObjParam,User userObjDBase){
-		//To be done when we will introduce likes,dislikes,ratings and rankings
-		//In case we are maintaining separate tables it will not be needed
+
+	private void copyProfile(User userObjParam, User userObjDBase) {
+		// To be done when we will introduce likes,dislikes,ratings and rankings
+		// In case we are maintaining separate tables it will not be needed
 	}
-	
-	private void repaginate(User userObjParam,User userObjDBase){
+
+	private void repaginate(User userObjParam, User userObjDBase) {
 		deleteFromOldPage(userObjDBase);
 		insertIntoNewPage(userObjParam);
 	}
-	
-	private void deleteFromOldPage(User userObjDBase){
-		String tags=userObjDBase.getTags();
-		String dbQualifier=returnDbQualifier(tags);
-		String tableQualifier=returnTableQualifier(tags);		
-		List<Page> oldPage=
-				dao.listPageWithFbId(userObjDBase.getFbId(),
-						dbQualifier, 
-						tableQualifier);
-		String oldUserList=oldPage.get(0).getFbIds();
-		String newUserList=oldUserList.replaceAll(
-				userObjDBase.getFbId(),"");
-		dao.updateFbUsersList(oldPage.get(0).getId(),newUserList,
-				dbQualifier, 
-				tableQualifier);
-	}
-	
-	private void insertIntoNewPage(User userObjParam){
-		String tags=userObjParam.getTags();
-		String dbQualifier=returnDbQualifier(tags);
-		String tableQualifier=returnTableQualifier(tags);	
-		//Start: Just in case avoid duplicate insertion in same DB
-		List<Page> oldPage=
-				dao.listPageWithFbId(userObjParam.getFbId(),
-						dbQualifier, 
-						tableQualifier);
-		if(oldPage.size()>0){
-			return;
-		}
-		//End
-		List<TagPage> tagPage=
-				dao.listPages(tags,
-						dbQualifier, 
-						tableQualifier);
-		String [] pageList=tagPage.get(0).getPageIds().split(",");
-		int pageListSize=pageList.length;
-		if(pageListSize==0){
-			createNewPage(userObjParam, tags, dbQualifier, tableQualifier,
-					tagPage);	
-		}
-		else{			
-		String lastPageId=pageList[pageListSize-1];
-		List<Page> pageDetails=dao.listPagesWithFbIds(lastPageId, dbQualifier, tableQualifier);
-		String[] usersArray=pageDetails.get(0).getFbIds().split(",");
-		if(usersArray.length==30){
-			//create new page
-			createNewPage(userObjParam, tags, dbQualifier, tableQualifier,
-					tagPage);
-		}
-		else{
-			//update existing list
-			String newUserList=(usersArray.length==0)?userObjParam.getFbId():
-					pageDetails.get(0).getFbIds()+","+userObjParam.getFbId();
-			dao.updateFbUsersList(lastPageId, newUserList, dbQualifier, tableQualifier);
-		}
-	  }
+
+	private void deleteFromOldPage(User userObjDBase) {
+		String tags = userObjDBase.getTags();
+		String dbQualifier = returnDbQualifier(tags);
+		String tableQualifier = returnTableQualifier(tags);
+		List<Page> oldPage = dao.listPageWithFbId(userObjDBase.getFbId(), dbQualifier, tableQualifier);
+		String oldUserList = oldPage.get(0).getFbIds();
+		String newUserList = oldUserList.replaceAll(userObjDBase.getFbId(), "");
+		dao.updateFbUsersList(oldPage.get(0).getId(), newUserList, dbQualifier, tableQualifier);
 	}
 
-	private void createNewPage(User userObjParam, String tags,
-			String dbQualifier, String tableQualifier, List<TagPage> tagPage) {
-		IndexingInfo ii=dao.selectIndexingInfo(userObjParam.getAgeGroup());
-		String pageId=ii.getLastPageId();			
-		int pageIdentifier=Integer.valueOf(pageId.substring(1,pageId.length()));
-		String newPageId="P"+String.valueOf(++pageIdentifier);
-		String newPageList=tagPage.get(0)+","+newPageId;
+	private void insertIntoNewPage(User userObjParam) {
+		String tags = userObjParam.getTags();
+		String dbQualifier = returnDbQualifier(tags);
+		String tableQualifier = returnTableQualifier(tags);
+		// Start: Just in case avoid duplicate insertion in same DB
+		List<Page> oldPage = dao.listPageWithFbId(userObjParam.getFbId(), dbQualifier, tableQualifier);
+		if (oldPage.size() > 0) {
+			return;
+		}
+		// End
+		List<TagPage> tagPage = dao.listPages(tags, dbQualifier, tableQualifier);
+		String[] pageList = tagPage.get(0).getPageIds().split(",");
+		int pageListSize = pageList.length;
+		if (pageListSize == 0) {
+			createNewPage(userObjParam, tags, dbQualifier, tableQualifier, tagPage);
+		} else {
+			String lastPageId = pageList[pageListSize - 1];
+			List<Page> pageDetails = dao.listPagesWithFbIds(lastPageId, dbQualifier, tableQualifier);
+			String[] usersArray = pageDetails.get(0).getFbIds().split(",");
+			if (usersArray.length == 30) {
+				// create new page
+				createNewPage(userObjParam, tags, dbQualifier, tableQualifier, tagPage);
+			} else {
+				// update existing list
+				String newUserList = (usersArray.length == 0) ? userObjParam.getFbId()
+						: pageDetails.get(0).getFbIds() + "," + userObjParam.getFbId();
+				dao.updateFbUsersList(lastPageId, newUserList, dbQualifier, tableQualifier);
+			}
+		}
+	}
+
+	private void createNewPage(User userObjParam, String tags, String dbQualifier, String tableQualifier,
+			List<TagPage> tagPage) {
+		IndexingInfo ii = dao.selectIndexingInfo(userObjParam.getAgeGroup());
+		String pageId = ii.getLastPageId();
+		int pageIdentifier = Integer.valueOf(pageId.substring(1, pageId.length()));
+		String newPageId = "P" + String.valueOf(++pageIdentifier);
+		String newPageList = tagPage.get(0) + "," + newPageId;
 		dao.updateIndexingInfo(userObjParam.getAgeGroup(), newPageId);
 		dao.updatePageIdList(tags, newPageList, dbQualifier, tableQualifier);
 	}
-	
-	private void deleteProfile(User userObjDBase){
+
+	private void deleteProfile(User userObjDBase) {
 		dao.deleteUser(userObjDBase);
 	}
-	
-	private void createProfile(User userObjParam){
+
+	private void createProfile(User userObjParam) {
 		dao.createUser(userObjParam);
 	}
-	
-	private String generateKey(){
-		long currTime=System.currentTimeMillis();
-		String key=String.valueOf(currTime);
-	
+
+	private String generateKey() {
+		long currTime = System.currentTimeMillis();
+		String key = String.valueOf(currTime);
+
 		return key;
 	}
+
 	private String returnTags(User userObj) {
 		String tags = "";
 		tags = tags.concat(userObj.getAgeGroup());
 		tags = tags.concat(",");
 		tags = tags.concat(userObj.getGender());
 		tags = tags.concat(",");
-		tags = tags.concat((null == userObj.getLivesInCountry())
-				? "" : userObj.getLivesInCountry());
+		tags = tags.concat((null == userObj.getLivesInCountry()) ? "" : userObj.getLivesInCountry());
 		tags = tags.concat(",");
-		tags = tags.concat((null == userObj.getLivesInId()) ? ""
-				: userObj.getLivesInId());
+		tags = tags.concat((null == userObj.getLivesInId()) ? "" : userObj.getLivesInId());
 		tags = tags.concat(",");
 		tags = tags.concat(",");
 		tags = tags.concat(",");
-		tags = tags.concat((null == userObj.getCurrentlyAtId()) ? ""
-				: userObj.getCurrentlyAtId());
+		tags = tags.concat((null == userObj.getCurrentlyAtId()) ? "" : userObj.getCurrentlyAtId());
 		return tags;
 	}
-	
+
 	private String returnDbQualifier(String tags) {
 		String[] temp = tags.split(",");
 		return temp[0];

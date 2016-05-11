@@ -130,8 +130,7 @@ public class ServiceDelegator {
 	@Cacheable(cacheName = "HelloCache")
 	public String doHello() {
 		System.out.println("Hi I am in dohello");
-		throw new ServiceException("ExceptionTest");
-		//return null;
+		return null;
 
 	}
 	
