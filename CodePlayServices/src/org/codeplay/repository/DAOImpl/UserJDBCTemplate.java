@@ -134,8 +134,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		  +fbIdParam+"'";
 		  jdbcTemplateObject.update(SQL);
 		  
-				  
-		return;
+
 	}	
 
 	public void insertBatchTagsToPageID(final List<TagPage> tagPagesBatchList, String dbQualifier,
