@@ -112,5 +112,8 @@ public interface UserDAOInterface {
 				String dbQualifier, String tableQualifier);
 	   
 	   public void deactivateUser(User user);
+	   
+	   public void insertTagPageObj(TagPage tagPageObj,
+				String dbQualifier, String tableQualifier);
 
 }

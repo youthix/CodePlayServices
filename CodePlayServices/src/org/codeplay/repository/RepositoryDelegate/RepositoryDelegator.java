@@ -332,35 +332,67 @@ public class RepositoryDelegator {
 		}
 		// End
 		List<TagPage> tagPage = dao.listPages(tags, dbQualifier, tableQualifier);
-		String[] pageList = tagPage.get(0).getPageIds().split(",");
-		int pageListSize = pageList.length;
-		if (pageListSize == 0) {
-			createNewPage(userObjParam, tags, dbQualifier, tableQualifier, tagPage);
-		} else {
-			String lastPageId = pageList[pageListSize - 1];
-			List<Page> pageDetails = dao.listPagesWithFbIds(lastPageId, dbQualifier, tableQualifier);
-			String[] usersArray = pageDetails.get(0).getFbIds().split(",");
-			if (usersArray.length == 30) {
-				// create new page
+		if (null != tagPage && tagPage.size() > 0) {
+
+			String[] pageList = tagPage.get(0).getPageIds().split(",");
+			int pageListSize = pageList.length;
+			if (pageListSize == 0) {
 				createNewPage(userObjParam, tags, dbQualifier, tableQualifier, tagPage);
 			} else {
-				// update existing list
-				String newUserList = (usersArray.length == 0) ? userObjParam.getFbId()
-						: pageDetails.get(0).getFbIds() + "," + userObjParam.getFbId();
-				dao.updateFbUsersList(lastPageId, newUserList, dbQualifier, tableQualifier);
+				String lastPageId = pageList[pageListSize - 1];
+				List<Page> pageDetails = dao.listPagesWithFbIds(lastPageId, dbQualifier, tableQualifier);
+				String[] usersArray = pageDetails.get(0).getFbIds().split(",");
+				if (usersArray.length == 30) {
+					// create new page
+					createNewPage(userObjParam, tags, dbQualifier, tableQualifier, tagPage);
+				} else {
+					// update existing list
+					String newUserList = (usersArray.length == 0) ? userObjParam.getFbId()
+							: pageDetails.get(0).getFbIds() + "," + userObjParam.getFbId();
+					dao.updateFbUsersList(lastPageId, newUserList, dbQualifier, tableQualifier);
+				}
 			}
+		} else {
+			createNewTag(userObjParam, tags, dbQualifier, tableQualifier);
 		}
+
 	}
 
 	private void createNewPage(User userObjParam, String tags, String dbQualifier, String tableQualifier,
 			List<TagPage> tagPage) {
+		String newPageId = getHighestPageID(userObjParam);
+		String newPageList;
+		if (null != tagPage && tagPage.size() > 0) {
+
+			newPageList = tagPage.get(0) + "," + newPageId;
+
+		} else {
+			newPageList = newPageId;
+		}
+		dao.updateIndexingInfo(userObjParam.getAgeGroup(), newPageId);
+		dao.updatePageIdList(tags, newPageList, dbQualifier, tableQualifier);
+	}
+
+	private String getHighestPageID(User userObjParam) {
 		IndexingInfo ii = dao.selectIndexingInfo(userObjParam.getAgeGroup());
 		String pageId = ii.getLastPageId();
 		int pageIdentifier = Integer.valueOf(pageId.substring(1, pageId.length()));
 		String newPageId = "P" + String.valueOf(++pageIdentifier);
-		String newPageList = tagPage.get(0) + "," + newPageId;
-		dao.updateIndexingInfo(userObjParam.getAgeGroup(), newPageId);
-		dao.updatePageIdList(tags, newPageList, dbQualifier, tableQualifier);
+		return newPageId;
+	}
+
+	private void createNewTag(User userObjParam, String tags, String dbQualifier, String tableQualifier) {
+
+		TagPage tagPageObj = new TagPage();
+
+		String newPageId = getHighestPageID(userObjParam);
+
+		tagPageObj.setTags(tags);
+		tagPageObj.setPageIds(newPageId);
+
+		dao.insertTagPageObj(tagPageObj, dbQualifier, tableQualifier);
+
+		return;
 	}
 
 	private void deleteProfile(User userObjDBase) {

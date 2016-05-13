@@ -116,8 +116,11 @@ public class UserJDBCTemplate implements UserDAOInterface {
 	
 	public void deactivateUser(User user) {
 		
-		  String SQL =
-		  "update hotornot.users_sorted set `active`='N' WHERE fbId='"+user.getFbId()+"' AND key='"+user.getKey()+"' AND date_of_birth='"+user.getDateOfBirth()+"'";
+		  /*String SQL =
+		  "update hotornot.users_sorted set `active`='N' WHERE fbId='"+user.getFbId()+"' AND key='"+user.getKey()+"' AND date_of_birth='"+user.getDateOfBirth()+"'";*/
+		
+		String SQL =
+				  "update hotornot.users_sorted set `active`='N' WHERE fbId='"+user.getFbId()+"' AND date_of_birth='"+user.getDateOfBirth()+"'";
 		  jdbcTemplateObject.update(SQL);
 		  
 		  SQL =		 
@@ -336,5 +339,20 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		return;
 	}
 	
+	public void insertTagPageObj(TagPage tagPageObj,
+			String dbQualifier, String tableQualifier){
+		String dbName = "hotornot_" + dbQualifier;
+		String tableName = "tags_pages_mapping_" + tableQualifier;
+		System.out.println("InsertTagPageObj : StartTime >>" + System.currentTimeMillis());
+	
+		String SQL ="insert into " + dbName +"." + tableName + "(`tags`, `page_ids`) values ('"
+				+ tagPageObj.getTags() + "','" + tagPageObj.getPageIds() + "')";
+		System.out.println("Query in InsertTagPageObj  >> " + SQL);
+		jdbcTemplateObject.update(SQL);
+		System.out.println("InsertTagPageObj  : EndTime >>" + System.currentTimeMillis());
+		return;
+	}
+	
+
 
 }
