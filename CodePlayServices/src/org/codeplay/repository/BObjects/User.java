@@ -29,7 +29,7 @@ public class User {
 	public String active;
 	public String userExists;
 	public String userType;
-	public String key;
+	public String seckey;
 		
 	public String getId() {
 		return id;
@@ -175,10 +175,11 @@ public class User {
 	public void setActive(String active) {
 		this.active = active;
 	}
-	public String getKey() {
-		return key;
+	public String getSeckey() {
+		return seckey;
 	}
-	public void setKey(String key) {
-		this.key = key;
-	}	
+	public void setSeckey(String seckey) {
+		this.seckey = seckey;
+	}
+	
 }

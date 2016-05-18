@@ -220,7 +220,7 @@ public class RepositoryDelegator {
 		if ("D".equalsIgnoreCase(userObjDBase.getActive())) {
 			// USER_INACTIVE::return error that user is disabled by admin
 			throw new ServiceException(ServiceConstant.USER_INACTIVE);
-		} else if (!userObjDBase.getKey().equals(userObjParam.getKey())) {
+		} else if (!userObjDBase.getSeckey().equals(userObjParam.getSeckey())) {
 			// KEY_MISMATCH::Throw runtime exception corresponding to keys
 			// mismatch
 			throw new ServiceException(ServiceConstant.KEY_MISMATCH);
@@ -262,7 +262,7 @@ public class RepositoryDelegator {
 
 	private void updateUser(User userObjParam, User userObjDBase) {
 
-		if (userObjDBase.getKey().equals(userObjParam.getKey())) {
+		if (userObjDBase.getSeckey().equals(userObjParam.getSeckey())) {
 			String tagsObjParam = returnTags(userObjParam);
 			userObjParam.setTags(tagsObjParam);
 			String tagsObjDBase = returnTags(userObjDBase);
@@ -288,7 +288,7 @@ public class RepositoryDelegator {
 	private void insertUser(User userObjParam) {
 		String tagsObjParam = returnTags(userObjParam);
 		userObjParam.setTags(tagsObjParam);
-		userObjParam.setKey(generateKey());
+		userObjParam.setSeckey(generateKey());
 		createProfile(userObjParam);
 		insertIntoNewPage(userObjParam);
 	}

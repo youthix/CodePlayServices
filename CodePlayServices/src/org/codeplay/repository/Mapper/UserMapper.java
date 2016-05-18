@@ -41,7 +41,7 @@ public class UserMapper implements RowMapper<User> {
 		userObj.setTags(rs.getString("tags"));
 		userObj.setEmail(rs.getString("email"));
 		userObj.setActive(rs.getString("active"));
-		userObj.setKey(rs.getString("key"));
+		userObj.setSeckey(rs.getString("key"));
 		return userObj;
 	}
 
