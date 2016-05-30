@@ -18,7 +18,6 @@ public class UserMapper implements RowMapper<User> {
 
 	public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 		User userObj = new User();
-
 		userObj.setAge(String.valueOf(rs.getInt("age")));
 		userObj.setAgeGroup(String.valueOf(rs.getInt("agegroup")));
 		userObj.setAppName(rs.getString("app_name"));
@@ -40,8 +39,7 @@ public class UserMapper implements RowMapper<User> {
 		userObj.setRawData(rs.getString("raw_data"));
 		userObj.setTags(rs.getString("tags"));
 		userObj.setEmail(rs.getString("email"));
-		userObj.setActive(rs.getString("active"));
-		userObj.setSeckey(rs.getString("key"));
+		userObj.setActive(rs.getString("active"));		
 		return userObj;
 	}
 

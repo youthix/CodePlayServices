@@ -17,6 +17,7 @@ import org.codeplay.repository.Mapper.IndexingInfoMapper;
 import org.codeplay.repository.Mapper.PageIDDetailsMapper;
 import org.codeplay.repository.Mapper.TagsPageIDMapper;
 import org.codeplay.repository.Mapper.UserMapper;
+import org.codeplay.repository.Mapper.UserMapperMaster;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -219,7 +220,7 @@ public class UserJDBCTemplate implements UserDAOInterface {
 		
 		String SQL = "select * from hotornot.users_sorted where fbId ='" +userParam.getFbId() + "'";
 		
-		List<User> users = jdbcTemplateObject.query(SQL, new UserMapper());
+		List<User> users = jdbcTemplateObject.query(SQL, new UserMapperMaster());
 		if (null!=users && users.size()>0){
 			userRetObj = users.get(0);
 		}
