@@ -262,7 +262,7 @@ public class RepositoryDelegator {
 
 	private void updateUser(User userObjParam, User userObjDBase) {
 
-		if (userObjDBase.getSeckey().equals(userObjParam.getSeckey())) {
+		//if (userObjDBase.getSeckey().equals(userObjParam.getSeckey())) {
 			String tagsObjParam = returnTags(userObjParam);
 			userObjParam.setTags(tagsObjParam);
 			String tagsObjDBase = returnTags(userObjDBase);
@@ -276,12 +276,12 @@ public class RepositoryDelegator {
 				createProfile(userObjParam);
 				repaginate(userObjParam, userObjDBase);
 			}
-		} else {
+		/*} else {
 			// KEY_MISMATCH::Throw runtime exception corresponding to keys
 			// mismatch
 			throw new ServiceException(ServiceConstant.KEY_MISMATCH);
 
-		}
+		}*/
 
 	}
 
