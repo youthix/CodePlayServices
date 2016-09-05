@@ -143,6 +143,54 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		}
 		return respObj;
 	}
+	
+	@Override
+	@POST
+	@Path("/saveTransaction")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj saveTransaction(RequestObj reqparam) {
+
+		ResponseObj respObj = new ResponseObj();
+		try {
+			boolean success = serviceDelegator.deleteUser(reqparam);
+			if (success) {
+				respObj.setErrorStatus("SUCCESS");
+			} else {
+				respObj.setErrorStatus("FAILURE");
+				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+			}
+
+		} catch (Exception excepObj) {
+			return ServiceExceptionMapper.toResponse(excepObj);
+
+		}
+		return respObj;
+	}	
+	
+	@Override
+	@POST
+	@Path("/getTransaction")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj getTransaction(RequestObj reqparam) {
+
+		ResponseObj respObj = new ResponseObj();
+		try {
+			boolean success = serviceDelegator.deleteUser(reqparam);
+			if (success) {
+				respObj.setErrorStatus("SUCCESS");
+			} else {
+				respObj.setErrorStatus("FAILURE");
+				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+			}
+
+		} catch (Exception excepObj) {
+			return ServiceExceptionMapper.toResponse(excepObj);
+
+		}
+		return respObj;
+	}	
 
 	@Override
 	@GET

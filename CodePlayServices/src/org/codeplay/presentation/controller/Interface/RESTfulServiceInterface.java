@@ -18,6 +18,10 @@ public interface RESTfulServiceInterface {
 	
 	ResponseObj deleteUser(RequestObj reqparam);
 	
+	ResponseObj getTransaction(RequestObj reqparam);
+	
+	ResponseObj saveTransaction(RequestObj reqparam);
+	
 	ResponseObj logout(String fbId);
 	
 	String helloWorld();
