@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class RequestObj {
 	
 	private List<SearchFields> searchFieldsList;
+	
+	private TransactionDetail trandetail;
 
 
 	public List<SearchFields> getSearchFieldsList() {
@@ -19,6 +21,14 @@ public class RequestObj {
 
 	public void setSearchFieldsList(List<SearchFields> searchFieldsList) {
 		this.searchFieldsList = searchFieldsList;
+	}
+
+	public TransactionDetail getTrandetail() {
+		return trandetail;
+	}
+
+	public void setTrandetail(TransactionDetail trandetail) {
+		this.trandetail = trandetail;
 	}
 	
 	
