@@ -18,6 +18,8 @@ public interface RESTfulServiceInterface {
 	
 	ResponseObj deleteUser(RequestObj reqparam);
 	
+	ResponseObj fetchRating(RequestObj reqparam);
+	
 	ResponseObj getTransaction(RequestObj reqparam);
 	
 	ResponseObj saveTransaction(RequestObj reqparam);

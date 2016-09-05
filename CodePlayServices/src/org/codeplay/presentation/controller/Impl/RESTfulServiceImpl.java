@@ -146,6 +146,30 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 	
 	@Override
 	@POST
+	@Path("/fetchRating")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public ResponseObj fetchRating(RequestObj reqparam) {
+
+		ResponseObj respObj = new ResponseObj();
+		try {
+			boolean success = serviceDelegator.deleteUser(reqparam);
+			if (success) {
+				respObj.setStatusMsg("SUCCESS");
+			} else {
+				respObj.setStatusMsg("FAILURE");
+				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
+			}
+
+		} catch (Exception excepObj) {
+			return ServiceExceptionMapper.toResponse(excepObj);
+
+		}
+		return respObj;
+	}	
+	
+	@Override
+	@POST
 	@Path("/saveTransaction")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)

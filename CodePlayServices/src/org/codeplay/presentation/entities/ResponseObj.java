@@ -15,6 +15,8 @@ public class ResponseObj {
 	private String statusCode;
 	
 	private String statusMsg;
+	
+	private TransactionDetail trandetail;
 
 	public List<UserList> getListOfUsers() {
 
@@ -43,6 +45,18 @@ public class ResponseObj {
 
 	public void setStatusMsg(String statusMsg) {
 		this.statusMsg = statusMsg;
+	}
+
+	public TransactionDetail getTrandetail() {
+		return trandetail;
+	}
+
+	public void setTrandetail(TransactionDetail trandetail) {
+		this.trandetail = trandetail;
+	}
+
+	public void setListOfUsers(List<UserList> listOfUsers) {
+		this.listOfUsers = listOfUsers;
 	}
 
 
