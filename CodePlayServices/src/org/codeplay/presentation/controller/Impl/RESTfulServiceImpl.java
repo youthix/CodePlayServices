@@ -31,7 +31,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		ResponseObj respObj = new ResponseObj();
 		try {
 			respObj = serviceDelegator.fetchPages(reqparam);
-			respObj.setErrorStatus("SUCCESS");
+			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
@@ -49,7 +49,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		ResponseObj respObj = new ResponseObj();
 		try {
 			respObj = serviceDelegator.fetchUsers(reqparam);
-			respObj.setErrorStatus("SUCCESS");
+			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
@@ -68,7 +68,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		ResponseObj respObj = new ResponseObj();
 		try {
 			respObj = serviceDelegator.fetchUserCount(reqparam);
-			respObj.setErrorStatus("SUCCESS");
+			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
@@ -86,7 +86,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		ResponseObj respObj = new ResponseObj();
 		try {
 			respObj = serviceDelegator.registerUser(reqparam);
-			respObj.setErrorStatus("SUCCESS");
+			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
@@ -112,7 +112,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		ResponseObj respObj = new ResponseObj();
 		try {
 			serviceDelegator.logout(fbId);
-			respObj.setErrorStatus("SUCCESS");
+			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
@@ -131,10 +131,10 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		try {
 			boolean success = serviceDelegator.deleteUser(reqparam);
 			if (success) {
-				respObj.setErrorStatus("SUCCESS");
+				respObj.setStatusMsg("SUCCESS");
 			} else {
-				respObj.setErrorStatus("FAILURE");
-				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+				respObj.setStatusMsg("FAILURE");
+				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
 			}
 
 		} catch (Exception excepObj) {
@@ -155,10 +155,10 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		try {
 			boolean success = serviceDelegator.deleteUser(reqparam);
 			if (success) {
-				respObj.setErrorStatus("SUCCESS");
+				respObj.setStatusMsg("SUCCESS");
 			} else {
-				respObj.setErrorStatus("FAILURE");
-				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+				respObj.setStatusMsg("FAILURE");
+				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
 			}
 
 		} catch (Exception excepObj) {
@@ -179,10 +179,10 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 		try {
 			boolean success = serviceDelegator.deleteUser(reqparam);
 			if (success) {
-				respObj.setErrorStatus("SUCCESS");
+				respObj.setStatusMsg("SUCCESS");
 			} else {
-				respObj.setErrorStatus("FAILURE");
-				respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+				respObj.setStatusMsg("FAILURE");
+				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
 			}
 
 		} catch (Exception excepObj) {

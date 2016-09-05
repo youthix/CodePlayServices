@@ -12,9 +12,9 @@ public class ResponseObj {
 
 	private List<UserList> listOfUsers;
 	
-	private String errorCode;
+	private String statusCode;
 	
-	private String errorStatus;
+	private String statusMsg;
 
 	public List<UserList> getListOfUsers() {
 
@@ -29,21 +29,23 @@ public class ResponseObj {
 		this.listOfUsers = listOfUsers;
 	}
 
-	public String getErrorCode() {
-		return errorCode;
+	public String getStatusCode() {
+		return statusCode;
 	}
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
+	public void setStatusCode(String statusCode) {
+		this.statusCode = statusCode;
 	}
 
-	public String getErrorStatus() {
-		return errorStatus;
+	public String getStatusMsg() {
+		return statusMsg;
 	}
 
-	public void setErrorStatus(String errorStatus) {
-		this.errorStatus = errorStatus;
+	public void setStatusMsg(String statusMsg) {
+		this.statusMsg = statusMsg;
 	}
+
+
 	
 	
 

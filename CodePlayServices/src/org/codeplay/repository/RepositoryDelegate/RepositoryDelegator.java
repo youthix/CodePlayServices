@@ -2,7 +2,6 @@ package org.codeplay.repository.RepositoryDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.codeplay.presentation.entities.UserList;
 import org.codeplay.presentation.util.ServiceConstant;

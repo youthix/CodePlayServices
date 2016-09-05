@@ -15,14 +15,14 @@ public class ServiceExceptionMapper {
 		ResponseObj respObj = new ResponseObj();
 		if (exceptionObj instanceof ServiceException) {
 			System.out.println("EMapperIn");
-			respObj.setErrorStatus("FAILURE");
-			respObj.setErrorCode(exceptionObj.getMessage());
+			respObj.setStatusMsg("FAILURE");
+			respObj.setStatusCode(exceptionObj.getMessage());
 			System.out.println("EMapperOut");
 
 		} else {
 
-			respObj.setErrorStatus("FAILURE");
-			respObj.setErrorCode(ServiceConstant.GENERIC_ERROR);
+			respObj.setStatusMsg("FAILURE");
+			respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
 		}
 
 		return respObj;
