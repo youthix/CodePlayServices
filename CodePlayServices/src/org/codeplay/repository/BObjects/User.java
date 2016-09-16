@@ -1,6 +1,7 @@
 package org.codeplay.repository.BObjects;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+import org.codeplay.presentation.entities.Rating;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class User {
@@ -30,7 +31,7 @@ public class User {
 	public String userExists;
 	public String userType;
 	public String seckey;
-		
+	public Rating rating ;
 	public String getId() {
 		return id;
 	}
@@ -180,6 +181,12 @@ public class User {
 	}
 	public void setSeckey(String seckey) {
 		this.seckey = seckey;
+	}
+	public Rating getRating() {
+		return rating;
+	}
+	public void setRating(Rating rating) {
+		this.rating = rating;
 	}
 	
 }

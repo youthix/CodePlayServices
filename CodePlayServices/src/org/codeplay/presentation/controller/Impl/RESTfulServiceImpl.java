@@ -1,5 +1,8 @@
 package org.codeplay.presentation.controller.Impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -9,11 +12,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.codeplay.presentation.controller.Interface.RESTfulServiceInterface;
+import org.codeplay.presentation.entities.Rating;
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
+import org.codeplay.presentation.entities.TransactionDetail;
+import org.codeplay.presentation.entities.UserList;
 import org.codeplay.presentation.util.ServiceConstant;
 import org.codeplay.presentation.util.ServiceException;
 import org.codeplay.presentation.util.ServiceExceptionMapper;
+import org.codeplay.repository.BObjects.User;
 import org.codeplay.service.delegateService.ServiceDelegator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -153,13 +160,38 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 
 		ResponseObj respObj = new ResponseObj();
 		try {
-			boolean success = serviceDelegator.deleteUser(reqparam);
+/*			boolean success = serviceDelegator.deleteUser(reqparam);
 			if (success) {
 				respObj.setStatusMsg("SUCCESS");
 			} else {
 				respObj.setStatusMsg("FAILURE");
 				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
-			}
+			}*/
+			respObj.setStatusCode("0");
+			respObj.setStatusMsg("SUCCESS");
+			 List<UserList> userListforEachTag = new ArrayList<UserList>();
+			 
+			 UserList userListObj = new UserList();
+			 
+			 List<User> listOfUser = new ArrayList<User>();
+			 
+			 User userObj = new User();
+			 userObj.setFbId("123");
+			 
+			 Rating rating = new Rating ();
+			  rating.setAgeGroup("10");
+			  rating.setHomeTown("5");
+			  rating.setFbId("12");
+			  userObj.setRating(rating);
+			 
+			 listOfUser.add(userObj);
+			 
+			 userListObj.setUserList(listOfUser);
+			 
+			 userListforEachTag.add(userListObj);
+			 
+			 respObj.setListOfUsers(userListforEachTag);
+	
 
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
@@ -201,14 +233,22 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 
 		ResponseObj respObj = new ResponseObj();
 		try {
-			boolean success = serviceDelegator.deleteUser(reqparam);
+
+			/*boolean success = serviceDelegator.deleteUser(reqparam);
 			if (success) {
 				respObj.setStatusMsg("SUCCESS");
 			} else {
 				respObj.setStatusMsg("FAILURE");
 				respObj.setStatusCode(ServiceConstant.GENERIC_ERROR);
-			}
+			}*/
 
+			respObj.setStatusCode("0");
+			respObj.setStatusMsg("SUCCESS");
+			TransactionDetail transactionDetailObj = new TransactionDetail();
+			transactionDetailObj.setStatus("SUCCESS");
+			transactionDetailObj.setTransactionId("1111");
+			respObj.setTrandetail(transactionDetailObj);
+			
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
 
