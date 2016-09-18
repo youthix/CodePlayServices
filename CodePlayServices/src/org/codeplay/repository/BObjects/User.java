@@ -1,11 +1,7 @@
 package org.codeplay.repository.BObjects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codeplay.presentation.entities.Rating;
-import org.codeplay.presentation.entities.SearchFields;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class User {
@@ -14,7 +10,7 @@ public class User {
 	private String name;
 	private String displayName;
 	private String profilePicture;
-	private List<Picture> pictureList;
+	private PictureList pictureList;
 	private String fbId;
 	private String gender;
 	private String livesIn;
@@ -201,13 +197,11 @@ public class User {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	public List<Picture> getPictureList() {
-		if (pictureList == null) {
-			pictureList = new ArrayList<Picture>();
-		}
+	public PictureList getPictureList() {
 		return pictureList;
 	}
-	public void setPictureList(List<Picture> pictureList) {
+	public void setPictureList(PictureList pictureList) {
 		this.pictureList = pictureList;
-	}	
+	}
+	
 }
