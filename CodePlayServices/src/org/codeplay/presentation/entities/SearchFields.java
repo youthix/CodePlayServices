@@ -18,6 +18,9 @@ public class SearchFields {
 	
 	private String tag;
 	
+	//Paid,New,Old User count to be fetched
+	private String bagCount;
+	
 	private String chapterNo;
 	
 	private User user;
@@ -92,8 +95,14 @@ public class SearchFields {
 
 	public void setUser(User user) {
 		this.user = user;
-	}	
-	
-	
+	}
+
+	public String getBagCount() {
+		return bagCount;
+	}
+
+	public void setBagCount(String bagCount) {
+		this.bagCount = bagCount;
+	}		
 
 }
