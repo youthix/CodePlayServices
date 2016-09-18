@@ -120,6 +120,24 @@ public class ServiceDelegator {
 		}
 		return responseObj;
 	}
+	
+	public ResponseObj registerUserDemo(RequestObj reqparam) {
+		ResponseObj responseObj = new ResponseObj();
+		User userObj;
+
+		for (SearchFields searchFields : reqparam.getSearchFieldsList()) {
+
+			userObj = searchFields.getUser();
+			userObj = setAgeGroup(userObj);
+			userList = new UserList();
+			if (null != userObj) {
+				//User user = repositoryDelegator.registerUser(userObj);
+				userList.getUserDetails().getUser().add(userObj);
+				responseObj.getListOfUsers().add(userList);
+			}
+		}
+		return responseObj;
+	}
 
 	public String doIndexing(String username, String password, String dbQualifiers) {
 		String[] dbArray = dbQualifiers.split(",");

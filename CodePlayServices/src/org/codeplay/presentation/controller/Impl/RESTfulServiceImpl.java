@@ -93,7 +93,8 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 
 		ResponseObj respObj = new ResponseObj();
 		try {
-			respObj = serviceDelegator.registerUser(reqparam);
+			//respObj = serviceDelegator.registerUser(reqparam);
+			respObj = serviceDelegator.registerUserDemo(reqparam);
 			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
