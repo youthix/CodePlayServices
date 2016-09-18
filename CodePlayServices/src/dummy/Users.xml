@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userList>
+	<userDetails>
+	    <user>
+	        <name>Saurabh Dixit</name>
+	        <displayName>S.D.</displayName>
+	        <fbId>FB1</fbId>
+	        <userType>F</userType>
+	    </user>
+	    <user>
+	        <name>Saurabh Agarwal</name>
+	        <displayName>S.A.</displayName>
+	        <fbId>FB1</fbId>
+	        <userType>P</userType>
+	    </user>	
+	</userDetails>
+		<tag></tag>
+		<pageID></pageID>
+		<currChapterNo></currChapterNo>
+		<totalChapters></totalChapters>
+		<totalUserCount></totalUserCount>
+		<SearchFields></SearchFields>
+</userList>

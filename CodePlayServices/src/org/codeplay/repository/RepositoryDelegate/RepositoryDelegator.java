@@ -248,7 +248,7 @@ public class RepositoryDelegator {
 			fbIds = tagPage.getFbIds();
 			users = dao.listUsersWithFbIds(fbIds, dbQualifier, tableQualifier);
 			userList.setTag(tag);
-			userList.setUserList(users);
+			userList.getUserDetails().setUser(users);
 			userList.setPageID(tagPage.getId());
 		}
 		System.out.println("fbIds>>" + fbIds);

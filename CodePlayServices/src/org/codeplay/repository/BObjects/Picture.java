@@ -5,10 +5,10 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Picture {
 	
-	public String id;
-	public String name;
-	public String binaryCode;
-	public String url;
+	private String id;
+	private String name;
+	private String binaryCode;
+	private String url;
 	public String getId() {
 		return id;
 	}

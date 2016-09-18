@@ -1,15 +1,13 @@
 package org.codeplay.presentation.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.codeplay.repository.BObjects.User;
 
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class UserList {
-
-	private List<User> userList;
+@XmlRootElement(name = "userList")
+public class UserList {	
+	private UserDetails userDetails;
 	private String tag;	
 	private String pageID;
 	private String currChapterNo;
@@ -18,18 +16,7 @@ public class UserList {
 	
 	private SearchFields searchFields;
 
-	public List<User> getUserList() {
-		if (this.userList == null) {
-			this.userList = new ArrayList<User>();
-		}
-		return userList;
-	}
-
-	public void setUserList(List<User> userList) {
-				this.userList = userList;
-	}
-
-	public String getTag() {
+		public String getTag() {
 		return tag;
 	}
 
@@ -75,6 +62,14 @@ public class UserList {
 
 	public void setTotalUserCount(String totalUserCount) {
 		this.totalUserCount = totalUserCount;
+	}
+
+	public UserDetails getUserDetails() {
+		return userDetails;
+	}
+
+	public void setUserDetails(UserDetails userDetails) {
+		this.userDetails = userDetails;
 	}
 	
 }

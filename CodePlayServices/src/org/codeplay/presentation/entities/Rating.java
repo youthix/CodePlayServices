@@ -3,19 +3,19 @@ package org.codeplay.presentation.entities;
 public class Rating {
 	
 
-	public String fbId;
-	public String livesIn;
-	public String livesInId;
-	public String livesInCountry;
-	public String homeTown;
-	public String homeTownId;
-	public String homeTownCountry;
-	public String currentlyAt;
-	public String currentlyAtId;
-	public String createdDate;
-	public String age;
-	public String ageGroup;
-	public String tags;
+	private String fbId;
+	private String livesIn;
+	private String livesInId;
+	private String livesInCountry;
+	private String homeTown;
+	private String homeTownId;
+	private String homeTownCountry;
+	private String currentlyAt;
+	private String currentlyAtId;
+	private String createdDate;
+	private String age;
+	private String ageGroup;
+	private String tags;
 	public String getFbId() {
 		return fbId;
 	}

@@ -1,8 +1,15 @@
 package org.codeplay.service.delegateService;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
+import net.sf.ehcache.CacheManager;
 
 import org.codeplay.presentation.entities.RequestObj;
 import org.codeplay.presentation.entities.ResponseObj;
@@ -13,8 +20,6 @@ import org.codeplay.repository.BObjects.User;
 import org.codeplay.repository.RepositoryDelegate.RepositoryDelegator;
 
 import com.googlecode.ehcache.annotations.Cacheable;
-
-import net.sf.ehcache.CacheManager;
 
 public class ServiceDelegator {
 
@@ -49,6 +54,39 @@ public class ServiceDelegator {
 		}
 		return responseObj;
 	}
+	
+	public ResponseObj fetchUsersDemo(RequestObj reqparam) {
+
+		ResponseObj responseObj = new ResponseObj();
+		for (SearchFields searchFields : reqparam.getSearchFieldsList()) {
+			
+			String tags = searchFields.getTag();						
+			try {
+				String filePath = getFilePath ("Users");
+				userList = new UserList();
+				
+				File responseDataFile = new File(filePath);
+				
+				//File responseDataFile = new File(this.getClass().getResource(filePath).toURI());  			
+				System.out.println("loc>>"+responseDataFile.getAbsolutePath());			
+				System.out.println("length>>"+responseDataFile.length());
+				JAXBContext jc = JAXBContext.newInstance(UserList.class);
+				Unmarshaller unmarshaller = jc.createUnmarshaller();				
+				userList = (UserList) unmarshaller.unmarshal(responseDataFile);
+				userList.setTag(tags);
+				responseObj.getListOfUsers().add(userList);
+				
+			}  catch (JAXBException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return responseObj;
+	}
 
 	public ResponseObj fetchUserCount(RequestObj reqparam) {
 		ResponseObj responseObj = new ResponseObj();
@@ -76,7 +114,7 @@ public class ServiceDelegator {
 			userList = new UserList();
 			if (null != userObj) {
 				User user = repositoryDelegator.registerUser(userObj);
-				userList.getUserList().add(user);
+				userList.getUserDetails().getUser().add(user);
 				responseObj.getListOfUsers().add(userList);
 			}
 		}
@@ -281,4 +319,20 @@ public class ServiceDelegator {
 	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
+	
+private String getFilePath(String filterType){
+    	
+    	String home="../webapps/CodePlayServices/WEB-INF/classes/";
+		String filePath = "dummy/Users.xml";    	
+
+		if(filterType!=null && !filterType.isEmpty()){  
+
+    	if (filterType.equalsIgnoreCase("Users")){   		
+    		
+    				filePath = "dummy/Users.xml";    				    		
+    	
+	  }
+	 }
+	return home+filePath;
+   }
 }

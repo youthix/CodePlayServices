@@ -55,7 +55,8 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 
 		ResponseObj respObj = new ResponseObj();
 		try {
-			respObj = serviceDelegator.fetchUsers(reqparam);
+			//respObj = serviceDelegator.fetchUsers(reqparam);
+			respObj = serviceDelegator.fetchUsersDemo(reqparam);
 			respObj.setStatusMsg("SUCCESS");
 		} catch (Exception excepObj) {
 			return ServiceExceptionMapper.toResponse(excepObj);
@@ -186,7 +187,7 @@ public class RESTfulServiceImpl implements RESTfulServiceInterface {
 			 
 			 listOfUser.add(userObj);
 			 
-			 userListObj.setUserList(listOfUser);
+			 userListObj.getUserDetails().setUser(listOfUser);
 			 
 			 userListforEachTag.add(userListObj);
 			 
