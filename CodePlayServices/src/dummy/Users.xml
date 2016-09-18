@@ -13,11 +13,5 @@
 	        <fbId>FB1</fbId>
 	        <userType>P</userType>
 	    </user>	
-	</userDetails>
-		<tag></tag>
-		<pageID></pageID>
-		<currChapterNo></currChapterNo>
-		<totalChapters></totalChapters>
-		<totalUserCount></totalUserCount>
-		<SearchFields></SearchFields>
+	</userDetails>		
 </userList>
