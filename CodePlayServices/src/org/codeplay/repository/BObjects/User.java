@@ -198,6 +198,9 @@ public class User {
 		this.displayName = displayName;
 	}
 	public PictureList getPictureList() {
+		if(null==pictureList){
+			pictureList= new PictureList();
+		}
 		return pictureList;
 	}
 	public void setPictureList(PictureList pictureList) {

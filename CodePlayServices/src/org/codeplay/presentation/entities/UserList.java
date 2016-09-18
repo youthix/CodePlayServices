@@ -65,6 +65,9 @@ public class UserList {
 	}
 
 	public UserDetails getUserDetails() {
+		if(null == userDetails){
+			userDetails = new UserDetails();
+		}
 		return userDetails;
 	}
 
